@@ -1,0 +1,61 @@
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
+package br.com.livraria.Models;
+
+import java.util.List;
+
+/**
+ *
+ * @author bruno.falmeida
+ */
+public class LoginModel {
+    
+    private String login;
+    private String nome;
+    private String cargo;
+    private String setor;
+    private List<ModuloModel> modulos;
+
+    public String getLogin() {
+        return login;
+    }
+
+    public void setLogin(String login) {
+        this.login = login;
+    }
+
+    public String getNome() {
+        return nome;
+    }
+
+    public void setNome(String nome) {
+        this.nome = nome;
+    }
+
+    public String getCargo() {
+        return cargo;
+    }
+
+    public void setCargo(String cargo) {
+        this.cargo = cargo;
+    }
+
+    public String getSetor() {
+        return setor;
+    }
+
+    public void setSetor(String setor) {
+        this.setor = setor;
+    }
+
+    public List<ModuloModel> getModulos() {
+        return modulos;
+    }
+
+    public void setModulos(List<ModuloModel> modulos) {
+        this.modulos = modulos;
+    }
+}
