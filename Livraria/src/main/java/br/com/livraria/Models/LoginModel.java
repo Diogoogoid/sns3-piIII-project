@@ -13,11 +13,29 @@ import java.util.List;
  */
 public class LoginModel {
     
+    private int idUsuario;
+    private int idCargo;
     private String login;
     private String nome;
     private String cargo;
     private String setor;
     private List<ModuloModel> modulos;
+    
+    public int getIdUsuario() {
+        return idUsuario;
+    }
+
+    public void setIdUsuario(int idUsuario) {
+        this.idUsuario = idUsuario;
+    }
+    
+    public int getIdCargo() {
+        return idCargo;
+    }
+
+    public void setIdCargo(int idCargo) {
+        this.idCargo = idCargo;
+    }
 
     public String getLogin() {
         return login;

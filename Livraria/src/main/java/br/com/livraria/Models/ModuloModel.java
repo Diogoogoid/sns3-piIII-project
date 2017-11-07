@@ -14,11 +14,6 @@ public class ModuloModel {
     private int idModulo;
     private String moduloNome;
     
-    public ModuloModel(int idModulo, String moduloNome) {
-        this.idModulo = idModulo;
-        this.moduloNome = moduloNome;
-    }
-    
     public int getIdModulo() {
         return idModulo;
     }

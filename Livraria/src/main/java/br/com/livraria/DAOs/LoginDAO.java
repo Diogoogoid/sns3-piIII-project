@@ -5,11 +5,16 @@
  */
 package br.com.livraria.DAOs;
 
+import br.com.livraria.Models.LoginModel;
+import br.com.livraria.Models.ModuloModel;
+import br.com.livraria.Utils.ConexaoDB;
 import java.sql.Connection;
 import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -18,61 +23,135 @@ import java.util.logging.Logger;
  * @author bruno.falmeida
  */
 public class LoginDAO {
-        public LoginModel DoLogin(int idFuncionario) {
-        PreparedStatement stmt = null;
-        Connection conn = null;
-        Funcionario f = null;
+        public LoginModel DoLogin(String login, String senha) throws SQLException {
 
-        String sql = "SELECT idFuncionario, nomeFuncionario, sobrenomeFuncionario, dataNasc, "
-                + " cpfFuncionario, emailFuncionario, telefoneFuncionario, estadoFuncionario, cidadeFuncionario, cargo, login, senha "
-                + "FROM Funcionario WHERE idFuncionario = ?";
+        String sql = "SELECT f.IdFunc, c.IdCargo, f.login, f.func_nome, c.cargo_nome, s.setor_nome " +
+                        "FROM funcionario f " +
+                        "INNER JOIN cargo c on c.IdCargo = f.IdCargo " +
+                        "INNER JOIN setor s on s.IdSetor = c.IdSetor " +
+                        "WHERE f.login = ? and f.senha = ?";
+        
+        // conexao para abertura e fechamento do BD
+        Connection connection = null;
+        
+        // Statement para obtenção atraves da conexão, execuçao
+        // comandos SQL
+        PreparedStatement preparedStatement = null;
+        
+        //Armazenará os resultados do banco de dados
+        ResultSet result = null;
 
         try {
-            conn = obterConexao();
-            stmt = conn.prepareStatement(sql);
-            stmt.setInt(1, idFuncionario);
-            ResultSet resultados = stmt.executeQuery();
+            //Abre uma conexão com o banco de dados
+            connection = ConexaoDB.getConnection();
 
-            while (resultados.next()) {
-                int id = resultados.getInt("idFuncionario");
-                String nome = resultados.getString("nomeFuncionario");
-                String sobrenome = resultados.getString("sobrenomeFuncionario");
-                Date dataNasc = resultados.getDate("dataNasc");
-                String cpf = resultados.getString("cpfFuncionario");
-                String email = resultados.getString("emailFuncionario");
-                String telefone = resultados.getString("telefoneFuncionario");
-                String estado = resultados.getString("estadoFuncionario");
-                String cidade = resultados.getString("cidadeFuncionario");
-                String cargo = resultados.getString("cargo");
-                String login = resultados.getString("login");
-                String senha = resultados.getString("senha");
-                f = new Funcionario(id, nome, sobrenome, dataNasc, cpf, email, telefone, estado, cidade, cargo, login, senha);
-                break;
+            //Cria um statement para execução de instruções SQL
+            preparedStatement = connection.prepareStatement(sql);
+
+            //Configura os parâmetros do "PreparedStatement"
+            preparedStatement.setString(1, login);            
+            preparedStatement.setString(2, senha);
+
+            //Executa a consulta SQL no banco de dados
+            result = preparedStatement.executeQuery();
+
+            //Verifica se há pelo menos um resultado
+            if (result.next()) {                
+                LoginModel Login = new LoginModel();
+                Login.setIdUsuario(result.getInt("IdFunc"));
+                Login.setLogin(result.getString("login"));
+                Login.setNome(result.getString("nome"));
+                Login.setCargo(result.getString("cargo"));
+                Login.setSetor(result.getString("setor"));
+                
+                //Retorna o resultado
+                return getPermissao(Login);
             }
-        } catch (SQLException ex) {
-            Logger.getLogger(FuncionarioDAO.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (ClassNotFoundException ex) {
-            Logger.getLogger(FuncionarioDAO.class.getName()).log(Level.SEVERE, null, ex);
         } finally {
-            // Código colocado aqui para garantir que a conexão com o banco
-            // seja sempre fechada, independentemente se executado com sucesso
-            // ou erro.
-            if (stmt != null) {
-                try {
-                    stmt.close();
-                } catch (SQLException ex) {
-                    Logger.getLogger(FuncionarioDAO.class.getName()).log(Level.SEVERE, null, ex);
-                }
+            //Se o result ainda estiver aberto, realiza seu fechamento
+            if (result != null && !result.isClosed()) {
+                result.close();
             }
-            if (conn != null) {
-                try {
-                    conn.close();
-                } catch (SQLException ex) {
-                    Logger.getLogger(FuncionarioDAO.class.getName()).log(Level.SEVERE, null, ex);
-                }
+            //Se o statement ainda estiver aberto, realiza seu fechamento
+            if (preparedStatement != null && !preparedStatement.isClosed()) {
+                preparedStatement.close();
+            }
+            //Se a conexão ainda estiver aberta, realiza seu fechamento
+            if (connection != null && !connection.isClosed()) {
+                connection.close();
             }
         }
+        
+        //Se chegamos aqui, o "return" anterior não foi executado porque
+        //a pesquisa não teve resultados
+        //Neste caso, não há um elemento a retornar, então retornamos "null"
+        return null;
+    }
+        
+    public LoginModel getPermissao(LoginModel login) throws SQLException {
+        
+        List<ModuloModel> modulos = null;
 
-        return f;
+        String sql = "SELECT m.IDMODULO, m.MODULO_NOME from MODULO m " +
+                    "INNER JOIN PERMISSAO p on p.IDMODULO = m.IDMODULO AND p.IDCARGO = ?";
+        
+        // conexao para abertura e fechamento do BD
+        Connection connection = null;
+        
+        // Statement para obtenção atraves da conexão, execuçao
+        // comandos SQL
+        PreparedStatement preparedStatement = null;
+        
+        //Armazenará os resultados do banco de dados
+        ResultSet result = null;
+
+        try {
+            //Abre uma conexão com o banco de dados
+            connection = ConexaoDB.getConnection();
+
+            //Cria um statement para execução de instruções SQL
+            preparedStatement = connection.prepareStatement(sql);
+
+            //Configura os parâmetros do "PreparedStatement"
+            preparedStatement.setInt(1, login.getIdCargo());
+
+            //Executa a consulta SQL no banco de dados
+            result = preparedStatement.executeQuery();
+
+            //Itera por cada item do resultado
+            while (result.next()) {
+                //Se a lista não foi inicializada, a inicializa
+                if (modulos == null) {
+                    modulos = new ArrayList<>();
+                }
+                
+                ModuloModel modulo = new ModuloModel();
+                modulo.setIdModulo(result.getInt("IDMODULO"));
+                modulo.setModuloNome(result.getString("MODULO_NOME"));
+                
+                //Adiciona a instância na lista
+                modulos.add(modulo);
+            }
+            
+            login.setModulos(modulos);
+        } finally {
+            //Se o result ainda estiver aberto, realiza seu fechamento
+            if (result != null && !result.isClosed()) {
+                result.close();
+            }
+            //Se o statement ainda estiver aberto, realiza seu fechamento
+            if (preparedStatement != null && !preparedStatement.isClosed()) {
+                preparedStatement.close();
+            }
+            //Se a conexão ainda estiver aberta, realiza seu fechamento
+            if (connection != null && !connection.isClosed()) {
+                connection.close();
+            }
+        }
+        
+        //Se chegamos aqui, o "return" anterior não foi executado porque
+        //a pesquisa não teve resultados
+        //Neste caso, não há um elemento a retornar, então retornamos "null"
+        return login;
     }
 }
