@@ -26,7 +26,7 @@ public class FuncionarioModel {
     private String celular;
     private String email;
     private String logradouro;
-    private int numero;
+    private String numero;
     private String complemento;
     private String cep;
     private String bairro;
@@ -34,53 +34,6 @@ public class FuncionarioModel {
     private String estado;
     private String login;
     private String senha;
-    
-    public FuncionarioModel(int IdFilial, int IdCargo, String func_nome, String sexo, boolean status, Date dataNasc, String estadoCivil, String cpf, String telefone, String celular, String email, String logradouro, int numero, String complemento, String cep, String bairro, String cidade, String estado, String login, String senha) {
-        this.IdFilial = IdFilial;
-        this.IdCargo = IdCargo;
-        this.func_nome = func_nome;
-        this.sexo = sexo;
-        this.status = status;
-        this.dataNasc = dataNasc;
-        this.estadoCivil = estadoCivil;
-        this.cpf = cpf;
-        this.telefone = telefone;
-        this.celular = celular;
-        this.email = email;
-        this.logradouro = logradouro;
-        this.numero = numero;
-        this.complemento = complemento;
-        this.cep = cep;
-        this.bairro = bairro;
-        this.cidade = cidade;
-        this.estado = estado;
-        this.login = login;
-        this.senha = senha;
-    }
-    
-    public FuncionarioModel(int IdFunc, int IdFilial, int IdCargo, String func_nome, String sexo, boolean status, Date dataNasc, String estadoCivil, String cpf, String telefone, String celular, String email, String logradouro, int numero, String complemento, String cep, String bairro, String cidade, String estado, String login, String senha) {
-        this.IdFunc = IdFunc;
-        this.IdFilial = IdFilial;
-        this.IdCargo = IdCargo;
-        this.func_nome = func_nome;
-        this.sexo = sexo;
-        this.status = status;
-        this.dataNasc = dataNasc;
-        this.estadoCivil = estadoCivil;
-        this.cpf = cpf;
-        this.telefone = telefone;
-        this.celular = celular;
-        this.email = email;
-        this.logradouro = logradouro;
-        this.numero = numero;
-        this.complemento = complemento;
-        this.cep = cep;
-        this.bairro = bairro;
-        this.cidade = cidade;
-        this.estado = estado;
-        this.login = login;
-        this.senha = senha;
-    }
 
     public int getIdFunc() {
         return IdFunc;
@@ -186,11 +139,11 @@ public class FuncionarioModel {
         this.logradouro = logradouro;
     }
 
-    public int getNumero() {
+    public String getNumero() {
         return numero;
     }
 
-    public void setNumero(int numero) {
+    public void setNumero(String numero) {
         this.numero = numero;
     }
 
