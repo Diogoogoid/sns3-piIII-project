@@ -28,6 +28,30 @@ create table cliente (
     Estado varchar(100) not null
 );
 
+create table filial (
+    IdFilial int generated always as identity (start with 1, increment by 1) primary key,
+    Filial_Nome varchar(100) not null,
+    Estado varchar(100) not null,
+    Cidade Varchar(100) not null,
+    Status boolean
+);
+
+create table setor (
+    IdSetor int generated always as identity (start with 1, increment by 1) primary key,
+    Setor_Nome varchar(100) not null,
+    Descricao varchar(200),
+    Status boolean
+);
+
+create table cargo (
+    IdCargo int generated always as identity (start with 1, increment by 1) primary key,
+    IdSetor int unique not null,
+    Cargo_Nome varchar(100) not null,
+    Descricao varchar(200),
+    Status boolean,
+    foreign key (IdSetor) references setor(IdSetor)
+);
+
 create table funcionario (
     IdFunc int generated always as identity (start with 1, increment by 1) primary key,
     IdFilial int unique not null,
@@ -87,25 +111,10 @@ create table itensPedidos (
     foreign key (IdPedido) references pedido(IdPedido)
 );
 
-create table filial (
-    IdFilial int generated always as identity (start with 1, increment by 1) primary key,
-    Filial_Nome varchar(100) not null,
-    Estado varchar(100) not null,
-    Cidade Varchar(100) not null
-);
-
-create table cargo (
-    IdCargo int generated always as identity (start with 1, increment by 1) primary key,
-    IdSetor int unique not null,
-    Cargo_Nome varchar(100) not null,
-    Descricao varchar(200),
-    foreign key (IdSetor) references setor(IdSetor)
-);
-
-create table setor (
-    IdSetor int generated always as identity (start with 1, increment by 1) primary key,
-    Setor_Nome varchar(100) not null,
-    Descricao varchar(200)
+create table modulo (
+    IdModulo int generated always as identity (start with 1, increment by 1) primary key,
+    Modulo_Nome varchar(100) not null,
+    Sub_Nome varchar(100)
 );
 
 create table permissao (
@@ -114,9 +123,4 @@ create table permissao (
     IdCargo int unique not null,
     foreign key (IdModulo) references modulo(IdModulo),
     foreign key (IdCargo) references cargo(IdCargo)
-);
-
-create table modulo (
-    IdModulo int generated always as identity (start with 1, increment by 1) primary key,
-    Modulo_Nome varchar(100) not null
 );

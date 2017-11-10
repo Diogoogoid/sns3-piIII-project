@@ -5,28 +5,24 @@
  */
 package br.com.livraria.DAOs;
 
-import br.com.livraria.Models.FuncionarioModel;
+import br.com.livraria.Models.SetorModel;
 import br.com.livraria.Utils.ConexaoDB;
 import java.sql.Connection;
-import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
 
 /**
  *
- * @author bruno.falmeida
+ * @author jose__000
  */
-public class FuncionarioDAO {
-    public static void inserir(FuncionarioModel func)
+public class SetorDAO {
+    public static void inserir(SetorModel setor)
             throws SQLException, Exception {
-        String sql = "INSERT INTO FUNCIONARIO (FUNC_NOME, SEXO, STATUS, DATANASC, ESTADOCIVIL,"
-                + "CPF, TEL, CEL, EMAIL, LOGRADOURO, NUMERO, COMPLEMENTO, CEP, "
-                + "BAIRRO, CIDADE, ESTADO, LOGIN, SENHA, IDFILIAL, IDCARGO) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, "
-                + "?, ?, ?, ?, ?, ?, ?, ?, ?)";
+        String sql = "INSERT INTO SETOR (SETOR_NOME, DESCRICAO, STATUS) VALUES ("
+                + "?, ?, ?)";
         
         //Conexão para abertura e fechamento
         Connection connection = null;
@@ -42,27 +38,9 @@ public class FuncionarioDAO {
             preparedStatement = connection.prepareStatement(sql);
 
             //Configura os parâmetros do "PreparedStatement"
-            preparedStatement.setString(1, func.getFunc_nome());
-            preparedStatement.setString(2, func.getSexo());
-            preparedStatement.setBoolean(3, true);
-            Timestamp t = new Timestamp(func.getDataNasc().getTime());
-            preparedStatement.setTimestamp(4, t);
-            preparedStatement.setString(5, func.getEstadoCivil());
-            preparedStatement.setString(6, func.getCpf());
-            preparedStatement.setString(7, func.getTelefone());
-            preparedStatement.setString(8, func.getCelular());
-            preparedStatement.setString(9, func.getEmail());
-            preparedStatement.setString(10, func.getLogradouro());
-            preparedStatement.setString(11, func.getNumero());
-            preparedStatement.setString(12, func.getComplemento());
-            preparedStatement.setString(13, func.getCep());
-            preparedStatement.setString(14, func.getBairro());
-            preparedStatement.setString(15, func.getCidade());
-            preparedStatement.setString(16, func.getEstado());
-            preparedStatement.setString(17, func.getLogin());
-            preparedStatement.setString(18, func.getSenha());
-            preparedStatement.setInt(19, func.getIdFilial());
-            preparedStatement.setInt(20, func.getIdCargo());
+            preparedStatement.setString(1, setor.getSetor_Nome());
+            preparedStatement.setString(2, setor.getDescricao());
+            preparedStatement.setBoolean(3, setor.isStatus());
             
             //Executa o comando no banco de dados
             preparedStatement.execute();
@@ -81,14 +59,10 @@ public class FuncionarioDAO {
         }
     }
 
-    public static void atualizar(FuncionarioModel func)
+    public static void atualizar(SetorModel setor)
             throws SQLException, Exception {
-        String sql = "UPDATE FUNCIONARIO SET IDFILIAL=?, IDCARGO=?, FUNC_NOME=?, " 
-                + "SEXO=?, STATUS=?, DATANASC=?, "
-                + "ESTADOCIVIL=?, CPF=?, TEL=?, CEL=?, EMAIL=?, LOGRADOURO=?, "
-                + "NUMERO=?, COMPLEMENTO=?, CEP=?, BAIRRO=?, CIDADE=?, ESTADO=? "
-                + "LOGIN=?, SENHA=?"
-            + "WHERE (IDFUNC=?)";
+        String sql = "UPDATE SETOR SET SETOR_NOME=?, DESCRICAO=?, STATUS=?"
+            + "WHERE (IDSETOR=?)";
         
         //Conexão para abertura e fechamento
         Connection connection = null;
@@ -105,28 +79,10 @@ public class FuncionarioDAO {
             preparedStatement = connection.prepareStatement(sql);
             
             //Configura os parâmetros do "PreparedStatement"
-            preparedStatement.setInt(1, func.getIdFilial());
-            preparedStatement.setInt(2, func.getIdCargo());
-            preparedStatement.setString(3, func.getFunc_nome());
-            preparedStatement.setString(4, func.getSexo());
-            preparedStatement.setBoolean(5, true);
-            Timestamp t = new Timestamp(func.getDataNasc().getTime());
-            preparedStatement.setTimestamp(6, t);
-            preparedStatement.setString(7, func.getEstadoCivil());
-            preparedStatement.setString(8, func.getCpf());
-            preparedStatement.setString(9, func.getTelefone());
-            preparedStatement.setString(10, func.getCelular());
-            preparedStatement.setString(11, func.getEmail());
-            preparedStatement.setString(12, func.getLogradouro());
-            preparedStatement.setString(13, func.getNumero());
-            preparedStatement.setString(14, func.getComplemento());
-            preparedStatement.setString(15, func.getCep());
-            preparedStatement.setString(16, func.getBairro());
-            preparedStatement.setString(17, func.getCidade());
-            preparedStatement.setString(18, func.getEstado());
-            preparedStatement.setString(19, func.getLogin());
-            preparedStatement.setString(20, func.getSenha());
-            preparedStatement.setInt(21, func.getIdFunc());
+            preparedStatement.setString(1, setor.getSetor_Nome());
+            preparedStatement.setString(2, setor.getDescricao());
+            preparedStatement.setBoolean(3, setor.isStatus());
+            preparedStatement.setInt(4, setor.getIdSetor());
 
             //Executa o comando no banco de dados
             preparedStatement.execute();
@@ -142,11 +98,11 @@ public class FuncionarioDAO {
         }
     }
     
-    public static List<FuncionarioModel> listar()
+    public static List<SetorModel> listar()
             throws SQLException, Exception {
-        String sql = "SELECT * FROM FUNCIONARIO WHERE (STATUS=?)";
+        String sql = "SELECT * FROM SETOR WHERE STATUS=?";
 
-        List<FuncionarioModel> listaFuncionarios = null;
+        List<SetorModel> listaSetor = null;
 
         //Conexão para abertura e fechamento
         Connection connection = null;
@@ -171,34 +127,18 @@ public class FuncionarioDAO {
             //Itera por cada item do resultado
             while (result.next()) {
                 //Se a lista não foi inicializada, a inicializa
-                if (listaFuncionarios == null) {
-                    listaFuncionarios = new ArrayList<>();
+                if (listaSetor == null) {
+                    listaSetor = new ArrayList<>();
                 }
 
-                FuncionarioModel funcionario = new FuncionarioModel();
-                funcionario.setIdFunc(result.getInt("IDFUNC"));
-                funcionario.setIdFilial(result.getInt("IDFILIAL"));
-                funcionario.setIdCargo(result.getInt("IDCARGO"));
-                funcionario.setFunc_nome(result.getString("FUNC_NOME"));
-                funcionario.setSexo(result.getString("SEXO"));
-                Date d = new Date(result.getTimestamp("DATANASC").getTime());
-                funcionario.setDataNasc(d);
-                funcionario.setStatus(result.getBoolean("STATUS"));
-                funcionario.setEstadoCivil(result.getString("ESTADOCIVIL"));
-                funcionario.setCpf(result.getString("CPF"));
-                funcionario.setTelefone(result.getString("TEL"));
-                funcionario.setCelular(result.getString("CEL"));
-                funcionario.setEmail(result.getString("EMAIL"));
-                funcionario.setLogradouro(result.getString("LOGRADOURO"));
-                funcionario.setNumero(result.getString("NUMERO"));
-                funcionario.setComplemento(result.getString("COMPLEMENTO"));
-                funcionario.setCep(result.getString("CEP"));
-                funcionario.setBairro(result.getString("BAIRRO"));
-                funcionario.setCidade(result.getString("CIDADE"));
-                funcionario.setEstado(result.getString("ESTADO"));
+                SetorModel setor = new SetorModel();
+                setor.setIdSetor(result.getInt("IDSETOR"));
+                setor.setSetor_Nome(result.getString("SETOR_NOME"));
+                setor.setDescricao(result.getString("DESCRICAO"));
+                setor.setStatus(result.getBoolean("STATUS"));
                 
                 //Adiciona a instância na lista
-                listaFuncionarios.add(funcionario);
+                listaSetor.add(setor);
             }
         } finally {
             //Se o result ainda estiver aberto, realiza seu fechamento
@@ -215,16 +155,16 @@ public class FuncionarioDAO {
             }
         }
 
-        return listaFuncionarios;
+        return listaSetor;
     }
     
-    public static List<FuncionarioModel> procurar(String nome)
+    public static List<SetorModel> procurar(String nome)
             throws SQLException, Exception {
-        String sql = "SELECT * FROM FUNCIONARIO "
-                + "WHERE UPPER(FUNC_NOME) LIKE UPPER(?) AND STATUS=?";
+        String sql = "SELECT * FROM SETOR "
+                + "WHERE UPPER(SETOR_NOME) LIKE UPPER(?) AND STATUS=?";
         
         //Lista de clientes de resultado
-        List<FuncionarioModel> listaFuncionarios = null;
+        List<SetorModel> listaSetores = null;
         
         //Conexão para abertura e fechamento
         Connection connection = null;
@@ -252,35 +192,18 @@ public class FuncionarioDAO {
             //Itera por cada item do resultado
             while (result.next()) {
                 //Se a lista não foi inicializada, a inicializa
-                if (listaFuncionarios == null) {
-                    listaFuncionarios = new ArrayList<>();
+                if (listaSetores == null) {
+                    listaSetores = new ArrayList<>();
                 }
                 
-                FuncionarioModel funcionario;
-                funcionario = new FuncionarioModel();
-                funcionario.setIdFunc(result.getInt("IDFUNC"));
-                funcionario.setIdFilial(result.getInt("IDFILIAL"));
-                funcionario.setIdCargo(result.getInt("IDCARGO"));
-                funcionario.setFunc_nome(result.getString("FUNC_NOME"));
-                funcionario.setSexo(result.getString("SEXO"));
-                Date d = new Date(result.getTimestamp("DATANASC").getTime());
-                funcionario.setDataNasc(d);
-                funcionario.setStatus(result.getBoolean("STATUS"));
-                funcionario.setEstadoCivil(result.getString("ESTADOCIVIL"));
-                funcionario.setCpf(result.getString("CPF"));
-                funcionario.setTelefone(result.getString("TEL"));
-                funcionario.setCelular(result.getString("CEL"));
-                funcionario.setEmail(result.getString("EMAIL"));
-                funcionario.setLogradouro(result.getString("LOGRADOURO"));
-                funcionario.setNumero(result.getString("NUMERO"));
-                funcionario.setComplemento(result.getString("COMPLEMENTO"));
-                funcionario.setCep(result.getString("CEP"));
-                funcionario.setBairro(result.getString("BAIRRO"));
-                funcionario.setCidade(result.getString("CIDADE"));
-                funcionario.setEstado(result.getString("ESTADO"));
+                SetorModel setor = new SetorModel();
+                setor.setIdSetor(result.getInt("IDSETOR"));
+                setor.setSetor_Nome(result.getString("SETOR_NOME"));
+                setor.setDescricao(result.getString("DESCRICAO"));
+                setor.setStatus(result.getBoolean("STATUS"));
                 
                 //Adiciona a instância na lista
-                listaFuncionarios.add(funcionario);
+                listaSetores.add(setor);
             }
         } finally {
             //Se o result ainda estiver aberto, realiza seu fechamento
@@ -297,13 +220,13 @@ public class FuncionarioDAO {
             }
         }
         
-        return listaFuncionarios;        
+        return listaSetores;        
     }
 
-    public static FuncionarioModel obter(Integer id)
+    public static SetorModel obter(Integer id)
             throws SQLException, Exception {
 
-        String sql = "SELECT * FROM FUNCIONARIO WHERE IDFUNC=? AND STATUS=?";
+        String sql = "SELECT * FROM SETOR WHERE IDSETOR=? AND STATUS=?";
 
         //Conexão para abertura e fechamento
         Connection connection = null;
@@ -330,30 +253,14 @@ public class FuncionarioDAO {
 
             //Verifica se há pelo menos um resultado
             if (result.next()) {                
-                FuncionarioModel funcionario = new FuncionarioModel();
-                funcionario.setIdFunc(result.getInt("IDFUNC"));
-                funcionario.setIdFilial(result.getInt("IDFILIAL"));
-                funcionario.setIdCargo(result.getInt("IDCARGO"));
-                funcionario.setFunc_nome(result.getString("FUNC_NOME"));
-                funcionario.setSexo(result.getString("SEXO"));
-                Date d = new Date(result.getTimestamp("DATANASC").getTime());
-                funcionario.setDataNasc(d);
-                funcionario.setStatus(result.getBoolean("STATUS"));
-                funcionario.setEstadoCivil(result.getString("ESTADOCIVIL"));
-                funcionario.setCpf(result.getString("CPF"));
-                funcionario.setTelefone(result.getString("TEL"));
-                funcionario.setCelular(result.getString("CEL"));
-                funcionario.setEmail(result.getString("EMAIL"));
-                funcionario.setLogradouro(result.getString("LOGRADOURO"));
-                funcionario.setNumero(result.getString("NUMERO"));
-                funcionario.setComplemento(result.getString("COMPLEMENTO"));
-                funcionario.setCep(result.getString("CEP"));
-                funcionario.setBairro(result.getString("BAIRRO"));
-                funcionario.setCidade(result.getString("CIDADE"));
-                funcionario.setEstado(result.getString("ESTADO"));
+                SetorModel setor = new SetorModel();
+                setor.setIdSetor(result.getInt("IDSETOR"));
+                setor.setSetor_Nome(result.getString("SETOR_NOME"));
+                setor.setDescricao(result.getString("DESCRICAO"));
+                setor.setStatus(result.getBoolean("STATUS"));
                 
                 //Retorna o resultado
-                return funcionario;
+                return setor;
             }            
         } finally {
             //Se o result ainda estiver aberto, realiza seu fechamento
@@ -377,7 +284,7 @@ public class FuncionarioDAO {
     }
 
     public static void excluir(Integer id) throws SQLException, Exception {
-        String sql = "UPDATE FUNCIONARIO SET STATUS=? WHERE IDFUNC=?";
+        String sql = "UPDATE SETOR SET STATUS=? WHERE IDSETOR=?";
         
         //Conexão para abertura e fechamento
         Connection connection = null;

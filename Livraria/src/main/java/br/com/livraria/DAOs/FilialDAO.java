@@ -5,28 +5,24 @@
  */
 package br.com.livraria.DAOs;
 
-import br.com.livraria.Models.FuncionarioModel;
+import br.com.livraria.Models.FilialModel;
 import br.com.livraria.Utils.ConexaoDB;
 import java.sql.Connection;
-import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
 
 /**
  *
- * @author bruno.falmeida
+ * @author Bruno Fonseca
  */
-public class FuncionarioDAO {
-    public static void inserir(FuncionarioModel func)
+public class FilialDAO {
+    public static void inserir(FilialModel filial)
             throws SQLException, Exception {
-        String sql = "INSERT INTO FUNCIONARIO (FUNC_NOME, SEXO, STATUS, DATANASC, ESTADOCIVIL,"
-                + "CPF, TEL, CEL, EMAIL, LOGRADOURO, NUMERO, COMPLEMENTO, CEP, "
-                + "BAIRRO, CIDADE, ESTADO, LOGIN, SENHA, IDFILIAL, IDCARGO) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, "
-                + "?, ?, ?, ?, ?, ?, ?, ?, ?)";
+        String sql = "INSERT INTO FILIAL (FILIAL_NOME, ESTADO, CIDADE, STATUS) VALUES ("
+                + "?, ?, ?, ?)";
         
         //Conexão para abertura e fechamento
         Connection connection = null;
@@ -42,27 +38,10 @@ public class FuncionarioDAO {
             preparedStatement = connection.prepareStatement(sql);
 
             //Configura os parâmetros do "PreparedStatement"
-            preparedStatement.setString(1, func.getFunc_nome());
-            preparedStatement.setString(2, func.getSexo());
-            preparedStatement.setBoolean(3, true);
-            Timestamp t = new Timestamp(func.getDataNasc().getTime());
-            preparedStatement.setTimestamp(4, t);
-            preparedStatement.setString(5, func.getEstadoCivil());
-            preparedStatement.setString(6, func.getCpf());
-            preparedStatement.setString(7, func.getTelefone());
-            preparedStatement.setString(8, func.getCelular());
-            preparedStatement.setString(9, func.getEmail());
-            preparedStatement.setString(10, func.getLogradouro());
-            preparedStatement.setString(11, func.getNumero());
-            preparedStatement.setString(12, func.getComplemento());
-            preparedStatement.setString(13, func.getCep());
-            preparedStatement.setString(14, func.getBairro());
-            preparedStatement.setString(15, func.getCidade());
-            preparedStatement.setString(16, func.getEstado());
-            preparedStatement.setString(17, func.getLogin());
-            preparedStatement.setString(18, func.getSenha());
-            preparedStatement.setInt(19, func.getIdFilial());
-            preparedStatement.setInt(20, func.getIdCargo());
+            preparedStatement.setString(1, filial.getFilial_Nome());
+            preparedStatement.setString(2, filial.getEstado());
+            preparedStatement.setString(3, filial.getCidade());
+            preparedStatement.setBoolean(4, filial.isStatus());
             
             //Executa o comando no banco de dados
             preparedStatement.execute();
@@ -81,14 +60,10 @@ public class FuncionarioDAO {
         }
     }
 
-    public static void atualizar(FuncionarioModel func)
+    public static void atualizar(FilialModel filial)
             throws SQLException, Exception {
-        String sql = "UPDATE FUNCIONARIO SET IDFILIAL=?, IDCARGO=?, FUNC_NOME=?, " 
-                + "SEXO=?, STATUS=?, DATANASC=?, "
-                + "ESTADOCIVIL=?, CPF=?, TEL=?, CEL=?, EMAIL=?, LOGRADOURO=?, "
-                + "NUMERO=?, COMPLEMENTO=?, CEP=?, BAIRRO=?, CIDADE=?, ESTADO=? "
-                + "LOGIN=?, SENHA=?"
-            + "WHERE (IDFUNC=?)";
+        String sql = "UPDATE FILIAL SET FILIAL_NOME=?, ESTADO=?, CIDADE=?, STATUS=?"
+            + "WHERE (IDFILIAL=?)";
         
         //Conexão para abertura e fechamento
         Connection connection = null;
@@ -105,28 +80,11 @@ public class FuncionarioDAO {
             preparedStatement = connection.prepareStatement(sql);
             
             //Configura os parâmetros do "PreparedStatement"
-            preparedStatement.setInt(1, func.getIdFilial());
-            preparedStatement.setInt(2, func.getIdCargo());
-            preparedStatement.setString(3, func.getFunc_nome());
-            preparedStatement.setString(4, func.getSexo());
-            preparedStatement.setBoolean(5, true);
-            Timestamp t = new Timestamp(func.getDataNasc().getTime());
-            preparedStatement.setTimestamp(6, t);
-            preparedStatement.setString(7, func.getEstadoCivil());
-            preparedStatement.setString(8, func.getCpf());
-            preparedStatement.setString(9, func.getTelefone());
-            preparedStatement.setString(10, func.getCelular());
-            preparedStatement.setString(11, func.getEmail());
-            preparedStatement.setString(12, func.getLogradouro());
-            preparedStatement.setString(13, func.getNumero());
-            preparedStatement.setString(14, func.getComplemento());
-            preparedStatement.setString(15, func.getCep());
-            preparedStatement.setString(16, func.getBairro());
-            preparedStatement.setString(17, func.getCidade());
-            preparedStatement.setString(18, func.getEstado());
-            preparedStatement.setString(19, func.getLogin());
-            preparedStatement.setString(20, func.getSenha());
-            preparedStatement.setInt(21, func.getIdFunc());
+            preparedStatement.setString(1, filial.getFilial_Nome());
+            preparedStatement.setString(2, filial.getEstado());
+            preparedStatement.setString(3, filial.getCidade());
+            preparedStatement.setBoolean(4, filial.isStatus());
+            preparedStatement.setInt(5, filial.getIdFilial());
 
             //Executa o comando no banco de dados
             preparedStatement.execute();
@@ -142,11 +100,11 @@ public class FuncionarioDAO {
         }
     }
     
-    public static List<FuncionarioModel> listar()
+    public static List<FilialModel> listar()
             throws SQLException, Exception {
-        String sql = "SELECT * FROM FUNCIONARIO WHERE (STATUS=?)";
+        String sql = "SELECT * FROM FILIAL WHERE STATUS=?";
 
-        List<FuncionarioModel> listaFuncionarios = null;
+        List<FilialModel> listaFilial = null;
 
         //Conexão para abertura e fechamento
         Connection connection = null;
@@ -171,34 +129,19 @@ public class FuncionarioDAO {
             //Itera por cada item do resultado
             while (result.next()) {
                 //Se a lista não foi inicializada, a inicializa
-                if (listaFuncionarios == null) {
-                    listaFuncionarios = new ArrayList<>();
+                if (listaFilial == null) {
+                    listaFilial = new ArrayList<>();
                 }
 
-                FuncionarioModel funcionario = new FuncionarioModel();
-                funcionario.setIdFunc(result.getInt("IDFUNC"));
-                funcionario.setIdFilial(result.getInt("IDFILIAL"));
-                funcionario.setIdCargo(result.getInt("IDCARGO"));
-                funcionario.setFunc_nome(result.getString("FUNC_NOME"));
-                funcionario.setSexo(result.getString("SEXO"));
-                Date d = new Date(result.getTimestamp("DATANASC").getTime());
-                funcionario.setDataNasc(d);
-                funcionario.setStatus(result.getBoolean("STATUS"));
-                funcionario.setEstadoCivil(result.getString("ESTADOCIVIL"));
-                funcionario.setCpf(result.getString("CPF"));
-                funcionario.setTelefone(result.getString("TEL"));
-                funcionario.setCelular(result.getString("CEL"));
-                funcionario.setEmail(result.getString("EMAIL"));
-                funcionario.setLogradouro(result.getString("LOGRADOURO"));
-                funcionario.setNumero(result.getString("NUMERO"));
-                funcionario.setComplemento(result.getString("COMPLEMENTO"));
-                funcionario.setCep(result.getString("CEP"));
-                funcionario.setBairro(result.getString("BAIRRO"));
-                funcionario.setCidade(result.getString("CIDADE"));
-                funcionario.setEstado(result.getString("ESTADO"));
+                FilialModel filial = new FilialModel();
+                filial.setIdFilial(result.getInt("IDFILIAL"));
+                filial.setFilial_Nome(result.getString("FILIAL_NOME"));
+                filial.setEstado(result.getString("ESTADO"));
+                filial.setCidade(result.getString("CIDADE"));
+                filial.setStatus(result.getBoolean("STATUS"));
                 
                 //Adiciona a instância na lista
-                listaFuncionarios.add(funcionario);
+                listaFilial.add(filial);
             }
         } finally {
             //Se o result ainda estiver aberto, realiza seu fechamento
@@ -215,16 +158,16 @@ public class FuncionarioDAO {
             }
         }
 
-        return listaFuncionarios;
+        return listaFilial;
     }
     
-    public static List<FuncionarioModel> procurar(String nome)
+    public static List<FilialModel> procurar(String nome)
             throws SQLException, Exception {
-        String sql = "SELECT * FROM FUNCIONARIO "
-                + "WHERE UPPER(FUNC_NOME) LIKE UPPER(?) AND STATUS=?";
+        String sql = "SELECT * FROM FILIAL "
+                + "WHERE UPPER(FILIAL_NOME) LIKE UPPER(?) AND STATUS=?";
         
         //Lista de clientes de resultado
-        List<FuncionarioModel> listaFuncionarios = null;
+        List<FilialModel> listaFiliais = null;
         
         //Conexão para abertura e fechamento
         Connection connection = null;
@@ -252,35 +195,19 @@ public class FuncionarioDAO {
             //Itera por cada item do resultado
             while (result.next()) {
                 //Se a lista não foi inicializada, a inicializa
-                if (listaFuncionarios == null) {
-                    listaFuncionarios = new ArrayList<>();
+                if (listaFiliais == null) {
+                    listaFiliais = new ArrayList<>();
                 }
                 
-                FuncionarioModel funcionario;
-                funcionario = new FuncionarioModel();
-                funcionario.setIdFunc(result.getInt("IDFUNC"));
-                funcionario.setIdFilial(result.getInt("IDFILIAL"));
-                funcionario.setIdCargo(result.getInt("IDCARGO"));
-                funcionario.setFunc_nome(result.getString("FUNC_NOME"));
-                funcionario.setSexo(result.getString("SEXO"));
-                Date d = new Date(result.getTimestamp("DATANASC").getTime());
-                funcionario.setDataNasc(d);
-                funcionario.setStatus(result.getBoolean("STATUS"));
-                funcionario.setEstadoCivil(result.getString("ESTADOCIVIL"));
-                funcionario.setCpf(result.getString("CPF"));
-                funcionario.setTelefone(result.getString("TEL"));
-                funcionario.setCelular(result.getString("CEL"));
-                funcionario.setEmail(result.getString("EMAIL"));
-                funcionario.setLogradouro(result.getString("LOGRADOURO"));
-                funcionario.setNumero(result.getString("NUMERO"));
-                funcionario.setComplemento(result.getString("COMPLEMENTO"));
-                funcionario.setCep(result.getString("CEP"));
-                funcionario.setBairro(result.getString("BAIRRO"));
-                funcionario.setCidade(result.getString("CIDADE"));
-                funcionario.setEstado(result.getString("ESTADO"));
+                FilialModel filial = new FilialModel();
+                filial.setIdFilial(result.getInt("IDFILIAL"));
+                filial.setFilial_Nome(result.getString("FILIAL_NOME"));
+                filial.setEstado(result.getString("ESTADO"));
+                filial.setCidade(result.getString("CIDADE"));
+                filial.setStatus(result.getBoolean("STATUS"));
                 
                 //Adiciona a instância na lista
-                listaFuncionarios.add(funcionario);
+                listaFiliais.add(filial);
             }
         } finally {
             //Se o result ainda estiver aberto, realiza seu fechamento
@@ -297,13 +224,13 @@ public class FuncionarioDAO {
             }
         }
         
-        return listaFuncionarios;        
+        return listaFiliais;        
     }
 
-    public static FuncionarioModel obter(Integer id)
+    public static FilialModel obter(Integer id)
             throws SQLException, Exception {
 
-        String sql = "SELECT * FROM FUNCIONARIO WHERE IDFUNC=? AND STATUS=?";
+        String sql = "SELECT * FROM FILIAL WHERE IDFILIAL=? AND STATUS=?";
 
         //Conexão para abertura e fechamento
         Connection connection = null;
@@ -330,30 +257,15 @@ public class FuncionarioDAO {
 
             //Verifica se há pelo menos um resultado
             if (result.next()) {                
-                FuncionarioModel funcionario = new FuncionarioModel();
-                funcionario.setIdFunc(result.getInt("IDFUNC"));
-                funcionario.setIdFilial(result.getInt("IDFILIAL"));
-                funcionario.setIdCargo(result.getInt("IDCARGO"));
-                funcionario.setFunc_nome(result.getString("FUNC_NOME"));
-                funcionario.setSexo(result.getString("SEXO"));
-                Date d = new Date(result.getTimestamp("DATANASC").getTime());
-                funcionario.setDataNasc(d);
-                funcionario.setStatus(result.getBoolean("STATUS"));
-                funcionario.setEstadoCivil(result.getString("ESTADOCIVIL"));
-                funcionario.setCpf(result.getString("CPF"));
-                funcionario.setTelefone(result.getString("TEL"));
-                funcionario.setCelular(result.getString("CEL"));
-                funcionario.setEmail(result.getString("EMAIL"));
-                funcionario.setLogradouro(result.getString("LOGRADOURO"));
-                funcionario.setNumero(result.getString("NUMERO"));
-                funcionario.setComplemento(result.getString("COMPLEMENTO"));
-                funcionario.setCep(result.getString("CEP"));
-                funcionario.setBairro(result.getString("BAIRRO"));
-                funcionario.setCidade(result.getString("CIDADE"));
-                funcionario.setEstado(result.getString("ESTADO"));
+                FilialModel filial = new FilialModel();
+                filial.setIdFilial(result.getInt("IDFILIAL"));
+                filial.setFilial_Nome(result.getString("FILIAL_NOME"));
+                filial.setEstado(result.getString("ESTADO"));
+                filial.setCidade(result.getString("CIDADE"));
+                filial.setStatus(result.getBoolean("STATUS"));
                 
                 //Retorna o resultado
-                return funcionario;
+                return filial;
             }            
         } finally {
             //Se o result ainda estiver aberto, realiza seu fechamento
@@ -377,7 +289,7 @@ public class FuncionarioDAO {
     }
 
     public static void excluir(Integer id) throws SQLException, Exception {
-        String sql = "UPDATE FUNCIONARIO SET STATUS=? WHERE IDFUNC=?";
+        String sql = "UPDATE FILIAL SET STATUS=? WHERE IDFILIAL=?";
         
         //Conexão para abertura e fechamento
         Connection connection = null;
