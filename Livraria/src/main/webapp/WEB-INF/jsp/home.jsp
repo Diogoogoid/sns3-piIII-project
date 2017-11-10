@@ -23,7 +23,7 @@
                 <a class="navbar-brand" href="#">Astec</a>
             </div>
             <ul class="nav navbar-nav navbar-right">
-                <li><a href="*/Servlets/sair"><span class="glyphicon glyphicon-log-out"></span> Logout</a></li>
+                <li><a href="sair"><span class="glyphicon glyphicon-log-out"></span> Logout</a></li>
             </ul>
         </div>
     </nav>
@@ -51,7 +51,7 @@
                     <li class="dropdown">
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown">Usuarios <span class="caret"></span><span style="font-size:16px;" class="pull-right hidden-xs showopacity glyphicon glyphicon-user"></span></a>
                         <ul class="dropdown-menu forAnimate" role="menu">
-                            <li><a href="#">Cadastrar</a></li>
+                            <li><a href="CadastrarUsuario">Cadastrar</a></li>
                             <li><a href="#">Consultar</a></li>
                         </ul>
                     </li>

@@ -24,7 +24,7 @@
              <form role="form" method="POST" action="home">
                 <div style="margin-bottom: 12px" class="input-group">
                     <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
-                    <input id="login" type="text" class="form-control" name="login" placeholder="Digite seu login" required>
+                    <input id="login" type="text" class="form-control" name="login" placeholder="Digite seu login" required autofocus>
                 </div>
                 <div style="margin-bottom: 12px" class="input-group">
                     <span class="input-group-addon"><i class="glyphicon glyphicon-lock"></i></span>
