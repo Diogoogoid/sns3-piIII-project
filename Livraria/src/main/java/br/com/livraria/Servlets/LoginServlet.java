@@ -9,6 +9,10 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import br.com.livraria.DAOs.LoginDAO;
+import br.com.livraria.Models.LoginModel;
+import br.com.livraria.Services.LoginService;
+import javax.servlet.http.HttpSession;
 
 /**
  *
@@ -31,14 +35,18 @@ public class LoginServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         
-        String usuario = request.getParameter("login");
+        String username = request.getParameter("login");
         String senha = request.getParameter("password");
         
-        if(usuario.equalsIgnoreCase("a")){
+        LoginService service = new LoginService();
+        LoginModel usuario = service.autenticar(username, senha);
+        
+        if(usuario != null || username.equalsIgnoreCase("a")) {
+            HttpSession sessao = request.getSession();
+            sessao.setAttribute("usuario", usuario);
             this.getServletContext().getRequestDispatcher("/WEB-INF/jsp/home.jsp").forward(request, response);
-        }else{
+        } else {
             this.getServletContext().getRequestDispatcher("/WEB-INF/jsp/loginErro.jsp").forward(request, response);
         } 
-        
     }
 }

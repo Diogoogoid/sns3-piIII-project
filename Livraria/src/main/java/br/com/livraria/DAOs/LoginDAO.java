@@ -23,8 +23,7 @@ import java.util.logging.Logger;
  * @author bruno.falmeida
  */
 public class LoginDAO {
-        public LoginModel DoLogin(String login, String senha) throws SQLException {
-
+    public static LoginModel DoLogin(String login, String senha) throws SQLException {
         String sql = "SELECT f.IdFunc, c.IdCargo, f.login, f.func_nome, c.cargo_nome, s.setor_nome " +
                         "FROM funcionario f " +
                         "INNER JOIN cargo c on c.IdCargo = f.IdCargo " +
@@ -59,14 +58,17 @@ public class LoginDAO {
             if (result.next()) {                
                 LoginModel Login = new LoginModel();
                 Login.setIdUsuario(result.getInt("IdFunc"));
+                Login.setIdCargo(result.getInt("IdCargo"));
                 Login.setLogin(result.getString("login"));
-                Login.setNome(result.getString("nome"));
-                Login.setCargo(result.getString("cargo"));
-                Login.setSetor(result.getString("setor"));
+                Login.setNome(result.getString("func_nome"));
+                Login.setCargo(result.getString("cargo_nome"));
+                Login.setSetor(result.getString("setor_nome"));
                 
                 //Retorna o resultado
                 return getPermissao(Login);
             }
+        }catch(SQLException e) {
+            
         } finally {
             //Se o result ainda estiver aberto, realiza seu fechamento
             if (result != null && !result.isClosed()) {
@@ -88,11 +90,11 @@ public class LoginDAO {
         return null;
     }
         
-    public LoginModel getPermissao(LoginModel login) throws SQLException {
+    private static LoginModel getPermissao(LoginModel login) throws SQLException {
         
         List<ModuloModel> modulos = null;
 
-        String sql = "SELECT m.IDMODULO, m.MODULO_NOME from MODULO m " +
+        String sql = "SELECT m.IDMODULO, m.MODULO_NOME, m.SUB_NOME from MODULO m " +
                     "INNER JOIN PERMISSAO p on p.IDMODULO = m.IDMODULO AND p.IDCARGO = ?";
         
         // conexao para abertura e fechamento do BD
@@ -128,6 +130,7 @@ public class LoginDAO {
                 ModuloModel modulo = new ModuloModel();
                 modulo.setIdModulo(result.getInt("IDMODULO"));
                 modulo.setModuloNome(result.getString("MODULO_NOME"));
+                modulo.setModuloNome(result.getString("SUB_NOME"));
                 
                 //Adiciona a instância na lista
                 modulos.add(modulo);

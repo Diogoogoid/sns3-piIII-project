@@ -13,6 +13,15 @@ public class ModuloModel {
     
     private int idModulo;
     private String moduloNome;
+    private String subNome;
+
+    public String getSubNome() {
+        return subNome;
+    }
+
+    public void setSubNome(String subNome) {
+        this.subNome = subNome;
+    }
     
     public int getIdModulo() {
         return idModulo;
