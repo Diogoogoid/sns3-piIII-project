@@ -130,7 +130,7 @@ public class LoginDAO {
                 ModuloModel modulo = new ModuloModel();
                 modulo.setIdModulo(result.getInt("IDMODULO"));
                 modulo.setModuloNome(result.getString("MODULO_NOME"));
-                modulo.setModuloNome(result.getString("SUB_NOME"));
+                modulo.setSubNome(result.getString("SUB_NOME"));
                 
                 //Adiciona a instância na lista
                 modulos.add(modulo);
