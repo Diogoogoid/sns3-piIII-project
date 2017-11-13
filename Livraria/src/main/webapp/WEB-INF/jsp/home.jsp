@@ -31,10 +31,10 @@
         <div class="container-fluid">
             <div class="profile-usertitle">
                 <div class="profile-usertitle-name">
-                    Marcus Doe
+                    ${sessionScope.usuario.nome}
                 </div>
                 <div class="profile-usertitle-job">
-                    Developer
+                     ${sessionScope.usuario.setor}
                 </div>
             </div>
             <div class="navbar-header">
