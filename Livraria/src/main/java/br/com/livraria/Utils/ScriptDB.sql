@@ -241,7 +241,6 @@ INSERT INTO funcionario (IDFILIAL, IDCARGO, FUNC_NOME, SEXO, STATUS, DATANASC,
 
 INSERT INTO funcionario (IDFILIAL, IDCARGO, FUNC_NOME, SEXO, STATUS, DATANASC, 
     ESTADOCIVIL, CPF, TEL, CEL, EMAIL, LOGRADOURO, NUMERO, COMPLEMENTO, CEP, 
-    BAIRRO, CIDADE, ESTADO, LOGIN, SENHA) VALUES (6, 9, 'Diogo', 'M', true, '1995-08-20',
+    BAIRRO, CIDADE, ESTADO, LOGIN, SENHA) VALUES (3, 9, 'Diogo', 'M', true, '1995-08-20',
     'Solteiro', '428.555.666-50', '(11)9999-9789', '(11)96668-6666', 'teste@teste.com', 
     'kkk', '123', 'ola', '02200-555', 'Jardins', 'Rio Janeiro', 'Rio Janeiro', 'dgo', '123456');
-

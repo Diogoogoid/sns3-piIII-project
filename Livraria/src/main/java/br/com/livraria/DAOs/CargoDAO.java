@@ -163,6 +163,72 @@ public class CargoDAO {
         return listaCargos;
     }
     
+        public static List<CargoModel> listarPorSetor(int id)
+            throws SQLException, Exception {
+        String sql = "SELECT * FROM CARGO "
+                + "WHERE IDSETOR=? AND STATUS=?";
+        
+        //Lista de clientes de resultado
+        List<CargoModel> listaCargos = null;
+        
+        //Conexão para abertura e fechamento
+        Connection connection = null;
+        
+        //Statement para obtenção através da conexão, execução de
+        //comandos SQL e fechamentos
+        PreparedStatement preparedStatement = null;
+        
+        //Armazenará os resultados do banco de dados
+        ResultSet result = null;
+        try {
+            //Abre uma conexão com o banco de dados
+            connection = ConexaoDB.getConnection();
+            
+            //Cria um statement para execução de instruções SQL
+            preparedStatement = connection.prepareStatement(sql);
+            
+            //Configura os parâmetros do "PreparedStatement"
+            preparedStatement.setInt(1, id);
+            preparedStatement.setBoolean(2, true);
+            
+            //Executa a consulta SQL no banco de dados
+            result = preparedStatement.executeQuery();
+            
+            //Itera por cada item do resultado
+            while (result.next()) {
+                //Se a lista não foi inicializada, a inicializa
+                if (listaCargos == null) {
+                    listaCargos = new ArrayList<>();
+                }
+                
+                CargoModel cargo = new CargoModel();
+                cargo.setIdCargo(result.getInt("IDCARGO"));
+                cargo.setIdSetor(result.getInt("IDSETOR"));
+                cargo.setCargo_Nome(result.getString("CARGO_NOME"));
+                cargo.setDescricao(result.getString("DESCRICAO"));
+                cargo.setStatus(result.getBoolean("STATUS"));
+                
+                //Adiciona a instância na lista
+                listaCargos.add(cargo);
+            }
+        } finally {
+            //Se o result ainda estiver aberto, realiza seu fechamento
+            if (result != null && !result.isClosed()) {
+                result.close();
+            }
+            //Se o statement ainda estiver aberto, realiza seu fechamento
+            if (preparedStatement != null && !preparedStatement.isClosed()) {
+                preparedStatement.close();
+            }
+            //Se a conexão ainda estiver aberta, realiza seu fechamento
+            if (connection != null && !connection.isClosed()) {
+                connection.close();
+            }
+        }
+        
+        return listaCargos;        
+    }
+    
     public static List<CargoModel> procurar(String nome)
             throws SQLException, Exception {
         String sql = "SELECT * FROM CARGO "

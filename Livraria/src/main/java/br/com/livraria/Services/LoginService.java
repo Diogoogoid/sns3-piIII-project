@@ -6,9 +6,6 @@
 package br.com.livraria.Services;
 
 import br.com.livraria.DAOs.LoginDAO;
-import java.util.Arrays;
-import java.util.LinkedHashMap;
-import java.util.Map;
 import br.com.livraria.Models.LoginModel;
 import java.sql.SQLException;
 import java.util.logging.Level;

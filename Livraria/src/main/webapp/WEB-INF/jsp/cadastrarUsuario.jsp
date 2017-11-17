@@ -5,6 +5,7 @@
 --%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
 <html>
     <head>
@@ -77,7 +78,7 @@
         </div>
     </nav>
     <main id="page-content-wrapper" role="main">
-        <form class="form-horizontal">
+        <form class="form-horizontal" method="POST" action="CadastrarUsuario">
         <fieldset>
         <div class="panel panel-primary">
             <div class="panel-heading">Cadastro de Cliente</div>
@@ -122,11 +123,11 @@
           <label class="col-md-1 control-label" for="radios">Sexo <h11>*</h11></label>
           <div class="col-md-4"> 
             <label required="" class="radio-inline" for="radios-0" >
-              <input name="sexo" id="sexo" value="feminino" type="radio" required>
+              <input name="sexo" id="sexo" value="F" type="radio" required>
               Feminino
             </label> 
             <label class="radio-inline" for="radios-1">
-              <input name="sexo" id="sexo" value="masculino" type="radio">
+              <input name="sexo" id="sexo" value="M" type="radio">
               Masculino
             </label>
           </div>
@@ -226,7 +227,7 @@
         <div class="form-group">
           <label class="col-md-2 control-label" for="Estado Civil">Estado Civil <h11>*</h11></label>
           <div class="col-md-2">
-            <select required id="Estado Civil" name="Estado Civil" class="form-control">
+            <select required id="EstadoCivil" name="Estado Civil" class="form-control">
                 <option value=""></option>
               <option value="Solteiro(a)">Solteiro(a)</option>
               <option value="Casado(a)">Casado(a)</option>
@@ -268,17 +269,20 @@
         <div class="col-md-2">
             <select required id="Departamento" name="Departamento" class="form-control">
                     <option value=""></option>
-                    <option value="vendas">Vendas</option>
-                    <option value="administrador">Administrador</option>
+                    <c:forEach items="${setores}" var="setor">
+                        <option value="${setor.getIdSetor()}">${setor.getSetor_Nome()}</option>
+                    </c:forEach>
             </select>
         </div>
         </div>
         <div class="form-group">
-            <label class="col-md-2 control-label" for="permissao">Permissão <h11>*</h11></label>
+            <label class="col-md-2 control-label" for="cargo">Cargo <h11>*</h11></label>
             <div class="col-md-2">
-                    <select required id="permissao" name="permissao" class="form-control">
-                            <option value=""></option>
-                            <option value="vendedor">Vendedor</option>
+                    <select required id="cargo" name="cargo" class="form-control">
+                        <option value=""></option>
+                        <c:forEach items="${cargos}" var="cargo">
+                            <option value="${cargo.getIdCargo()}">${cargo.getCargo_Nome()}</option>
+                        </c:forEach>
                     </select>
             </div>
         </div>
