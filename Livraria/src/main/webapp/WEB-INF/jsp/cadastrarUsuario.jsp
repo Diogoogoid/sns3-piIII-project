@@ -53,14 +53,14 @@
                     <li class="dropdown">
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown">Usuarios <span class="caret"></span><span style="font-size:16px;" class="pull-right hidden-xs showopacity glyphicon glyphicon-user"></span></a>
                         <ul class="dropdown-menu forAnimate" role="menu">
-                            <li><a href="CadastrarUsuario">Cadastrar</a></li>
+                            <li><a href="${pageContext.request.contextPath}/formUsuario">Cadastrar</a></li>
                             <li><a href="#">Consultar</a></li>
                         </ul>
                     </li>
                     <li class="dropdown">
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown">Clientes <span class="caret"></span><span style="font-size:16px;" class="pull-right showopacity glyphicon glyphicon-list-alt"></span></a>
                         <ul class="dropdown-menu forAnimate" role="menu">
-                            <li><a href="CadastrarCliente">Cadastrar</a></li>
+                            <li><a href="${pageContext.request.contextPath}/formCliente">Cadastrar</a></li>
                             <li><a href="#">Consultar</a></li>
                         </ul>
                     </li>

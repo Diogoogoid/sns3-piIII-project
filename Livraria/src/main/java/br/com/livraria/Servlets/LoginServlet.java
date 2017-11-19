@@ -26,9 +26,16 @@ public class LoginServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        // instancio o objeto sessao
+        HttpSession sessao = request.getSession();
         
-        
-        
+        // verifico se houve atributo gravado na sessao
+        if(sessao.getAttribute("usuario") != null){
+            request.getRequestDispatcher("/WEB-INF/jsp/home.jsp").forward(request, response);
+            
+        }else{
+            request.getRequestDispatcher("/WEB-INF/jsp/login.jsp").forward(request, response);
+        }
     }
 
     @Override

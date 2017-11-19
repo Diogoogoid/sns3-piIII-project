@@ -48,18 +48,18 @@
             </div>
             <div class="collapse navbar-collapse" id="bs-sidebar-navbar-collapse-1">
                 <ul class="nav navbar-nav">
-                    <li class="active format-active"><a href="WEB-INF/jsp/home.jsp">Home<span style="font-size:16px;" class="pull-right showopacity glyphicon glyphicon-home"></span></a></li>
+                    <li class="active format-active"><a href="${pageContext.request.contextPath}/home">Home<span style="font-size:16px;" class="pull-right showopacity glyphicon glyphicon-home"></span></a></li>
                     <li class="dropdown">
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown">Usuarios <span class="caret"></span><span style="font-size:16px;" class="pull-right hidden-xs showopacity glyphicon glyphicon-user"></span></a>
                         <ul class="dropdown-menu forAnimate" role="menu">
-                            <li><a href="${pageContext.request.contextPath}/cadastrarUsuario">Cadastrar</a></li>
-                            <li><a href="cadastrarCliente.jsp">Consultar</a></li>
+                            <li><a href="${pageContext.request.contextPath}/formUsuario">Cadastrar</a></li>
+                            <li><a href="#">Consultar</a></li>
                         </ul>
                     </li>
                     <li class="dropdown">
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown">Clientes <span class="caret"></span><span style="font-size:16px;" class="pull-right showopacity glyphicon glyphicon-list-alt"></span></a>
                         <ul class="dropdown-menu forAnimate" role="menu">
-                            <li><a href="WEB-INF/jsp/cadastrarCliente.jsp">Cadastrar</a></li>
+                            <li><a href="${pageContext.request.contextPath}/formCliente">Cadastrar</a></li>
                             <li><a href="#">Consultar</a></li>
                         </ul>
                     </li>
