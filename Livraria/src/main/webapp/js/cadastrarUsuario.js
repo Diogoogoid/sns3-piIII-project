@@ -102,7 +102,14 @@ return idade;
   
   
 function exibe(i) {
+    
+   
+        
 	document.getElementById(i).readOnly= true;
+	    
+		
+	
+    
 }
 
 function desabilita(i){
@@ -128,3 +135,6 @@ else if(idade()<18) {
 }
 
  }
+
+
+

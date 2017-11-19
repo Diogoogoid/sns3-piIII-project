@@ -5,16 +5,15 @@
 --%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
-<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>Cadastrar de Cliente</title>
-        <link rel="stylesheet" type="text/css"  href="css/bootstrap.css">
-        <link rel="stylesheet" type="text/css"  href="css/bootstrap.min.css">
-        <link rel="stylesheet" type="text/css"  href="css/menuPrincipal.css">
-        <link rel="stylesheet" type="text/css"  href="css/cadastrarUsuario.css">
+        <title>Cadastrar Cliente</title>
+        <link rel="stylesheet" type="text/css" href="css/bootstrap.css">
+        <link rel="stylesheet" type="text/css" href="css/bootstrap.min.css">
+        <link rel="stylesheet" type="text/css" href="css/menuPrincipal.css">
+        <link rel="stylesheet" type="text/css" href="css/cadastrarUsuario.css">
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
     </head>
@@ -78,10 +77,10 @@
         </div>
     </nav>
     <main id="page-content-wrapper" role="main">
-        <form class="form-horizontal" method="POST" action="">
+        <form class="form-horizontal" method="POST" action="${pageContext.request.contextPath}/CadastrarTeste">
         <fieldset>
         <div class="panel panel-primary">
-            <div class="panel-heading">Cadastro de Usuario</div>
+            <div class="panel-heading">Cadastro de Cliente</div>
             <div class="panel-body">
         <div class="form-group">
         <div class="col-md-11 control-label">
@@ -133,6 +132,21 @@
           </div>
         </div>
 
+        <!-- Select Basic -->
+        <div class="form-group">
+          <label class="col-md-2 control-label" for="Estado Civil">Estado Civil <h11>*</h11></label>
+          <div class="col-md-2">
+            <select required id="Estado Civil" name="Estado Civil" class="form-control">
+                <option value=""></option>
+              <option value="Solteiro(a)">Solteiro(a)</option>
+              <option value="Casado(a)">Casado(a)</option>
+              <option value="Divorciado(a)">Divorciado(a)</option>
+              <option value="Viuvo(a)">Viuvo(a)</option>
+            </select>
+          </div>
+          </div>
+        </div>
+        
         <!-- Prepended text-->
         <div class="form-group">
           <label class="col-md-2 control-label" for="prependedtext">Telefone <h11>*</h11></label>
@@ -221,73 +235,6 @@
             </div>
 
           </div>
-        </div>
-
-        <!-- Select Basic -->
-        <div class="form-group">
-          <label class="col-md-2 control-label" for="Estado Civil">Estado Civil <h11>*</h11></label>
-          <div class="col-md-2">
-            <select required id="Estado Civil" name="Estado Civil" class="form-control">
-                <option value=""></option>
-              <option value="Solteiro(a)">Solteiro(a)</option>
-              <option value="Casado(a)">Casado(a)</option>
-              <option value="Divorciado(a)">Divorciado(a)</option>
-              <option value="Viuvo(a)">Viuvo(a)</option>
-            </select>
-          </div>
-          </div>
-        </div>
-            
-        <!-- Seção login -->
-        <div id="newpost">
-            <div class="form-group">
-             <div class="col-md-2 control-label">
-                 <h3>Dados de acesso</h3>
-             </div>
-             </div>
-        </div>
-        <div class="form-group">
-            <label class="col-md-2 control-label" for="login">Login <h11>*</h11></label>
-            <div class="col-md-3">
-                <div class="input-group">
-                    <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
-                    <input id="login" name="login" class="form-control" placeholder="Digite o login" required="" type="text" maxlength="13">
-                </div>
-            </div>
-        </div>  
-        <div class="form-group">
-            <label class="col-md-2 control-label" for="password">Senha <h11>*</h11></label>
-            <div class="col-md-2">
-                <div class="input-group">
-                    <span class="input-group-addon"><i class="glyphicon glyphicon-lock"></i></span>
-                    <input id="password" name="password" class="form-control" placeholder="******" type="password" maxlength="13" >
-                </div>
-            </div>
-        </div>    
-        <div class="form-group">
-        <label class="col-md-2 control-label" for="Departamento">Departamento <h11>*</h11></label>
-        <div class="col-md-2">
-            <select required id="Departamento" name="Departamento" class="form-control">
-                    <option value=""></option>
-                    <option value="vendas">Vendas</option>
-                    <option value="administrador">Administrador</option>
-            </select>
-        </div>
-        </div>
-        <div class="form-group">
-            <label class="col-md-2 control-label" for="permissao">Permissão <h11>*</h11></label>
-            <div class="col-md-2">
-                    <select required id="permissao" name="permissao" class="form-control">
-                            <option value=""></option>
-                            <option value="vendedor">Vendedor</option>
-                    </select>
-            </div>
-        </div>
-        <div class="form-group">
-            <label class="col-md-2 control-label" for="permissao">Status <h11>*</h11></label>
-            <div class="col-md-2">
-                    <input type="checkbox" value="sim"> Ativo
-            </div>
         </div>
 
         <!-- Button (Double) -->
