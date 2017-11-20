@@ -77,7 +77,7 @@
         </div>
     </nav>
     <main id="page-content-wrapper" role="main">
-    <form class="form-horizontal" method="POST" action="${pageContext.request.contextPath}/CadastrarTeste">
+    <form class="form-horizontal" method="POST" action="${pageContext.request.contextPath}/cadastrarProduto">
         <fieldset>
         <div class="panel panel-primary">
             <div class="panel-heading">Cadastro de Produto</div>
@@ -107,14 +107,14 @@
             <div class="form-group">
               <label class="col-md-2 control-label" for="Fabricante">Fabricante/Editora <h11>*</h11></label>  
               <div class="col-md-8">
-              <input id="Fabricante" name="Nome" placeholder="Digite o nome do fabricante" class="form-control input-md" required="" type="text">
+              <input id="Fabricante" name="Fabricante" placeholder="Digite o nome do fabricante/Editora" class="form-control input-md" required="" type="text">
               </div>
             </div>
         
             <div class="form-group">
-              <label class="col-md-2 control-label" for="Tipo Produto">Tipo Produto <h11>*</h11></label>
+              <label class="col-md-2 control-label" for="TipoProduto">Tipo Produto <h11>*</h11></label>
               <div class="col-md-2">
-                <select required id="Estado Civil" name="Estado Civil" class="form-control">
+                <select required id="TipoProduto" name="TipoProduto" class="form-control">
                   <option value=""></option>
                   <option value="Livro">Livro</option>
                   <option value="Papelaria">Papelaria</option>
@@ -148,11 +148,18 @@
             </div>        
             
             <div class="form-group">
-              <label class="col-md-2 control-label" for="garantia">Garantia(meses) </label>  
-              <div class="col-md-2">
-              <input id="garantia" name="garantia" class="form-control input-md" placeholder="Informe qtd meses" type="text">
-              </div>
+                <label class="col-md-2 control-label" for="garantia">Garantia(meses) </label>  
+                <div class="col-md-2">
+                <input id="garantia" name="garantia" class="form-control input-md" placeholder="Informe qtd meses" type="text">
+                </div>
             </div>    
+            
+            <div class="form-group">
+                <label class="col-md-2 control-label" for="permissao">Status</label>
+                <div class="col-md-2">
+                        <input id="permissao" type="checkbox" name="permissao" value="sim"> Ativo
+                </div>
+            </div>
             
             <div class="form-group">
               <label class="col-md-2 control-label" for="Cadastrar"></label>

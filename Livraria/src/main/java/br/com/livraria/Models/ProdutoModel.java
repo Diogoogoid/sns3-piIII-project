@@ -10,6 +10,7 @@ import java.util.Date;
 /**
  *
  * @author Bruno Fonseca
+ * edit Diogo.Felix
  */
 public class ProdutoModel {
      // Atributos
@@ -18,11 +19,27 @@ public class ProdutoModel {
     private String fabricante;
     private String tipoProduto;
     private int qtdProduto;
-    private Float ValorProduto;
+    private float valorProduto;
     private boolean status;
     private Date dtFabricacao;
     private int garantia;
 
+    // Constructor
+    public ProdutoModel(){
+    
+    }
+    
+    public ProdutoModel(
+         String nome, String fabricante, String tipoProduto,
+         int qtdProduto, float valorProduto,  
+         Date dtFabricacao, int garantia
+    ){
+        this.nome = nome; this.fabricante = fabricante; 
+        this.tipoProduto = tipoProduto; this.qtdProduto = qtdProduto;
+        this.valorProduto = valorProduto; this.status = status;
+        this.dtFabricacao = dtFabricacao; this.garantia = garantia;
+    }
+    
     // Get e Setter
 
     public Date getDtFabricacao() {
@@ -90,10 +107,10 @@ public class ProdutoModel {
     }
      
     public void setValorProduto(Float ValorProd){
-        this.ValorProduto = ValorProd;
+        this.valorProduto = ValorProd;
     }
     
     public Float getValorProduto (){
-        return ValorProduto;
+        return valorProduto;
     }
 }

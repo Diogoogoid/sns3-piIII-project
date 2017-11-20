@@ -17,7 +17,7 @@ import javax.servlet.http.HttpSession;
 
 /**
  *
- * @author diogo
+ * @author diogo.sfelix
  */
 @WebServlet(name = "Rotas", urlPatterns = {"/formUsuario","/formCliente","/menuPrincipal","/formProduto"})
 public class Rotas extends HttpServlet {
