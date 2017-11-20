@@ -23,10 +23,10 @@ import java.util.List;
 public class ProdutoDAO {
     // insere um produto na tabela produto
     public static void inserir(ProdutoModel produto)
-            throws SQLException, Exception{
+            throws SQLException, ClassNotFoundException{
         
         // construindo a strin de inserção no BD na tabela produto
-        String sql = "INSERT INTO produto (NOMEPROD, FABRICANTE, TIPOPROD, "
+        String sql = "INSERT INTO produto (NOME, FABRICANTE, TIPOPROD, "
                 + "QUANTIDADE, STATUS, VALOR, GARANTIA, DATAFAB)" 
                 + " VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
         

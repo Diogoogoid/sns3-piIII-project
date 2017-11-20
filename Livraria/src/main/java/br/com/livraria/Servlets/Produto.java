@@ -5,6 +5,8 @@ import br.com.livraria.Models.ProdutoModel;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.Date;
+import java.sql.SQLException;
+import java.text.ParseException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.servlet.RequestDispatcher;
@@ -38,7 +40,9 @@ public class Produto extends HttpServlet {
             // direciono a url chamada para a classe correta
             switch(destino){
                 case "/cadastrarProduto":                    
-                            
+                    
+                try{
+                    
                 String nome = request.getParameter("Nome");
                 String fabricante = request.getParameter("Fabricante");
                 String tipoProduto = request.getParameter("TipoProduto");
@@ -51,14 +55,16 @@ public class Produto extends HttpServlet {
                         nome, fabricante, tipoProduto, qtdProduto, valorProduto, dtFabricacao, garantia
                 );
 
-                    try {
-                        ProdutoDAO.inserir(produto);
-
-                    } catch (Exception ex) {
-                        Logger.getLogger(Produto.class.getName()).log(Level.SEVERE, null, ex);
-                    }
-
-                break;    
+                ProdutoDAO.inserir(produto);
+                requestDispatcher = request.getRequestDispatcher("/WEB-INF/jsp/cadastroSucess.jsp");
+                requestDispatcher.forward(request, response);
+                        
+                } catch (ClassNotFoundException | IllegalArgumentException | SQLException e) {
+                    requestDispatcher = request.getRequestDispatcher("/WEB-INF/jsp/cadastroSucess.jsp");
+                    requestDispatcher.forward(request, response);
+                }    
+                    
+                break;        
             }
     }
 
