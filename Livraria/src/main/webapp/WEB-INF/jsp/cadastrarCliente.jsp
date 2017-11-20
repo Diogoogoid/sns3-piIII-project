@@ -48,7 +48,7 @@
             </div>
             <div class="collapse navbar-collapse" id="bs-sidebar-navbar-collapse-1">
                 <ul class="nav navbar-nav">
-                    <li class="active format-active"><a href="home">Home<span style="font-size:16px;" class="pull-right showopacity glyphicon glyphicon-home"></span></a></li>
+                    <li class="active format-active"><a href="${pageContext.request.contextPath}/menuPrincipal">Home<span style="font-size:16px;" class="pull-right showopacity glyphicon glyphicon-home"></span></a></li>
                     <li class="dropdown">
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown">Usuarios <span class="caret"></span><span style="font-size:16px;" class="pull-right hidden-xs showopacity glyphicon glyphicon-user"></span></a>
                         <ul class="dropdown-menu forAnimate" role="menu">
@@ -66,7 +66,7 @@
                     <li class="dropdown">
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown">Produtos <span class="caret"></span><span style="font-size:16px;" class="pull-right showopacity glyphicon glyphicon-th-list"></span></a>
                         <ul class="dropdown-menu forAnimate" role="menu">
-                            <li><a href="#">Cadastrar</a></li>
+                            <li><a href="${pageContext.request.contextPath}/formProduto">Cadastrar</a></li>
                             <li><a href="#">Consultar</a></li>
                         </ul>
                     </li>
@@ -82,19 +82,18 @@
         <div class="panel panel-primary">
             <div class="panel-heading">Cadastro de Cliente</div>
             <div class="panel-body">
+                
         <div class="form-group">
-        <div class="col-md-11 control-label">
+            <div class="col-md-11 control-label">
                 <p class="help-block"><h11>*</h11> Campo Obrigatório </p>
-        </div>
-        </div>
-
-                    
-        <div id="newpost">
-            <div class="form-group">
-             <div class="col-md-2 control-label">
-                 <h3>Dados cadastrais</h3>
-             </div>
-             </div>
+            </div>
+            <div id="newpost">
+                <div class="form-group">
+                 <div class="col-md-3 control-label">
+                     <h3>Dados cadastrais</h3>
+                 </div>
+                </div>
+            </div>
         </div>
                 
         <!-- Text input-->
@@ -143,7 +142,6 @@
               <option value="Divorciado(a)">Divorciado(a)</option>
               <option value="Viuvo(a)">Viuvo(a)</option>
             </select>
-          </div>
           </div>
         </div>
         
@@ -245,7 +243,9 @@
             <button id="Cancelar" name="Cancelar" class="btn btn-danger" type="Reset">Cancelar</button>
           </div>
         </div>
-         </div> 
+        
+        </div>
+        </div> 
 
         </fieldset>
         </form>        

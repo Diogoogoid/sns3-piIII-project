@@ -31,10 +31,13 @@ public class LoginServlet extends HttpServlet {
         
         // verifico se houve atributo gravado na sessao
         if(sessao.getAttribute("usuario") != null){
+            System.out.println("USUARIO.LOGADO" + sessao.getAttribute("usuario"));
             request.getRequestDispatcher("/WEB-INF/jsp/home.jsp").forward(request, response);
             
         }else{
-            request.getRequestDispatcher("/WEB-INF/jsp/login.jsp").forward(request, response);
+            RequestDispatcher rd;
+            rd = request.getRequestDispatcher("/WEB-INF/jsp/login.jsp");
+            rd.forward(request, response);
         }
     }
 

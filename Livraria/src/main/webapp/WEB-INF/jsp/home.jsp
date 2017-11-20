@@ -48,7 +48,7 @@
             </div>
             <div class="collapse navbar-collapse" id="bs-sidebar-navbar-collapse-1">
                 <ul class="nav navbar-nav">
-                    <li class="active format-active"><a href="${pageContext.request.contextPath}/home">Home<span style="font-size:16px;" class="pull-right showopacity glyphicon glyphicon-home"></span></a></li>
+                    <li class="active format-active"><a href="${pageContext.request.contextPath}/menuPrincipal">Home<span style="font-size:16px;" class="pull-right showopacity glyphicon glyphicon-home"></span></a></li>
                     <li class="dropdown">
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown">Usuarios <span class="caret"></span><span style="font-size:16px;" class="pull-right hidden-xs showopacity glyphicon glyphicon-user"></span></a>
                         <ul class="dropdown-menu forAnimate" role="menu">
@@ -66,7 +66,7 @@
                     <li class="dropdown">
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown">Produtos <span class="caret"></span><span style="font-size:16px;" class="pull-right showopacity glyphicon glyphicon-th-list"></span></a>
                         <ul class="dropdown-menu forAnimate" role="menu">
-                            <li><a href="#">Cadastrar</a></li>
+                            <li><a href="${pageContext.request.contextPath}/formProduto">Cadastrar</a></li>
                             <li><a href="#">Consultar</a></li>
                         </ul>
                     </li>

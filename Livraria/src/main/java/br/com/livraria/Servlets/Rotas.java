@@ -13,12 +13,13 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 /**
  *
  * @author diogo
  */
-@WebServlet(name = "Rotas", urlPatterns = {"/formUsuario","/formCliente"})
+@WebServlet(name = "Rotas", urlPatterns = {"/formUsuario","/formCliente","/menuPrincipal","/formProduto"})
 public class Rotas extends HttpServlet {
 
     @Override
@@ -30,32 +31,25 @@ public class Rotas extends HttpServlet {
         RequestDispatcher requestDispatcher;
         //System.out.println("DESTINO" + destino);
         
-        // direciono a url chamada para a rota necessaria
-        switch(destino){
-            case "/formUsuario":
-                requestDispatcher = request.getRequestDispatcher("/WEB-INF/jsp/cadastrarUsuario.jsp");
-                requestDispatcher.forward(request, response);
-            break;    
-            case "/home":
-                requestDispatcher = request.getRequestDispatcher("/WEB-INF/jsp/home.jsp");
-                requestDispatcher.forward(request, response);
-            break;    
-        }
-        /*
-        
-        if(destino.equalsIgnoreCase("/home")){
-            requestDispatcher = request.getRequestDispatcher("/WEB-INF/jsp/home.jsp");
-            requestDispatcher.forward(request, response);
-        }
-        else if(destino.equalsIgnoreCase("/formUsuario")){
-            requestDispatcher = request.getRequestDispatcher("/WEB-INF/jsp/cadastrarUsuario.jsp");
-            requestDispatcher.forward(request, response);
-        }
-        else if(destino.equalsIgnoreCase("/formCliente")){
-            requestDispatcher = request.getRequestDispatcher("/WEB-INF/jsp/cadastrarCliente.jsp");
-            requestDispatcher.forward(request, response);
-        }
-        */
+            // direciono a url chamada para a rota necessaria
+            switch(destino){
+                case "/formUsuario":
+                    requestDispatcher = request.getRequestDispatcher("/WEB-INF/jsp/cadastrarUsuario.jsp");
+                    requestDispatcher.forward(request, response);
+                break;    
+                case "/menuPrincipal":
+                    requestDispatcher = request.getRequestDispatcher("/WEB-INF/jsp/home.jsp");
+                    requestDispatcher.forward(request, response);
+                break;    
+                case "/formCliente":
+                    requestDispatcher = request.getRequestDispatcher("/WEB-INF/jsp/cadastrarCliente.jsp");
+                    requestDispatcher.forward(request, response);
+                break;   
+                case "/formProduto":
+                    requestDispatcher = request.getRequestDispatcher("/WEB-INF/jsp/cadastrarProduto.jsp");
+                    requestDispatcher.forward(request, response);
+                break;   
+            }
         
     }
 
