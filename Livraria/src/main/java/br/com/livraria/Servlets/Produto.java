@@ -60,7 +60,10 @@ public class Produto extends HttpServlet {
                 requestDispatcher.forward(request, response);
                         
                 } catch (ClassNotFoundException | IllegalArgumentException | SQLException e) {
-                    requestDispatcher = request.getRequestDispatcher("/WEB-INF/jsp/cadastroSucess.jsp");
+                    System.out.println("Erro" + e);
+                    
+                    request.setAttribute("msg", e);
+                    requestDispatcher = request.getRequestDispatcher("/WEB-INF/jsp/cadastroDanger.jsp");
                     requestDispatcher.forward(request, response);
                 }    
                     
