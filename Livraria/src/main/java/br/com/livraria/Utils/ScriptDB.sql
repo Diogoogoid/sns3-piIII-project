@@ -80,10 +80,9 @@ create table funcionario (
 
 create table produto (
     IdProd int generated always as identity (start with 1, increment by 1) primary key,
-    Prod_Nome varchar(100) not null,
+    Nome varchar(100) not null,
     Fabricante varchar(100) not null,
     TipoProd varchar(100) not null,
-    Descricao varchar(200) not null,
     Quantidade int,
     Status boolean,
     Valor float,
