@@ -10,7 +10,7 @@
 
 create table cliente (
     IdCli int generated always as identity (start with 1, increment by 1) primary key,
-    Cli_Nome varchar(100) not null,
+    Nome varchar(100) not null,
     Sexo varchar (20),
     Status boolean,
     DataNasc Date not null,

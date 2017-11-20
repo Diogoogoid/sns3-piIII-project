@@ -80,12 +80,13 @@
         <div class="container">
             <div class="jumbotron">
               <div class="alert alert-danger">
-                  <strong>Atenção!</strong>Não foi possivel realizar o cadastro
+                  <h2>Atenção!</h2>
+                  <h3>Não foi possivel realizar o cadastro</h3>
                   <p>Confira o erro abaixo</p>
               </div>     
-                <p>
+                <h4>
                     Erro ${msg}
-                </p>
+                </h4>
             </div>
         </div>
        

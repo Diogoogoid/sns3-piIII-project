@@ -19,16 +19,17 @@ import java.util.List;
 /**
  *
  * @author bruno.falmeida
+ * edit diogo.sfelix
  */
 public class ClienteDAO {
     //Insere um cliente na tabela "cliente" do banco de dados
     public static void inserir(ClienteModel cliente)
-            throws SQLException, Exception {
+            throws SQLException, ClassNotFoundException {
         //Monta a string de inserção de um cliente no BD,
         //utilizando os dados do clientes passados como parâmetro
         String sql = "INSERT INTO cliente (NOME, SEXO, STATUS, DATANASC, ESTADOCIVIL,"
-                + "CPF, TEL, CEL, EMAIL, LOGRADOURO, NUMERO, COMPLEMENTO, CEP, "
-                + "BAIRRO, CIDADE, ESTADO) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, "
+                + "CPF, TEL, CEL, EMAIL, LOGRADOURO, NUMERO, CEP, "
+                + "BAIRRO, CIDADE, ESTADO) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, "
                 + "?, ? ,?, ?, ?)";
         
         //Conexão para abertura e fechamento
@@ -57,11 +58,10 @@ public class ClienteDAO {
             preparedStatement.setString(9, cliente.getEmail());
             preparedStatement.setString(10, cliente.getLogradouro());
             preparedStatement.setString(11, cliente.getNumero());
-            preparedStatement.setString(12, cliente.getComplemento());
-            preparedStatement.setString(13, cliente.getCep());
-            preparedStatement.setString(14, cliente.getBairro());
-            preparedStatement.setString(15, cliente.getCidade());
-            preparedStatement.setString(16, cliente.getEstado());
+            preparedStatement.setString(12, cliente.getCep());
+            preparedStatement.setString(13, cliente.getBairro());
+            preparedStatement.setString(14, cliente.getCidade());
+            preparedStatement.setString(15, cliente.getEstado());
             
             //Executa o comando no banco de dados
             preparedStatement.execute();

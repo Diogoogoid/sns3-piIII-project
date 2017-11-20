@@ -10,6 +10,7 @@ import java.util.Date;
 /**
  *
  * @author bruno.falmeida
+ * edit diogo.sfelix
  */
 public class ClienteModel {
     //Atributos de dados pessoais
@@ -32,6 +33,26 @@ public class ClienteModel {
     private String estado;
     private String cidade;
 
+    // constructor
+    
+    public ClienteModel(){
+    }
+    
+    public ClienteModel(
+            String nomeCliente, String sexo, Date dataNasc,
+            String estadoCivil, String cpf, String telefone,
+            String celular, String email, String logradouro,
+            String numero, String cep, String bairro, 
+            String estado, String cidade
+    ){
+            this.nomeCliente = nomeCliente; this.sexo = sexo;
+            this.dataNasc = dataNasc; this.estadoCivil = estadoCivil;
+            this.cpf = cpf; this.telefone = telefone; this.celular = celular;
+            this.email = email; this.logradouro = logradouro;
+            this.numero = numero; this.cep = cep; this.bairro = bairro;
+            this.estado = estado; this.cidade = cidade;
+    }
+    
     public Integer getId() {
         return id;
     }
