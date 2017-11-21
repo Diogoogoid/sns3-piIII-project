@@ -54,7 +54,7 @@ public class Cliente extends HttpServlet {
                 String celular =  request.getParameter("celular");       
                 String email = request.getParameter("email");
                 String cep = request.getParameter("cep");
-                String logradouro = request.getParameter("logradouro");
+                String rua = request.getParameter("rua");
                 String numero = request.getParameter("numero");
                 String bairro = request.getParameter("bairro");
                 String estado = request.getParameter("cidade");
@@ -62,7 +62,7 @@ public class Cliente extends HttpServlet {
                 
                 ClienteModel cliente = new ClienteModel(
                         nomeCliente, sexo, dataNasc, estadoCivil, cpf, telefone, celular,
-                        email, cep, logradouro, numero, bairro, estado, cidade
+                        email, cep, rua, numero, bairro, estado, cidade
                 );
                 
                 ClienteDAO.inserir(cliente);

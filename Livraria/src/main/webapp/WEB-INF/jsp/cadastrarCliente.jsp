@@ -178,9 +178,9 @@
         </div>
 
 
-        <!-- Search input-->
+         <!-- Search input-->
         <div class="form-group">
-          <label class="col-md-2 control-label" for="cep">CEP <h11>*</h11></label>
+          <label class="col-md-2 control-label" for="CEP">CEP <h11>*</h11></label>
           <div class="col-md-2">
             <input id="cep" name="cep" placeholder="Apenas números" class="form-control input-md" required="" value="" type="search" maxlength="8" pattern="[0-9]+$">
           </div>
@@ -191,11 +191,11 @@
 
         <!-- Prepended text-->
         <div class="form-group">
-          <label class="col-md-2 control-label" for="logradouro">Endereço</label>
+          <label class="col-md-2 control-label" for="prependedtext">Endereço</label>
           <div class="col-md-4">
             <div class="input-group">
               <span class="input-group-addon">Rua</span>
-              <input id="logradouro" name="logradouro" class="form-control" placeholder="" required="" readonly="readonly" type="text">
+              <input id="rua" name="rua" class="form-control" placeholder="" required="" readonly="readonly" type="text">
             </div>
 
           </div>
@@ -217,7 +217,7 @@
         </div>
 
         <div class="form-group">
-          <label class="col-md-2 control-label" for="cidade"></label>
+          <label class="col-md-2 control-label" for="prependedtext"></label>
           <div class="col-md-4">
             <div class="input-group">
               <span class="input-group-addon">Cidade</span>

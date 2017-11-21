@@ -274,15 +274,6 @@
         </div>
         </div>
         <div class="form-group">
-            <label class="col-md-2 control-label" for="permissao">Permissão <h11>*</h11></label>
-            <div class="col-md-2">
-                    <select required id="permissao" name="permissao" class="form-control">
-                            <option value=""></option>
-                            <option value="vendedor">Vendedor</option>
-                    </select>
-            </div>
-        </div>
-        <div class="form-group">
             <label class="col-md-2 control-label" for="permissao">Status</label>
             <div class="col-md-2">
                     <input type="checkbox" value="sim"> Ativo
