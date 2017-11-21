@@ -230,7 +230,7 @@ public class ProdutoDAO {
             throws SQLException, Exception {
 
         String sql = "SELECT * FROM produto "
-                + "WHERE UPPER(NOMEPROD) LIKE UPPER(?) AND STATUS=?";
+                + "WHERE ((UPPER(NOME) LIKE UPPER(?)) AND STATUS=?)";
         
         List<ProdutoModel> listaProdutos = null;
         
@@ -265,16 +265,16 @@ public class ProdutoDAO {
                 }
                 
                 ProdutoModel produto = new ProdutoModel();
-                produto.setId(result.getInt("IDPROD"));
-                produto.setNome(result.getString("NOMEPROD"));
+                //produto.setId(result.getInt("IDPROD"));
+                produto.setNome(result.getString("NOME"));
                 produto.setFabricante(result.getString("FABRICANTE"));
-                produto.setTipoProduto(result.getString("TIPOPROD"));
-                produto.setQtdProduto(result.getInt("QUANTIDADE"));
-                produto.setStatus(result.getBoolean("STATUS"));
-                produto.setValorProduto(result.getFloat("VALOR"));
-                produto.setGarantia(result.getInt("GARANTIA"));
-                Date d = new Date(result.getTimestamp("DATAFAB").getTime());
-                produto.setDtFabricacao(d);
+                //produto.setTipoProduto(result.getString("TIPOPROD"));
+                //produto.setQtdProduto(result.getInt("QUANTIDADE"));
+                //produto.setStatus(result.getBoolean("STATUS"));
+                //produto.setValorProduto(result.getFloat("VALOR"));
+                //produto.setGarantia(result.getInt("GARANTIA"));
+                //Date d = new Date(result.getTimestamp("DATAFAB").getTime());
+                //produto.setDtFabricacao(d);
                 
                 //Adiciona a instância na lista
                 listaProdutos.add(produto);

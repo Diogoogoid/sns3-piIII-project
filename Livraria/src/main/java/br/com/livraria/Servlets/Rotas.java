@@ -19,7 +19,7 @@ import javax.servlet.http.HttpSession;
  *
  * @author diogo.sfelix
  */
-@WebServlet(name = "Rotas", urlPatterns = {"/formUsuario","/formCliente","/menuPrincipal","/formProduto"})
+@WebServlet(name = "Rotas", urlPatterns = {"/formUsuario","/formCliente","/menuPrincipal","/formProduto","/listarProduto"})
 public class Rotas extends HttpServlet {
 
     @Override
@@ -48,7 +48,11 @@ public class Rotas extends HttpServlet {
                 case "/formProduto":
                     requestDispatcher = request.getRequestDispatcher("/WEB-INF/jsp/cadastrarProduto.jsp");
                     requestDispatcher.forward(request, response);
-                break;   
+                break;  
+                case "/listarProduto":
+                    requestDispatcher = request.getRequestDispatcher("/WEB-INF/jsp/listarProduto.jsp");
+                    requestDispatcher.forward(request, response);
+                break;
             }
         
     }
