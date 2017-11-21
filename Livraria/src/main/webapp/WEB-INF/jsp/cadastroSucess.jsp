@@ -80,7 +80,7 @@
         <div class="container">
             <div class="jumbotron">
               <div class="alert alert-success">
-                  <strong>Produto cadastrado com sucesso</strong>
+                  <strong>Cadastrado realizado com sucesso!</strong>
               </div>     
             </div>
         </div>

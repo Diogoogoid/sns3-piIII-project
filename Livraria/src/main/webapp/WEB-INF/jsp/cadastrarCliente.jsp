@@ -113,7 +113,7 @@
 
           <label class="col-md-1 control-label" for="dtnasc">Nascimento<h11>*</h11></label>  
           <div class="col-md-2">
-          <input id="dtnasc" name="dtnasc" placeholder="DD/MM/AAAA" class="form-control input-md" required="" type="text" maxlength="10" OnKeyPress="formatar('##/##/####', this)" onBlur="showhide()">
+          <input id="dtnasc" name="dtnasc" placeholder="DD/MM/AAAA" class="form-control input-md" required="" type="date">
         </div>
 
         <!-- Multiple Radios (inline) -->

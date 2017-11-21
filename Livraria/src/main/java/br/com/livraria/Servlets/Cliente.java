@@ -47,7 +47,7 @@ public class Cliente extends HttpServlet {
         
                 String nomeCliente = request.getParameter("Nome");
                 String sexo = request.getParameter("sexo");
-                Date dataNasc = Date.valueOf("dtnasc");
+                Date dataNasc = Date.valueOf(request.getParameter("dtnasc"));
                 String estadoCivil = request.getParameter("estadoCivil");
                 String cpf = request.getParameter("cpf");
                 String telefone = request.getParameter("telefone");
@@ -59,6 +59,7 @@ public class Cliente extends HttpServlet {
                 String bairro = request.getParameter("bairro");
                 String estado = request.getParameter("cidade");
                 String cidade = request.getParameter("estado");        
+                
                 
                 ClienteModel cliente = new ClienteModel(
                         nomeCliente, sexo, dataNasc, estadoCivil, cpf, telefone, celular,
@@ -80,7 +81,6 @@ public class Cliente extends HttpServlet {
                     
                 break;        
             }
-        
         
     }
 
