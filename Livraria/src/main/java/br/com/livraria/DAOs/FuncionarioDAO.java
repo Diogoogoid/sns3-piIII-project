@@ -23,10 +23,14 @@ import java.util.List;
 public class FuncionarioDAO {
     public static void inserir(FuncionarioModel func)
             throws SQLException, Exception {
+        /*
         String sql = "INSERT INTO FUNCIONARIO (FUNC_NOME, SEXO, STATUS, DATANASC, ESTADOCIVIL,"
                 + "CPF, TEL, CEL, EMAIL, LOGRADOURO, NUMERO, COMPLEMENTO, CEP, "
                 + "BAIRRO, CIDADE, ESTADO, LOGIN, SENHA, IDFILIAL, IDCARGO) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, "
                 + "?, ?, ?, ?, ?, ?, ?, ?, ?)";
+        */
+        String sql = "INSERT INTO FUNCIONARIO (NOME, STATUS, LOGIN, SENHA, IDFILIAL, IDCARGO, IDSETOR) "
+                + "VALUES (?, ?, ?, ?, ?, ? ";
         
         //Conexão para abertura e fechamento
         Connection connection = null;
@@ -42,7 +46,7 @@ public class FuncionarioDAO {
             preparedStatement = connection.prepareStatement(sql);
 
             //Configura os parâmetros do "PreparedStatement"
-            preparedStatement.setString(1, func.getFunc_nome());
+            preparedStatement.setString(1, func.getNome());
             preparedStatement.setString(2, func.getSexo());
             preparedStatement.setBoolean(3, true);
             Timestamp t = new Timestamp(func.getDataNasc().getTime());
@@ -107,7 +111,7 @@ public class FuncionarioDAO {
             //Configura os parâmetros do "PreparedStatement"
             preparedStatement.setInt(1, func.getIdFilial());
             preparedStatement.setInt(2, func.getIdCargo());
-            preparedStatement.setString(3, func.getFunc_nome());
+            preparedStatement.setString(3, func.getNome());
             preparedStatement.setString(4, func.getSexo());
             preparedStatement.setBoolean(5, true);
             Timestamp t = new Timestamp(func.getDataNasc().getTime());
@@ -179,7 +183,7 @@ public class FuncionarioDAO {
                 funcionario.setIdFunc(result.getInt("IDFUNC"));
                 funcionario.setIdFilial(result.getInt("IDFILIAL"));
                 funcionario.setIdCargo(result.getInt("IDCARGO"));
-                funcionario.setFunc_nome(result.getString("FUNC_NOME"));
+                funcionario.setNome(result.getString("FUNC_NOME"));
                 funcionario.setSexo(result.getString("SEXO"));
                 Date d = new Date(result.getTimestamp("DATANASC").getTime());
                 funcionario.setDataNasc(d);
@@ -261,7 +265,7 @@ public class FuncionarioDAO {
                 funcionario.setIdFunc(result.getInt("IDFUNC"));
                 funcionario.setIdFilial(result.getInt("IDFILIAL"));
                 funcionario.setIdCargo(result.getInt("IDCARGO"));
-                funcionario.setFunc_nome(result.getString("FUNC_NOME"));
+                funcionario.setNome(result.getString("FUNC_NOME"));
                 funcionario.setSexo(result.getString("SEXO"));
                 Date d = new Date(result.getTimestamp("DATANASC").getTime());
                 funcionario.setDataNasc(d);
@@ -334,7 +338,7 @@ public class FuncionarioDAO {
                 funcionario.setIdFunc(result.getInt("IDFUNC"));
                 funcionario.setIdFilial(result.getInt("IDFILIAL"));
                 funcionario.setIdCargo(result.getInt("IDCARGO"));
-                funcionario.setFunc_nome(result.getString("FUNC_NOME"));
+                funcionario.setNome(result.getString("FUNC_NOME"));
                 funcionario.setSexo(result.getString("SEXO"));
                 Date d = new Date(result.getTimestamp("DATANASC").getTime());
                 funcionario.setDataNasc(d);

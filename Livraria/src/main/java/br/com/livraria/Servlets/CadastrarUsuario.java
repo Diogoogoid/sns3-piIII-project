@@ -64,7 +64,7 @@ public class CadastrarUsuario extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         FuncionarioModel user = new FuncionarioModel();
-        user.setFunc_nome(request.getParameter("Nome"));
+        user.setNome(request.getParameter("Nome"));
         user.setCpf(request.getParameter("cpf"));
         SimpleDateFormat format = new SimpleDateFormat();
         Date date = null;

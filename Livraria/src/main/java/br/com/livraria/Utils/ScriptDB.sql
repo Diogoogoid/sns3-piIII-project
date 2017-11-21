@@ -52,11 +52,12 @@ create table cargo (
     foreign key (IdSetor) references setor(IdSetor)
 );
 
+/*
 create table funcionario (
     IdFunc int generated always as identity (start with 1, increment by 1) primary key,
     IdFilial int not null,
     IdCargo int not null,
-    Func_Nome varchar(100) not null,
+    Nome varchar(100) not null,
     Sexo varchar (20),
     Status boolean,
     DataNasc Date not null,
@@ -76,6 +77,20 @@ create table funcionario (
     Senha varchar(100) not null,
     foreign key (IdFilial) references filial(IdFilial),
     foreign key (IdCargo) references cargo(IdCargo)
+);
+*/
+/* edit diogo.sfelix */
+create table funcionario (
+    IdFunc int generated always as identity (start with 1, increment by 1) primary key,
+    IdFilial int not null,
+    IdCargo int not null,
+    IdSetor int not null,
+    Nome varchar(100) not null,
+    Login varchar(100) unique not null,
+    Senha varchar(100) not null,
+    foreign key (IdFilial) references filial(IdFilial),
+    foreign key (IdCargo) references cargo(IdCargo),
+    foreign key (IdSetor) references setor(IdSetor)
 );
 
 create table produto (
@@ -147,6 +162,7 @@ INSERT INTO setor (SETOR_NOME, DESCRICAO, STATUS) VALUES ('Vendas',
 
 INSERT INTO setor (SETOR_NOME, DESCRICAO, STATUS) VALUES ('T.I', 
     'Cuida do cadastro de novos funcionarios e da suporte ao sistema.', true);
+
 
 -- CARGO --
 -- BackOffice --
@@ -232,13 +248,13 @@ INSERT INTO filial (FILIAL_NOME, ESTADO, CIDADE, STATUS) VALUES ('Filial Porto A
 INSERT INTO filial (FILIAL_NOME, ESTADO, CIDADE, STATUS) VALUES ('Matriz São Paulo', 'São Paulo', 'São Paulo', true);
 
 -- FUNCIONARIO --
-INSERT INTO funcionario (IDFILIAL, IDCARGO, FUNC_NOME, SEXO, STATUS, DATANASC, 
+INSERT INTO funcionario (IDFILIAL, IDCARGO, NOME, SEXO, STATUS, DATANASC, 
     ESTADOCIVIL, CPF, TEL, CEL, EMAIL, LOGRADOURO, NUMERO, COMPLEMENTO, CEP, 
     BAIRRO, CIDADE, ESTADO, LOGIN, SENHA) VALUES (3, 10, 'Admin', 'M', true, '1995-08-20',
     'Solteiro', '428.555.666-89', '(11)9999-9999', '(11)96666-6666', 'teste@teste.com', 
     'kkk', '123', 'ola', '02200-555', 'Jardins', 'São Paulo', 'São Paulo', 'admin', '123456');
 
-INSERT INTO funcionario (IDFILIAL, IDCARGO, FUNC_NOME, SEXO, STATUS, DATANASC, 
+INSERT INTO funcionario (IDFILIAL, IDCARGO, NOME, SEXO, STATUS, DATANASC, 
     ESTADOCIVIL, CPF, TEL, CEL, EMAIL, LOGRADOURO, NUMERO, COMPLEMENTO, CEP, 
     BAIRRO, CIDADE, ESTADO, LOGIN, SENHA) VALUES (3, 9, 'Diogo', 'M', true, '1995-08-20',
     'Solteiro', '428.555.666-50', '(11)9999-9789', '(11)96668-6666', 'teste@teste.com', 

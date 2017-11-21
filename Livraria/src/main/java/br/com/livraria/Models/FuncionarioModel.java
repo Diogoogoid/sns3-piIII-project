@@ -16,7 +16,7 @@ public class FuncionarioModel {
     private int IdFunc;
     private int IdFilial;
     private int IdCargo;
-    private String func_nome;
+    private String nome;
     private String sexo;
     private boolean status;
     private Date dataNasc;
@@ -35,6 +35,26 @@ public class FuncionarioModel {
     private String login;
     private String senha;
 
+    
+    // constructor
+    public FuncionarioModel(){
+        
+    }
+
+    public FuncionarioModel(
+            int IdFilial, int IdCargo, String nome, String login, String senha
+    ) {
+        this.IdFilial = IdFilial;
+        this.IdCargo = IdCargo;
+        this.nome = nome;
+        this.login = login;
+        this.senha = senha;
+    }
+    
+
+    
+    
+    // getters e setters
     public int getIdFunc() {
         return IdFunc;
     }
@@ -59,12 +79,12 @@ public class FuncionarioModel {
         this.IdCargo = IdCargo;
     }
 
-    public String getFunc_nome() {
-        return func_nome;
+    public String getNome() {
+        return nome;
     }
 
-    public void setFunc_nome(String func_nome) {
-        this.func_nome = func_nome;
+    public void setNome(String nome) {
+        this.nome = nome;
     }
 
     public String getSexo() {
