@@ -5,7 +5,9 @@
  */
 package br.com.livraria.Servlets;
 
+import br.com.livraria.DAOs.ProdutoDAO;
 import br.com.livraria.Models.CargoModel;
+import br.com.livraria.Models.ProdutoModel;
 import br.com.livraria.Services.CadastraUsuarioService;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -70,6 +72,14 @@ public class Rotas extends HttpServlet {
                     requestDispatcher.forward(request, response);
                 break;  
                 case "/listarProduto":
+                    List<ProdutoModel> listaProdutos = null;
+                    try {
+                        listaProdutos = ProdutoDAO.listar();
+                    } catch (Exception ex) {
+                        Logger.getLogger(CadastrarUsuario.class.getName()).log(Level.SEVERE, null, ex);
+                    }
+                    
+                    request.setAttribute("produtos", listaProdutos);
                     requestDispatcher = request.getRequestDispatcher("/WEB-INF/jsp/listarProduto.jsp");
                     requestDispatcher.forward(request, response);
                 break;

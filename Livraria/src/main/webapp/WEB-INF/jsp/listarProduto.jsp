@@ -109,13 +109,13 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <c:forEach items="${pesquisa}" var="produto">
+                    <c:forEach items="${produtos}" var="produto">
                         <tr>
                             <td><c:out value="${produto.nome}" /></td>
                             <td><c:out value="${produto.fabricante}" /></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
+                            <td><c:out value="${produto.tipoProduto}" /></td>
+                            <td><c:out value="${produto.qtdProduto}" /></td>
+                            <td><c:out value="${produto.valorProduto}" /></td>
                         </tr>    
                     </c:forEach>    
                 </tbody>    
