@@ -12,7 +12,7 @@ package br.com.livraria.Models;
 public class CargoModel {
 
     private int IdCargo;
-    private int IdSetor;
+    public SetorModel Setor;
     private String Cargo_Nome;
     private String Descricao;
     private boolean Status;
@@ -33,12 +33,12 @@ public class CargoModel {
         this.IdCargo = IdCargo;
     }
 
-    public int getIdSetor() {
-        return IdSetor;
+    public SetorModel getSetor() {
+        return Setor;
     }
 
-    public void setIdSetor(int IdSetor) {
-        this.IdSetor = IdSetor;
+    public void setSetor(SetorModel Setor) {
+        this.Setor = Setor;
     }
 
     public String getCargo_Nome() {

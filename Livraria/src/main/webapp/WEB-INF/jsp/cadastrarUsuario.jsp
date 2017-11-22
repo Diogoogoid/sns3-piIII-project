@@ -10,7 +10,7 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>Cadastrar de Cliente</title>
+        <title>Cadastrar de Funcionário</title>
         <link rel="stylesheet" type="text/css"  href="css/bootstrap.css">
         <link rel="stylesheet" type="text/css"  href="css/bootstrap.min.css">
         <link rel="stylesheet" type="text/css"  href="css/menuPrincipal.css">
@@ -135,7 +135,7 @@
             </select>
         </div>
         </div>
-        <div class="form-group">
+<!--        <div class="form-group">
         <label class="col-md-2 control-label" for="Departamento">Departamento <h11>*</h11></label>
         <div class="col-md-2">
             <select required id="Departamento" name="Departamento" class="form-control">
@@ -145,18 +145,15 @@
                     <option value="3">T.I</option>
             </select>
         </div>
-        </div>
+        </div>-->
         <div class="form-group">
         <label class="col-md-2 control-label" for="Cargo">Cargo <h11>*</h11></label>
         <div class="col-md-2">
             <select required id="Cargo" name="Cargo" class="form-control">
                     <option value=""></option>
-                    <option value="Gerente">Gerente</option>
-                    <option value="Atendente">Atendente</option>
-                    <option value="Analista">Analista</option>
-                    <option value="Estoquista">Estoquista</option>
-                    <option value="Vendedor">Vendedor</option>
-                    <option value="Suporte">Suporte</option>
+                    <c:forEach items="${cargos}" var="cargo">
+                        <option value="${cargo.getIdCargo()}">${cargo.getCargo_Nome()}</option>
+                    </c:forEach> 
             </select>
         </div>
         </div>
