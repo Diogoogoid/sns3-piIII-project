@@ -60,14 +60,14 @@
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown">Clientes <span class="caret"></span><span style="font-size:16px;" class="pull-right showopacity glyphicon glyphicon-list-alt"></span></a>
                         <ul class="dropdown-menu forAnimate" role="menu">
                             <li><a href="${pageContext.request.contextPath}/formCliente">Cadastrar</a></li>
-                            <li><a href="#">Consultar</a></li>
+                            <li><a href="${pageContext.request.contextPath}/listarCliente">Consultar</a></li>
                         </ul>
                     </li>
                     <li class="dropdown">
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown">Produtos <span class="caret"></span><span style="font-size:16px;" class="pull-right showopacity glyphicon glyphicon-th-list"></span></a>
                         <ul class="dropdown-menu forAnimate" role="menu">
                             <li><a href="${pageContext.request.contextPath}/formProduto">Cadastrar</a></li>
-                            <li><a href="#">Consultar</a></li>
+                            <li><a href="${pageContext.request.contextPath}/listarProduto">Consultar</a></li>
                         </ul>
                     </li>
                     <li ><a href="#">Relatorio Vendas<span style="font-size:16px;" class="pull-right showopacity glyphicon glyphicon-tags"></span></a></li>
