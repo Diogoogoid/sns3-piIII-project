@@ -39,18 +39,20 @@ public class CadastrarUsuario extends HttpServlet {
         HttpSession sessao = request.getSession(); 
         request.setAttribute("usuario", sessao.getAttribute("usuario"));
         
+        List<SetorModel> listaSetores = null;
+        try {
+            listaSetores = CadastraUsuarioService.getSetores();
+        } catch (Exception ex) {
+            Logger.getLogger(CadastrarUsuario.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+        request.setAttribute("setores", listaSetores);
+        
         List<CargoModel> listaCargos = null;
         try {
             listaCargos = CadastraUsuarioService.getCargos();
         } catch (Exception ex) {
             Logger.getLogger(CadastrarUsuario.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        
-        for(int i = 0; i < listaCargos.size(); i++) {
-            String cargoNome = listaCargos.get(i).getCargo_Nome();
-            String setorNome = listaCargos.get(i).Setor.getSetor_Nome();
-            String temp = cargoNome + " - " + setorNome;
-            listaCargos.get(i).setCargo_Nome(temp);
         }
 
         request.setAttribute("cargos", listaCargos);

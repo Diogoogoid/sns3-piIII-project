@@ -11,6 +11,9 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.Date;
 import java.sql.SQLException;
+import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -22,22 +25,19 @@ import javax.servlet.http.HttpServletResponse;
  *
  * @author diogo.sfelix
  */
-@WebServlet(name = "Cliente", urlPatterns = {"/cadastrarCliente"})
+@WebServlet(name = "Cliente", urlPatterns = {"/cadastrarCliente","/exibirCliente","/listarTodosClientes"})
 public class Cliente extends HttpServlet {
 
-    @Override
-    protected void doGet(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
+    protected void processRequest(HttpServletRequest request, HttpServletResponse response)
+       throws ServletException, IOException {
 
-    }
-
-    @Override
-    protected void doPost(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
-        
-              // pego a url chamada pelo menuPrincipal
+         // pego a url chamada pelo menuPrincipal
         String destino = request.getServletPath();
         RequestDispatcher requestDispatcher;
+        
+        ClienteDAO daoCliente = new ClienteDAO();
+        List<ClienteModel> clientes;
+        ClienteModel cliente;
         
             // direciono a url chamada para a classe correta
             switch(destino){
@@ -61,7 +61,7 @@ public class Cliente extends HttpServlet {
                 String cidade = request.getParameter("estado");        
                 
                 
-                ClienteModel cliente = new ClienteModel(
+                cliente = new ClienteModel(
                         nomeCliente, sexo, dataNasc, estadoCivil, cpf, telefone, celular,
                         email, cep, rua, numero, bairro, estado, cidade
                 );
@@ -79,9 +79,68 @@ public class Cliente extends HttpServlet {
                     requestDispatcher.forward(request, response);
                 }    
                     
-                break;        
+                    break;        
+                case "/exibirCliente":
+                    System.out.println("Exibir cliente");
+                    try{
+                        
+                        String nomePesquisaCliente = request.getParameter("Nome");
+                        
+                        if(!nomePesquisaCliente.isEmpty()){
+                            clientes = daoCliente.procurar(nomePesquisaCliente);
+                            request.setAttribute("pesquisa", clientes);
+
+                        }else{
+                            request.setAttribute("msgErroBusca", "Sua busca não gerou resultados!");
+                                   
+                        }
+                        
+                        request.getRequestDispatcher("/WEB-INF/jsp/listarCliente.jsp").forward(request, response);
+                        
+                    }catch(SQLException | ServletException | IOException e){
+                        System.out.println("Erro -> " + e);
+                    } catch (Exception ex) {
+                        Logger.getLogger(Produto.class.getName()).log(Level.SEVERE, null, ex);
+                    }
+                    
+                    break;
+                case "/listarTodosClientes":
+                    case "/listarTodosProdutos":
+                    
+                    try {
+                        clientes = ClienteDAO.listar();
+                         
+                        if(clientes != null){
+                            request.setAttribute("pesquisa", clientes);
+                            
+                        }else{
+                            request.setAttribute("msgErroBusca", "Sua busca no gerou resuldato");
+                            
+                        }
+                        
+                        request.getRequestDispatcher("/WEB-INF/jsp/listarCliente.jsp").forward(request, response);
+                        
+                    } catch(SQLException | ServletException | IOException e){
+                        System.out.println("Erro -> " + e);
+                    } catch (Exception ex) {
+                        Logger.getLogger(Produto.class.getName()).log(Level.SEVERE, null, ex);
+                    }
+                break;
+                    
             }
         
+    }
+    
+    @Override
+    protected void doGet(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+        processRequest(request, response);
+    }
+
+    @Override
+    protected void doPost(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+        processRequest(request, response);
     }
 
 }

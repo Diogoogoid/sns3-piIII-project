@@ -22,22 +22,20 @@ import javax.servlet.http.HttpSession;
  *
  * @author diogo.sfelix
  */
-@WebServlet(name = "Produto", urlPatterns = {"/cadastrarProduto","/exibirProduto"})
+@WebServlet(name = "Produto", urlPatterns = {"/cadastrarProduto","/exibirProduto","/listarTodosProdutos"})
 public class Produto extends HttpServlet {
-
-    @Override
-    protected void doGet(HttpServletRequest request, HttpServletResponse response)
+   
+     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        
-    }
-
-    @Override
-    protected void doPost(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
-        
+         
+         
         // pego a url chamada pelo menuPrincipal
         String destino = request.getServletPath();
         RequestDispatcher requestDispatcher;
+        
+        ProdutoDAO daoProduto = new ProdutoDAO();
+        List<ProdutoModel> produtos;
+        ProdutoModel produto;
         
             // direciono a url chamada para a classe correta
             switch(destino){
@@ -53,7 +51,7 @@ public class Produto extends HttpServlet {
                 Date dtFabricacao = Date.valueOf(request.getParameter("dtFabricacao"));
                 int garantia = Integer.parseInt(request.getParameter("garantia"));
 
-                ProdutoModel produto = new ProdutoModel(
+                produto = new ProdutoModel(
                         nome, fabricante, tipoProduto, qtdProduto, valorProduto, dtFabricacao, garantia
                 );
 
@@ -71,36 +69,66 @@ public class Produto extends HttpServlet {
                     
                 break; 
                 case "/exibirProduto":
-                    
+                     System.out.println("entrei exibir Produto");
                     try{
-                        System.out.println("Entrei servlet Produto");
-                        ProdutoDAO daoProduto = new ProdutoDAO();
                         
                         String nomePesquisaProduto = request.getParameter("Nome");
-                        List<ProdutoModel> produtos;
-                        HttpSession sessao = request.getSession();
-                       
                         
-                        if(nomePesquisaProduto != null){
+                        if(!nomePesquisaProduto.isEmpty()){
                             produtos = daoProduto.procurar(nomePesquisaProduto);
                             request.setAttribute("pesquisa", produtos);
-                            this.getServletContext().getRequestDispatcher("/WEB-INF/jsp/listaProduto.jsp").forward(request, response);
                             
-                        }else if(nomePesquisaProduto.equals("")){
-                            
+                        }else{
+                            request.setAttribute("msgErroBusca", "Sua busca não gerou resultados!");
+                                   
                         }
                         
-                        this.getServletContext().getRequestDispatcher("/WEB-INF/jsp/listaProduto.jsp").forward(request, response);
+                        request.getRequestDispatcher("/WEB-INF/jsp/listarProduto.jsp").forward(request, response);
                         
                     }catch(SQLException | ServletException | IOException e){
                         System.out.println("Erro -> " + e);
                     } catch (Exception ex) {
                         Logger.getLogger(Produto.class.getName()).log(Level.SEVERE, null, ex);
                     }
+                break;   
+                case "/listarTodosProdutos":
                     
-                    
-                break;        
+                    try {
+
+                        produtos = ProdutoDAO.listar();
+                         
+                        if(produtos != null){
+                            request.setAttribute("pesquisa", produtos);
+                            
+                        }else{
+                            request.setAttribute("msgErroBusca", "Sua busca no gerou resuldato");
+                            
+                        }
+                        
+                        request.getRequestDispatcher("/WEB-INF/jsp/listarProduto.jsp").forward(request, response);
+                        
+                    } catch(SQLException | ServletException | IOException e){
+                        System.out.println("Erro -> " + e);
+                    } catch (Exception ex) {
+                        Logger.getLogger(Produto.class.getName()).log(Level.SEVERE, null, ex);
+                    }
+                break;
             }
+         
+     }
+    
+    
+        @Override
+    protected void doGet(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+        processRequest(request, response);
+    }
+
+    @Override
+    protected void doPost(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+        processRequest(request, response);
+
     }
 
 }

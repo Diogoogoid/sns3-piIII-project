@@ -26,7 +26,7 @@ public class ProdutoDAO {
             throws SQLException, ClassNotFoundException{
         
         // construindo a strin de inserção no BD na tabela produto
-        String sql = "INSERT INTO produto (PROD_NOME, FABRICANTE, TIPOPROD, "
+        String sql = "INSERT INTO produto (NOME, FABRICANTE, TIPOPROD, "
                 + "QUANTIDADE, STATUS, VALOR, GARANTIA, DATAFAB)" 
                 + " VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
         
@@ -72,7 +72,7 @@ public class ProdutoDAO {
     public static void atualizar(ProdutoModel produto)
             throws SQLException, Exception {
         // String de update no BD
-        String sql = "UPDATE produto SET PROD_NOME=?, FABRICANTE=?, TIPOPROD=?, "
+        String sql = "UPDATE produto SET NOMEPROD=?, FABRICANTE=?, TIPOPROD=?, "
                 + "QUANTIDADE=?, STATUS=?, VALOR=?, GARANTIA=?, DATAFAB=?"
                 + "WHERE IDPROD=?";
         
@@ -194,7 +194,7 @@ public class ProdutoDAO {
                 
                 ProdutoModel produto = new ProdutoModel();
                 produto.setId(result.getInt("IDPROD"));
-                produto.setNome(result.getString("PROD_NOME"));
+                produto.setNome(result.getString("NOME"));
                 produto.setFabricante(result.getString("FABRICANTE"));
                 produto.setTipoProduto(result.getString("TIPOPROD"));
                 produto.setQtdProduto(result.getInt("QUANTIDADE"));
@@ -230,7 +230,7 @@ public class ProdutoDAO {
             throws SQLException, Exception {
 
         String sql = "SELECT * FROM produto "
-                + "WHERE ((UPPER(PROD_NOME) LIKE UPPER(?)) AND STATUS=?)";
+                + "WHERE ((UPPER(NOME) LIKE UPPER(?)) AND STATUS=?)";
         
         List<ProdutoModel> listaProdutos = null;
         
@@ -266,15 +266,15 @@ public class ProdutoDAO {
                 
                 ProdutoModel produto = new ProdutoModel();
                 //produto.setId(result.getInt("IDPROD"));
-                produto.setNome(result.getString("PROD_NOME"));
+                produto.setNome(result.getString("NOME"));
                 produto.setFabricante(result.getString("FABRICANTE"));
-                //produto.setTipoProduto(result.getString("TIPOPROD"));
-                //produto.setQtdProduto(result.getInt("QUANTIDADE"));
-                //produto.setStatus(result.getBoolean("STATUS"));
-                //produto.setValorProduto(result.getFloat("VALOR"));
-                //produto.setGarantia(result.getInt("GARANTIA"));
-                //Date d = new Date(result.getTimestamp("DATAFAB").getTime());
-                //produto.setDtFabricacao(d);
+                produto.setTipoProduto(result.getString("TIPOPROD"));
+                produto.setQtdProduto(result.getInt("QUANTIDADE"));
+                produto.setStatus(result.getBoolean("STATUS"));
+                produto.setValorProduto(result.getFloat("VALOR"));
+                produto.setGarantia(result.getInt("GARANTIA"));
+                Date d = new Date(result.getTimestamp("DATAFAB").getTime());
+                produto.setDtFabricacao(d);
                 
                 //Adiciona a instância na lista
                 listaProdutos.add(produto);
@@ -329,7 +329,7 @@ public class ProdutoDAO {
             if (result.next()) {                
                 ProdutoModel produto = new ProdutoModel();
                 produto.setId(result.getInt("IDPROD"));
-                produto.setNome(result.getString("PROD_NOME"));
+                produto.setNome(result.getString("NOMEPROD"));
                 produto.setFabricante(result.getString("FABRICANTE"));
                 produto.setStatus(result.getBoolean("STATUS"));
                 produto.setTipoProduto(result.getString("TIPOPROD"));

@@ -27,8 +27,8 @@ public class ClienteDAO {
             throws SQLException, ClassNotFoundException {
         //Monta a string de inserção de um cliente no BD,
         //utilizando os dados do clientes passados como parâmetro
-        String sql = "INSERT INTO cliente (NOME, SEXO, STATUS, DATANASC, ESTADOCIVIL,"
-                + "CPF, TEL, CEL, EMAIL, LOGRADOURO, NUMERO, CEP, "
+        String sql = "INSERT INTO cliente (NOME, SEXO, STATUS, DATA, ESTADOCIVIL,"
+                + "CPF, TELONE, CELULAR, EMAIL, LOGRADOURO, NUMERO, CEP, "
                 + "BAIRRO, CIDADE, ESTADO) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, "
                 + "?, ? ,?, ?, ?)";
         
@@ -49,7 +49,7 @@ public class ClienteDAO {
             preparedStatement.setString(1, cliente.getNome());
             preparedStatement.setString(2, cliente.getSexo());
             preparedStatement.setBoolean(3, true);
-            Timestamp t = new Timestamp(cliente.getDataNasc().getTime());
+            Timestamp t = new Timestamp(cliente.getData().getTime());
             preparedStatement.setTimestamp(4, t);
             preparedStatement.setString(5, cliente.getEstadoCivil());
             preparedStatement.setString(6, cliente.getCpf());
@@ -86,8 +86,8 @@ public class ClienteDAO {
             throws SQLException, Exception {
         //Monta a string de atualização do cliente no BD, utilizando
         //prepared statement
-        String sql = "UPDATE cliente SET NOME=?, SEXO=?, STATUS=?, DATANASC=?, "
-                + "ESTADOCIVIL=?, CPF=?, TEL=?, CEL=?, EMAIL=?, LOGRADOURO=?, "
+        String sql = "UPDATE cliente SET NOME=?, SEXO=?, STATUS=?, DATA=?, "
+                + "ESTADOCIVIL=?, CPF=?, TELEFONE=?, CELULAR=?, EMAIL=?, LOGRADOURO=?, "
                 + "NUMERO=?, COMPLEMENTO=?, CEP=?, BAIRRO=?, CIDADE=?, ESTADO=? "
             + "WHERE (IDCLI=?)";
         
@@ -109,7 +109,7 @@ public class ClienteDAO {
             preparedStatement.setString(1, cliente.getNome());
             preparedStatement.setString(2, cliente.getSexo());
             preparedStatement.setBoolean(3, true);
-            Timestamp t = new Timestamp(cliente.getDataNasc().getTime());
+            Timestamp t = new Timestamp(cliente.getData().getTime());
             preparedStatement.setTimestamp(4, t);
             preparedStatement.setString(5, cliente.getEstadoCivil());
             preparedStatement.setString(6, cliente.getCpf());
@@ -181,13 +181,13 @@ public class ClienteDAO {
                 cliente.setId(result.getInt("IDCLI"));
                 cliente.setNome(result.getString("NOME"));
                 cliente.setSexo(result.getString("SEXO"));
-                Date d = new Date(result.getTimestamp("DATANASC").getTime());
-                cliente.setDataNasc(d);
+                Date d = new Date(result.getTimestamp("DATA").getTime());
+                cliente.setData(d);
                 cliente.setAtivo(result.getBoolean("STATUS"));
                 cliente.setEstadoCivil(result.getString("ESTADOCIVIL"));
                 cliente.setCpf(result.getString("CPF"));
-                cliente.setTelefone(result.getString("TEL"));
-                cliente.setCelular(result.getString("CEL"));
+                cliente.setTelefone(result.getString("TELEFONE"));
+                cliente.setCelular(result.getString("CELULAR"));
                 cliente.setEmail(result.getString("EMAIL"));
                 cliente.setLogradouro(result.getString("LOGRADOURO"));
                 cliente.setNumero(result.getString("NUMERO"));
@@ -229,7 +229,7 @@ public class ClienteDAO {
         //que possuem a coluna de ativação de clientes configurada com
         //o valor correto ("enabled" com "true")
         String sql = "SELECT * FROM cliente "
-                + "WHERE UPPER(NOME) LIKE UPPER(?) AND STATUS=?";
+                + "WHERE ((UPPER(NOME) LIKE UPPER(?)) AND STATUS=?)";
         
         //Lista de clientes de resultado
         List<ClienteModel> listaClientes = null;
@@ -270,13 +270,13 @@ public class ClienteDAO {
                 cliente.setId(result.getInt("IDCLI"));
                 cliente.setNome(result.getString("NOME"));
                 cliente.setSexo(result.getString("SEXO"));
-                Date d = new Date(result.getTimestamp("DATANASC").getTime());
-                cliente.setDataNasc(d);
+                Date d = new Date(result.getTimestamp("DATA").getTime());
+                cliente.setData(d);
                 cliente.setAtivo(result.getBoolean("STATUS"));
                 cliente.setEstadoCivil(result.getString("ESTADOCIVIL"));
                 cliente.setCpf(result.getString("CPF"));
-                cliente.setTelefone(result.getString("TEL"));
-                cliente.setCelular(result.getString("CEL"));
+                cliente.setTelefone(result.getString("TELEFONE"));
+                cliente.setCelular(result.getString("CELULAR"));
                 cliente.setEmail(result.getString("EMAIL"));
                 cliente.setLogradouro(result.getString("LOGRADOURO"));
                 cliente.setNumero(result.getString("NUMERO"));
@@ -347,13 +347,13 @@ public class ClienteDAO {
                 cliente.setId(result.getInt("IDCLI"));
                 cliente.setNome(result.getString("NOME"));
                 cliente.setSexo(result.getString("SEXO"));
-                Date d = new Date(result.getTimestamp("DATANASC").getTime());
-                cliente.setDataNasc(d);
+                Date d = new Date(result.getTimestamp("DATA").getTime());
+                cliente.setData(d);
                 cliente.setAtivo(result.getBoolean("STATUS"));
                 cliente.setEstadoCivil(result.getString("ESTADOCIVIL"));
                 cliente.setCpf(result.getString("CPF"));
-                cliente.setTelefone(result.getString("TEL"));
-                cliente.setCelular(result.getString("CEL"));
+                cliente.setTelefone(result.getString("TELEFONE"));
+                cliente.setCelular(result.getString("CELULAR"));
                 cliente.setEmail(result.getString("EMAIL"));
                 cliente.setLogradouro(result.getString("LOGRADOURO"));
                 cliente.setNumero(result.getString("NUMERO"));

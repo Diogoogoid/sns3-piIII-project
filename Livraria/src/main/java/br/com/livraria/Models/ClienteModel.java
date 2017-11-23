@@ -15,9 +15,9 @@ import java.util.Date;
 public class ClienteModel {
     //Atributos de dados pessoais
     private Integer id;
-    private String nomeCliente;
+    private String nome;
     private String sexo;
-    private Date dataNasc;
+    private Date data;
     private String estadoCivil;
     private String cpf;
     private String telefone;
@@ -39,14 +39,14 @@ public class ClienteModel {
     }
     
     public ClienteModel(
-            String nomeCliente, String sexo, Date dataNasc,
+            String nome, String sexo, Date data,
             String estadoCivil, String cpf, String telefone,
             String celular, String email, String logradouro,
             String numero, String cep, String bairro, 
             String estado, String cidade
     ){
-            this.nomeCliente = nomeCliente; this.sexo = sexo;
-            this.dataNasc = dataNasc; this.estadoCivil = estadoCivil;
+            this.nome = nome; this.sexo = sexo;
+            this.data = data; this.estadoCivil = estadoCivil;
             this.cpf = cpf; this.telefone = telefone; this.celular = celular;
             this.email = email; this.logradouro = logradouro;
             this.numero = numero; this.cep = cep; this.bairro = bairro;
@@ -62,11 +62,11 @@ public class ClienteModel {
     }
 
     public String getNome() {
-        return nomeCliente;
+        return nome;
     }
 
-    public void setNome(String nomeCliente) {
-        this.nomeCliente = nomeCliente;
+    public void setNome(String nome) {
+        this.nome = nome;
     }
 
     public String getSexo() {
@@ -77,12 +77,12 @@ public class ClienteModel {
         this.sexo = sexo;
     }
 
-    public Date getDataNasc() {
-        return dataNasc;
+    public Date getData() {
+        return data;
     }
 
-    public void setDataNasc(Date dataNasc) {
-        this.dataNasc = dataNasc;
+    public void setData(Date data) {
+        this.data = data;
     }
 
     public String getEstadoCivil() {
