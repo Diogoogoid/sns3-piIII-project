@@ -6,39 +6,39 @@
 package br.com.livraria.Models;
 
 /**
- *
- * @author Bruno Fonseca
- */
+  *
+  * @author Bruno Fonseca
+  */
 public class CargoModel {
-
+ 
     private int IdCargo;
-    private int IdSetor;
+    public SetorModel Setor;
     private String Cargo_Nome;
     private String Descricao;
     private boolean Status;
-
+ 
     public boolean isStatus() {
         return Status;
     }
-
+ 
     public void setStatus(boolean Status) {
         this.Status = Status;
     }
-
+ 
     public int getIdCargo() {
         return IdCargo;
     }
-
+ 
     public void setIdCargo(int IdCargo) {
         this.IdCargo = IdCargo;
     }
-
-    public int getIdSetor() {
-        return IdSetor;
+ 
+    public SetorModel getSetor() {
+        return Setor;
     }
-
-    public void setIdSetor(int IdSetor) {
-        this.IdSetor = IdSetor;
+ 
+    public void setSetor(SetorModel Setor) {
+        this.Setor = Setor;
     }
 
     public String getCargo_Nome() {
