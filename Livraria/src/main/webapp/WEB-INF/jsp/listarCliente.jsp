@@ -52,7 +52,7 @@
                             <a href="#" class="dropdown-toggle" data-toggle="dropdown">Usuarios <span class="caret"></span><span style="font-size:16px;" class="pull-right hidden-xs showopacity glyphicon glyphicon-user"></span></a>
                             <ul class="dropdown-menu forAnimate" role="menu">
                                 <li><a href="${pageContext.request.contextPath}/formUsuario">Cadastrar</a></li>
-                                <li><a href="#">Consultar</a></li>
+                                <li><a href="${pageContext.request.contextPath}/listarUsuario">Consultar</a></li>
                             </ul>
                         </li>
                         <li class="dropdown">
@@ -69,6 +69,7 @@
                                 <li><a href="${pageContext.request.contextPath}/listarProduto">Consultar</a></li>
                             </ul>
                         </li>
+                        <li ><a href="#">Vender Produto<span style="font-size:16px;" class="pull-right showopacity glyphicon glyphicon-tags"></span></a></li>
                         <li ><a href="#">Relatorio Vendas<span style="font-size:16px;" class="pull-right showopacity glyphicon glyphicon-tags"></span></a></li>
                     </ul>
                 </div>

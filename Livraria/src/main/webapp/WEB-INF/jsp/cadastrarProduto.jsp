@@ -53,7 +53,7 @@
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown">Usuarios <span class="caret"></span><span style="font-size:16px;" class="pull-right hidden-xs showopacity glyphicon glyphicon-user"></span></a>
                         <ul class="dropdown-menu forAnimate" role="menu">
                             <li><a href="${pageContext.request.contextPath}/formUsuario">Cadastrar</a></li>
-                            <li><a href="#">Consultar</a></li>
+                            <li><a href="${pageContext.request.contextPath}/listarUsuario">Consultar</a></li>
                         </ul>
                     </li>
                     <li class="dropdown">
@@ -70,6 +70,7 @@
                             <li><a href="${pageContext.request.contextPath}/listarProduto">Consultar</a></li>
                         </ul>
                     </li>
+                    <li ><a href="#">Vender Produto<span style="font-size:16px;" class="pull-right showopacity glyphicon glyphicon-tags"></span></a></li>
                     <li ><a href="#">Relatorio Vendas<span style="font-size:16px;" class="pull-right showopacity glyphicon glyphicon-tags"></span></a></li>
                 </ul>
             </div>
@@ -116,12 +117,12 @@
               <div class="col-md-2">
                 <select required id="TipoProduto" name="TipoProduto" class="form-control">
                   <option value=""></option>
-                  <option value="Livro">Livro</option>
-                  <option value="Papelaria">Papelaria</option>
-                  <option value="Celulares">Celulares</option>
-                  <option value="Filmes">Filme</option>
-                  <option value="Serie">Serie</option>
-                  <option value="Informatica">Informatica</option>
+                  <option value="LIVRO">Livro</option>
+                  <option value="PAPELARIA">Papelaria</option>
+                  <option value="CELULARES">Celulares</option>
+                  <option value="FILMES">Filme</option>
+                  <option value="SERIE">Serie</option>
+                  <option value="INFORMATICA">Informatica</option>
                 </select>
               </div>
             </div>

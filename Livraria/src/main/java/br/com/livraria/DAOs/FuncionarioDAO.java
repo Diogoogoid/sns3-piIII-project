@@ -23,14 +23,15 @@ import java.util.List;
 public class FuncionarioDAO {
     public static void inserir(FuncionarioModel func)
             throws SQLException, Exception {
+
         /*
         String sql = "INSERT INTO FUNCIONARIO (FUNC_NOME, SEXO, STATUS, DATANASC, ESTADOCIVIL,"
                 + "CPF, TEL, CEL, EMAIL, LOGRADOURO, NUMERO, COMPLEMENTO, CEP, "
                 + "BAIRRO, CIDADE, ESTADO, LOGIN, SENHA, IDFILIAL, IDCARGO) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, "
                 + "?, ?, ?, ?, ?, ?, ?, ?, ?)";
         */
-        String sql = "INSERT INTO FUNCIONARIO (NOME, STATUS, LOGIN, SENHA, IDFILIAL, IDCARGO, IDSETOR) "
-                + "VALUES (?, ?, ?, ?, ?, ? ";
+        String sql = "INSERT INTO FUNCIONARIO (IDFILIAL, IDCARGO, NOME, LOGIN, SENHA, STATUS) "
+                + "VALUES (?, ?, ?, ?, ?, ?) ";
         
         //Conexão para abertura e fechamento
         Connection connection = null;
@@ -39,6 +40,7 @@ public class FuncionarioDAO {
         //comandos SQL e fechamentos
         PreparedStatement preparedStatement = null;
         try {
+            System.out.println("Entrei no try");
             //Abre uma conexão com o banco de dados
             connection = ConexaoDB.getConnection();
 
@@ -46,34 +48,18 @@ public class FuncionarioDAO {
             preparedStatement = connection.prepareStatement(sql);
 
             //Configura os parâmetros do "PreparedStatement"
-            preparedStatement.setString(1, func.getNome());
-            preparedStatement.setString(2, func.getSexo());
-            preparedStatement.setBoolean(3, true);
-            Timestamp t = new Timestamp(func.getDataNasc().getTime());
-            preparedStatement.setTimestamp(4, t);
-            preparedStatement.setString(5, func.getEstadoCivil());
-            preparedStatement.setString(6, func.getCpf());
-            preparedStatement.setString(7, func.getTelefone());
-            preparedStatement.setString(8, func.getCelular());
-            preparedStatement.setString(9, func.getEmail());
-            preparedStatement.setString(10, func.getLogradouro());
-            preparedStatement.setString(11, func.getNumero());
-            preparedStatement.setString(12, func.getComplemento());
-            preparedStatement.setString(13, func.getCep());
-            preparedStatement.setString(14, func.getBairro());
-            preparedStatement.setString(15, func.getCidade());
-            preparedStatement.setString(16, func.getEstado());
-            preparedStatement.setString(17, func.getLogin());
-            preparedStatement.setString(18, func.getSenha());
-            preparedStatement.setInt(19, func.getIdFilial());
-            preparedStatement.setInt(20, func.getIdCargo());
-            
+            preparedStatement.setInt(1, func.getIdFilial());
+            preparedStatement.setInt(2, func.getIdCargo());
+            preparedStatement.setString(3, func.getNome());
+            preparedStatement.setString(4, func.getLogin());
+            preparedStatement.setString(5, func.getSenha());
+            preparedStatement.setBoolean(6, true);
+
             //Executa o comando no banco de dados
+            System.out.println("VOu Executar query");
             preparedStatement.execute();
-        }
-        catch (SQLException e) {
-        }
-        finally {
+            
+        } finally {
             //Se o statement ainda estiver aberto, realiza seu fechamento
             if (preparedStatement != null && !preparedStatement.isClosed()) {
                 preparedStatement.close();
@@ -87,10 +73,7 @@ public class FuncionarioDAO {
 
     public static void atualizar(FuncionarioModel func)
             throws SQLException, Exception {
-        String sql = "UPDATE FUNCIONARIO SET IDFILIAL=?, IDCARGO=?, FUNC_NOME=?, " 
-                + "SEXO=?, STATUS=?, DATANASC=?, "
-                + "ESTADOCIVIL=?, CPF=?, TEL=?, CEL=?, EMAIL=?, LOGRADOURO=?, "
-                + "NUMERO=?, COMPLEMENTO=?, CEP=?, BAIRRO=?, CIDADE=?, ESTADO=? "
+        String sql = "UPDATE FUNCIONARIO SET IDFILIAL=?, IDCARGO=?, NOME=?, " 
                 + "LOGIN=?, SENHA=?"
             + "WHERE (IDFUNC=?)";
         
@@ -112,25 +95,9 @@ public class FuncionarioDAO {
             preparedStatement.setInt(1, func.getIdFilial());
             preparedStatement.setInt(2, func.getIdCargo());
             preparedStatement.setString(3, func.getNome());
-            preparedStatement.setString(4, func.getSexo());
-            preparedStatement.setBoolean(5, true);
-            Timestamp t = new Timestamp(func.getDataNasc().getTime());
-            preparedStatement.setTimestamp(6, t);
-            preparedStatement.setString(7, func.getEstadoCivil());
-            preparedStatement.setString(8, func.getCpf());
-            preparedStatement.setString(9, func.getTelefone());
-            preparedStatement.setString(10, func.getCelular());
-            preparedStatement.setString(11, func.getEmail());
-            preparedStatement.setString(12, func.getLogradouro());
-            preparedStatement.setString(13, func.getNumero());
-            preparedStatement.setString(14, func.getComplemento());
-            preparedStatement.setString(15, func.getCep());
-            preparedStatement.setString(16, func.getBairro());
-            preparedStatement.setString(17, func.getCidade());
-            preparedStatement.setString(18, func.getEstado());
-            preparedStatement.setString(19, func.getLogin());
-            preparedStatement.setString(20, func.getSenha());
-            preparedStatement.setInt(21, func.getIdFunc());
+            preparedStatement.setString(4, func.getLogin());
+            preparedStatement.setString(5, func.getSenha());
+            preparedStatement.setInt(6, func.getIdFunc());
 
             //Executa o comando no banco de dados
             preparedStatement.execute();
@@ -183,23 +150,9 @@ public class FuncionarioDAO {
                 funcionario.setIdFunc(result.getInt("IDFUNC"));
                 funcionario.setIdFilial(result.getInt("IDFILIAL"));
                 funcionario.setIdCargo(result.getInt("IDCARGO"));
-                funcionario.setNome(result.getString("FUNC_NOME"));
-                funcionario.setSexo(result.getString("SEXO"));
-                Date d = new Date(result.getTimestamp("DATANASC").getTime());
-                funcionario.setDataNasc(d);
-                funcionario.setStatus(result.getBoolean("STATUS"));
-                funcionario.setEstadoCivil(result.getString("ESTADOCIVIL"));
-                funcionario.setCpf(result.getString("CPF"));
-                funcionario.setTelefone(result.getString("TEL"));
-                funcionario.setCelular(result.getString("CEL"));
-                funcionario.setEmail(result.getString("EMAIL"));
-                funcionario.setLogradouro(result.getString("LOGRADOURO"));
-                funcionario.setNumero(result.getString("NUMERO"));
-                funcionario.setComplemento(result.getString("COMPLEMENTO"));
-                funcionario.setCep(result.getString("CEP"));
-                funcionario.setBairro(result.getString("BAIRRO"));
-                funcionario.setCidade(result.getString("CIDADE"));
-                funcionario.setEstado(result.getString("ESTADO"));
+                funcionario.setNome(result.getString("NOME"));
+                funcionario.setLogin(result.getString("LOGIN"));
+                funcionario.setSenha(result.getString("SENHA"));
                 
                 //Adiciona a instância na lista
                 listaFuncionarios.add(funcionario);
@@ -225,7 +178,7 @@ public class FuncionarioDAO {
     public static List<FuncionarioModel> procurar(String nome)
             throws SQLException, Exception {
         String sql = "SELECT * FROM FUNCIONARIO "
-                + "WHERE UPPER(FUNC_NOME) LIKE UPPER(?) AND STATUS=?";
+                + "WHERE ((UPPER(NOME) LIKE UPPER(?)) AND STATUS=?)";
         
         //Lista de clientes de resultado
         List<FuncionarioModel> listaFuncionarios = null;
@@ -265,23 +218,10 @@ public class FuncionarioDAO {
                 funcionario.setIdFunc(result.getInt("IDFUNC"));
                 funcionario.setIdFilial(result.getInt("IDFILIAL"));
                 funcionario.setIdCargo(result.getInt("IDCARGO"));
-                funcionario.setNome(result.getString("FUNC_NOME"));
-                funcionario.setSexo(result.getString("SEXO"));
-                Date d = new Date(result.getTimestamp("DATANASC").getTime());
-                funcionario.setDataNasc(d);
+                funcionario.setNome(result.getString("NOME"));
+                
                 funcionario.setStatus(result.getBoolean("STATUS"));
-                funcionario.setEstadoCivil(result.getString("ESTADOCIVIL"));
-                funcionario.setCpf(result.getString("CPF"));
-                funcionario.setTelefone(result.getString("TEL"));
-                funcionario.setCelular(result.getString("CEL"));
-                funcionario.setEmail(result.getString("EMAIL"));
-                funcionario.setLogradouro(result.getString("LOGRADOURO"));
-                funcionario.setNumero(result.getString("NUMERO"));
-                funcionario.setComplemento(result.getString("COMPLEMENTO"));
-                funcionario.setCep(result.getString("CEP"));
-                funcionario.setBairro(result.getString("BAIRRO"));
-                funcionario.setCidade(result.getString("CIDADE"));
-                funcionario.setEstado(result.getString("ESTADO"));
+                
                 
                 //Adiciona a instância na lista
                 listaFuncionarios.add(funcionario);
@@ -338,7 +278,7 @@ public class FuncionarioDAO {
                 funcionario.setIdFunc(result.getInt("IDFUNC"));
                 funcionario.setIdFilial(result.getInt("IDFILIAL"));
                 funcionario.setIdCargo(result.getInt("IDCARGO"));
-                funcionario.setNome(result.getString("FUNC_NOME"));
+                funcionario.setNome(result.getString("NOME"));
                 funcionario.setSexo(result.getString("SEXO"));
                 Date d = new Date(result.getTimestamp("DATANASC").getTime());
                 funcionario.setDataNasc(d);

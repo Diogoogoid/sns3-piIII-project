@@ -10,7 +10,7 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>Cadastrar de Funcinário</title>
+        <title>Cadastrar de Funcionario</title>
         <link rel="stylesheet" type="text/css"  href="css/bootstrap.css">
         <link rel="stylesheet" type="text/css"  href="css/bootstrap.min.css">
         <link rel="stylesheet" type="text/css"  href="css/menuPrincipal.css">
@@ -54,7 +54,7 @@
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown">Usuarios <span class="caret"></span><span style="font-size:16px;" class="pull-right hidden-xs showopacity glyphicon glyphicon-user"></span></a>
                         <ul class="dropdown-menu forAnimate" role="menu">
                             <li><a href="${pageContext.request.contextPath}/formUsuario">Cadastrar</a></li>
-                            <li><a href="#">Consultar</a></li>
+                            <li><a href="${pageContext.request.contextPath}/listarUsuario">Consultar</a></li>
                         </ul>
                     </li>
                     <li class="dropdown">
@@ -71,6 +71,7 @@
                             <li><a href="${pageContext.request.contextPath}/listarProduto">Consultar</a></li>
                         </ul>
                     </li>
+                    <li ><a href="#">Vender Produto<span style="font-size:16px;" class="pull-right showopacity glyphicon glyphicon-tags"></span></a></li>
                     <li ><a href="#">Relatorio Vendas<span style="font-size:16px;" class="pull-right showopacity glyphicon glyphicon-tags"></span></a></li>
                 </ul>
             </div>
@@ -78,7 +79,7 @@
         </div>
     </nav>
     <main id="page-content-wrapper" role="main">
-        <form class="form-horizontal" method="POST" action="cadastrarUsuario">
+        <form class="form-horizontal" method="POST" action="${pageContext.request.contextPath}/CadastrarUsuario">
         <fieldset>
         <div class="panel panel-primary">
             <div class="panel-heading">Cadastro de Usuario</div>

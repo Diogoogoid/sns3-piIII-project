@@ -36,6 +36,7 @@ public class ProdutoDAO {
         // Statement para obtenção atraves da conexão, execuçao
         // comandos SQL
         PreparedStatement preparedStatement = null;
+        
         try {
             // abrindo conexão
             connection = ConexaoDB.getConnection();

@@ -58,8 +58,7 @@ public class Cliente extends HttpServlet {
                 String numero = request.getParameter("numero");
                 String bairro = request.getParameter("bairro");
                 String estado = request.getParameter("cidade");
-                String cidade = request.getParameter("estado");        
-                
+                String cidade = request.getParameter("estado"); 
                 
                 cliente = new ClienteModel(
                         nomeCliente, sexo, dataNasc, estadoCivil, cpf, telefone, celular,

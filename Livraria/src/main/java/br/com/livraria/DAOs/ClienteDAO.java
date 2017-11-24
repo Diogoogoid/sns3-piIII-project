@@ -8,12 +8,13 @@ package br.com.livraria.DAOs;
 import br.com.livraria.Models.ClienteModel;
 import br.com.livraria.Utils.ConexaoDB;
 import java.sql.Connection;
-import java.sql.Date;
+//import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Timestamp;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -28,16 +29,16 @@ public class ClienteDAO {
         //Monta a string de inserção de um cliente no BD,
         //utilizando os dados do clientes passados como parâmetro
         String sql = "INSERT INTO cliente (NOME, SEXO, STATUS, DATA, ESTADOCIVIL,"
-                + "CPF, TELONE, CELULAR, EMAIL, LOGRADOURO, NUMERO, CEP, "
+                + "CPF, TELEFONE, CELULAR, EMAIL, LOGRADOURO, NUMERO, CEP, "
                 + "BAIRRO, CIDADE, ESTADO) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, "
                 + "?, ? ,?, ?, ?)";
-        
         //Conexão para abertura e fechamento
         Connection connection = null;
 
         //Statement para obtenção através da conexão, execução de
         //comandos SQL e fechamentos
         PreparedStatement preparedStatement = null;
+        System.out.println("PreparedStatement");
         try {
             //Abre uma conexão com o banco de dados
             connection = ConexaoDB.getConnection();
@@ -58,17 +59,14 @@ public class ClienteDAO {
             preparedStatement.setString(9, cliente.getEmail());
             preparedStatement.setString(10, cliente.getLogradouro());
             preparedStatement.setString(11, cliente.getNumero());
-            preparedStatement.setString(12, cliente.getCep());
+            preparedStatement.setString(12, cliente.getCep());            
             preparedStatement.setString(13, cliente.getBairro());
             preparedStatement.setString(14, cliente.getCidade());
             preparedStatement.setString(15, cliente.getEstado());
             
             //Executa o comando no banco de dados
             preparedStatement.execute();
-        }
-        catch (SQLException e) {
-        }
-        finally {
+        } finally {
             //Se o statement ainda estiver aberto, realiza seu fechamento
             if (preparedStatement != null && !preparedStatement.isClosed()) {
                 preparedStatement.close();

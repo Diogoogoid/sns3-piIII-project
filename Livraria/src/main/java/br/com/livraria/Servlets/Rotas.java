@@ -26,7 +26,7 @@ import javax.servlet.http.HttpSession;
  *
  * @author diogo.sfelix
  */
-@WebServlet(name = "Rotas", urlPatterns = {"/formUsuario","/formCliente","/menuPrincipal","/formProduto","/listarProduto","/listarCliente"})
+@WebServlet(name = "Rotas", urlPatterns = {"/formUsuario","/formCliente","/menuPrincipal","/formProduto","/listarProduto","/listarCliente","/listarUsuario"})
 public class Rotas extends HttpServlet {
 
     @Override
@@ -85,6 +85,10 @@ public class Rotas extends HttpServlet {
                 break;
                 case "/listarCliente":
                     requestDispatcher = request.getRequestDispatcher("/WEB-INF/jsp/listarCliente.jsp");
+                    requestDispatcher.forward(request, response);
+                break;
+                case "/listarUsuario":
+                    requestDispatcher = request.getRequestDispatcher("/WEB-INF/jsp/listarUsuario.jsp");
                     requestDispatcher.forward(request, response);
                 break;
             }   

@@ -24,7 +24,7 @@ import java.util.logging.Logger;
  */
 public class LoginDAO {
     public static LoginModel DoLogin(String login, String senha) throws SQLException {
-        String sql = "SELECT f.IdFunc, c.IdCargo, f.login, f.func_nome, c.cargo_nome, s.setor_nome " +
+        String sql = "SELECT f.IdFunc, c.IdCargo, f.login, f.nome, c.cargo_nome, s.setor_nome " +
                         "FROM funcionario f " +
                         "INNER JOIN cargo c on c.IdCargo = f.IdCargo " +
                         "INNER JOIN setor s on s.IdSetor = c.IdSetor " +
@@ -60,7 +60,7 @@ public class LoginDAO {
                 Login.setIdUsuario(result.getInt("IdFunc"));
                 Login.setIdCargo(result.getInt("IdCargo"));
                 Login.setLogin(result.getString("login"));
-                Login.setNome(result.getString("func_nome"));
+                Login.setNome(result.getString("nome"));
                 Login.setCargo(result.getString("cargo_nome"));
                 Login.setSetor(result.getString("setor_nome"));
                 

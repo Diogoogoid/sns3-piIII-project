@@ -14,8 +14,6 @@
         <link rel="stylesheet" type="text/css"  href="css/bootstrap.css">
         <link rel="stylesheet" type="text/css"  href="css/bootstrap.min.css">
         <link rel="stylesheet" type="text/css"  href="css/menuPrincipal.css">
-        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
     </head>
     <body>
         <nav class="navbar navbar-default" style="margin-bottom:2px; ">
@@ -44,6 +42,7 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
                 </button>
             </div>
             <div class="collapse navbar-collapse" id="bs-sidebar-navbar-collapse-1">
@@ -53,7 +52,7 @@
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown">Usuarios <span class="caret"></span><span style="font-size:16px;" class="pull-right hidden-xs showopacity glyphicon glyphicon-user"></span></a>
                         <ul class="dropdown-menu forAnimate" role="menu">
                             <li><a href="${pageContext.request.contextPath}/formUsuario">Cadastrar</a></li>
-                            <li><a href="#">Consultar</a></li>
+                            <li><a href="${pageContext.request.contextPath}/listarUsuario">Consultar</a></li>
                         </ul>
                     </li>
                     <li class="dropdown">
@@ -70,6 +69,7 @@
                             <li><a href="${pageContext.request.contextPath}/listarProduto">Consultar</a></li>
                         </ul>
                     </li>
+                    <li ><a href="#">Vender Produto<span style="font-size:16px;" class="pull-right showopacity glyphicon glyphicon-tags"></span></a></li>
                     <li ><a href="#">Relatorio Vendas<span style="font-size:16px;" class="pull-right showopacity glyphicon glyphicon-tags"></span></a></li>
                 </ul>
             </div>
@@ -84,4 +84,6 @@
         </div>
     </main>
     </body>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 </html>

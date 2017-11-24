@@ -1,6 +1,6 @@
 <%-- 
     Document   : cadastrarUsuario
-    Created on : 22/11/2017, 14:56:52
+    Created on : 24/11/2017, 05:56:52
     Author     : diogo.felix
 --%>
 
@@ -10,7 +10,7 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>Listar Produto</title>
+        <title>Listar Usuario</title>
         <link rel="stylesheet" type="text/css" href="css/bootstrap.css">
         <link rel="stylesheet" type="text/css" href="css/bootstrap.min.css">
         <link rel="stylesheet" type="text/css" href="css/menuPrincipal.css">
@@ -79,17 +79,17 @@
             </div>
         </nav>
         <main id="page-content-wrapper" role="main">
-        <form class="form-horizontal" method="POST" action="${pageContext.request.contextPath}/exibirProduto">
+        <form class="form-horizontal" method="POST" action="${pageContext.request.contextPath}/exibirUsuario">
         <fieldset>
         <div class="panel panel-primary">
-            <div class="panel-heading">Listar Produto</div>
+            <div class="panel-heading">Listar Usuario</div>
             <div class="panel-body">
                 
             <!-- Text input-->
             <div class="form-group">
-              <label class="col-md-2 control-label" for="Nome">Pesquisar Produto </label>  
+              <label class="col-md-2 control-label" for="Nome">Pesquisar Usuario </label>  
               <div class="col-md-6">
-              <input id="Nome" name="Nome" placeholder="Digite o nome do produto" class="form-control input-md" type="text" autofocus required="">
+              <input id="Nome" name="Nome" placeholder="Digite o nome do usuario" class="form-control input-md" type="text" autofocus required="">
               </div>
               <div class="col-md-1">
                   <button id="buscar" name="buscar" class="btn btn-info" type="submit">
@@ -98,31 +98,27 @@
                   </button>
               </div>
               <div class="col-md-1">
-                  <a class="btn btn-info" href="${pageContext.request.contextPath}/listarTodosProdutos">Listar</a>
+                  <a class="btn btn-info" href="${pageContext.request.contextPath}/listarTodosUsuario">Listar</a>
               </div>
             </div>
             </div> 
             <table class="table table-striped">
                 <thead>
                     <tr>
-                      <th>Nome Produto</th>
-                      <th>Fabricante</th>
-                      <th>Tipo Produto</th>
-                      <th>Qtd</th>
-                      <th>Valor Produto</th>
+                      <th>Nome Usuario</th>
+                      <th>Login</th>
+                      <th>Filial</th>
+                      <th>Cargo</th>
                     </tr>
                 </thead>
                  <c:if test="${not empty msgErroBusca}">
                    <h2><c:out value="${msgErroBusca}" /></h2>
                 </c:if>
                 <tbody> 
-                    <c:forEach items="${pesquisa}" var="produto">
+                    <c:forEach items="${pesquisa}" var="usuario">
                         <tr>
-                            <td><c:out value="${produto.nome}" /></td>
-                            <td><c:out value="${produto.fabricante}" /></td>
-                            <td><c:out value="${produto.tipoProduto}" /></td>
-                            <td><c:out value="${produto.qtdProduto}" /></td>
-                            <td><c:out value="${produto.valorProduto}" /></td>
+                            <td><c:out value="${usuario.nome}" /></td>
+                            <td><c:out value="${usuario.login}" /></td>
                         </tr>    
                     </c:forEach>    
                 </tbody>    
