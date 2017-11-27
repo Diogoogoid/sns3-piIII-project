@@ -5,6 +5,9 @@
  */
 package br.com.livraria.Models;
 
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  *
  * @author bruno.falmeida
@@ -13,14 +16,14 @@ public class ModuloModel {
     
     private int idModulo;
     private String moduloNome;
-    private String subNome;
+    private List<String> subNomes = new ArrayList<String>();
 
-    public String getSubNome() {
-        return subNome;
+    public List<String> getSubNome() {
+        return subNomes;
     }
 
     public void setSubNome(String subNome) {
-        this.subNome = subNome;
+        this.subNomes.add(subNome);
     }
     
     public int getIdModulo() {

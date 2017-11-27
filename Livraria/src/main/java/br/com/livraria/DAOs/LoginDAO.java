@@ -128,15 +128,31 @@ public class LoginDAO {
                 }
                 
                 ModuloModel modulo = new ModuloModel();
-                modulo.setIdModulo(result.getInt("IDMODULO"));
                 modulo.setModuloNome(result.getString("MODULO_NOME"));
-                modulo.setSubNome(result.getString("SUB_NOME"));
                 
-                //Adiciona a instância na lista
-                modulos.add(modulo);
+                boolean flag = true;
+                
+                for (ModuloModel moduloAux : modulos) {
+                    if(moduloAux.getModuloNome().equals(modulo.getModuloNome())) {
+                        moduloAux.setSubNome(result.getString("SUB_NOME"));
+                        flag = false;
+                    }
+                    
+                    flag = true;
+                }
+                
+                if(flag) {
+                    modulo.setIdModulo(result.getInt("IDMODULO"));
+                    modulo.setSubNome(result.getString("SUB_NOME"));
+                    
+                    //Adiciona a instância na lista
+                    modulos.add(modulo);
+                }
             }
             
             login.setModulos(modulos);
+        } catch(Exception e) {
+            System.out.println(e);
         } finally {
             //Se o result ainda estiver aberto, realiza seu fechamento
             if (result != null && !result.isClosed()) {
