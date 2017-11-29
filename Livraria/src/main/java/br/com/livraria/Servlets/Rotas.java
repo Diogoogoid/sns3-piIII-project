@@ -6,8 +6,10 @@
 package br.com.livraria.Servlets;
 
 import br.com.livraria.DAOs.FilialDAO;
+import br.com.livraria.DAOs.FuncionarioDAO;
 import br.com.livraria.Models.CargoModel;
 import br.com.livraria.Models.FilialModel;
+import br.com.livraria.Models.FuncionarioModel;
 import br.com.livraria.Services.CadastraUsuarioService;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -88,6 +90,14 @@ public class Rotas extends HttpServlet {
                     requestDispatcher.forward(request, response);
                 break;
                 case "/listarUsuario":
+                    List<FuncionarioModel> listaUsuarios = null;
+                    try {
+                        listaUsuarios = FuncionarioDAO.listar();
+                    } catch (Exception ex) {
+                        Logger.getLogger(Rotas.class.getName()).log(Level.SEVERE, null, ex);
+                    }
+                    
+                    request.setAttribute("pesquisa", listaUsuarios);
                     requestDispatcher = request.getRequestDispatcher("/WEB-INF/jsp/listarUsuario.jsp");
                     requestDispatcher.forward(request, response);
                 break;

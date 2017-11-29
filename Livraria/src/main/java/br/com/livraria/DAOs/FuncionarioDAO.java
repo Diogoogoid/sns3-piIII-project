@@ -48,8 +48,8 @@ public class FuncionarioDAO {
             preparedStatement = connection.prepareStatement(sql);
 
             //Configura os parâmetros do "PreparedStatement"
-            preparedStatement.setInt(1, func.getIdFilial());
-            preparedStatement.setInt(2, func.getIdCargo());
+            preparedStatement.setInt(1, func.getFilial().getIdFilial());
+            preparedStatement.setInt(2, func.getCargo().getIdCargo());
             preparedStatement.setString(3, func.getNome());
             preparedStatement.setString(4, func.getLogin());
             preparedStatement.setString(5, func.getSenha());
@@ -92,8 +92,8 @@ public class FuncionarioDAO {
             preparedStatement = connection.prepareStatement(sql);
             
             //Configura os parâmetros do "PreparedStatement"
-            preparedStatement.setInt(1, func.getIdFilial());
-            preparedStatement.setInt(2, func.getIdCargo());
+            preparedStatement.setInt(1, func.getFilial().getIdFilial());
+            preparedStatement.setInt(2, func.getCargo().getIdCargo());
             preparedStatement.setString(3, func.getNome());
             preparedStatement.setString(4, func.getLogin());
             preparedStatement.setString(5, func.getSenha());
@@ -148,8 +148,8 @@ public class FuncionarioDAO {
 
                 FuncionarioModel funcionario = new FuncionarioModel();
                 funcionario.setIdFunc(result.getInt("IDFUNC"));
-                funcionario.setIdFilial(result.getInt("IDFILIAL"));
-                funcionario.setIdCargo(result.getInt("IDCARGO"));
+                funcionario.setFilial(FilialDAO.obter(result.getInt("IDFILIAL")));
+                funcionario.setCargo(CargoDAO.obter(result.getInt("IDCARGO")));
                 funcionario.setNome(result.getString("NOME"));
                 funcionario.setLogin(result.getString("LOGIN"));
                 funcionario.setSenha(result.getString("SENHA"));
@@ -216,8 +216,8 @@ public class FuncionarioDAO {
                 FuncionarioModel funcionario;
                 funcionario = new FuncionarioModel();
                 funcionario.setIdFunc(result.getInt("IDFUNC"));
-                funcionario.setIdFilial(result.getInt("IDFILIAL"));
-                funcionario.setIdCargo(result.getInt("IDCARGO"));
+                funcionario.setFilial(FilialDAO.obter(result.getInt("IDFILIAL")));
+                funcionario.setCargo(CargoDAO.obter(result.getInt("IDCARGO")));
                 funcionario.setNome(result.getString("NOME"));
                 
                 funcionario.setStatus(result.getBoolean("STATUS"));
@@ -276,29 +276,18 @@ public class FuncionarioDAO {
             if (result.next()) {                
                 FuncionarioModel funcionario = new FuncionarioModel();
                 funcionario.setIdFunc(result.getInt("IDFUNC"));
-                funcionario.setIdFilial(result.getInt("IDFILIAL"));
-                funcionario.setIdCargo(result.getInt("IDCARGO"));
+                funcionario.setFilial(FilialDAO.obter(result.getInt("IDFILIAL")));
+                funcionario.setCargo(CargoDAO.obter(result.getInt("IDCARGO")));
                 funcionario.setNome(result.getString("NOME"));
-                funcionario.setSexo(result.getString("SEXO"));
-                Date d = new Date(result.getTimestamp("DATANASC").getTime());
-                funcionario.setDataNasc(d);
+                funcionario.setLogin(result.getString("LOGIN"));
+                funcionario.setSenha(result.getString("SENHA"));
                 funcionario.setStatus(result.getBoolean("STATUS"));
-                funcionario.setEstadoCivil(result.getString("ESTADOCIVIL"));
-                funcionario.setCpf(result.getString("CPF"));
-                funcionario.setTelefone(result.getString("TEL"));
-                funcionario.setCelular(result.getString("CEL"));
-                funcionario.setEmail(result.getString("EMAIL"));
-                funcionario.setLogradouro(result.getString("LOGRADOURO"));
-                funcionario.setNumero(result.getString("NUMERO"));
-                funcionario.setComplemento(result.getString("COMPLEMENTO"));
-                funcionario.setCep(result.getString("CEP"));
-                funcionario.setBairro(result.getString("BAIRRO"));
-                funcionario.setCidade(result.getString("CIDADE"));
-                funcionario.setEstado(result.getString("ESTADO"));
                 
                 //Retorna o resultado
                 return funcionario;
-            }            
+            }
+        } catch(Exception e) {
+            System.out.print(e);
         } finally {
             //Se o result ainda estiver aberto, realiza seu fechamento
             if (result != null && !result.isClosed()) {

@@ -5,6 +5,8 @@
  */
 package br.com.livraria.Servlets;
 
+import br.com.livraria.DAOs.CargoDAO;
+import br.com.livraria.DAOs.FilialDAO;
 import br.com.livraria.DAOs.FuncionarioDAO;
 import br.com.livraria.Models.CargoModel;
 import br.com.livraria.Models.FuncionarioModel;
@@ -64,7 +66,7 @@ public class CadastrarUsuario extends HttpServlet {
                         System.out.println("idcargo" + idCargo);
                         
                         funcionario = new FuncionarioModel(
-                                  idFilial, idCargo, nomeUsuario, login, password
+                                  FilialDAO.obter(idFilial), CargoDAO.obter(idCargo), nomeUsuario, login, password
                         );
                         
                         FuncionarioDAO.inserir(funcionario);

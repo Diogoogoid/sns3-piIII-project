@@ -33,7 +33,7 @@
                     ${sessionScope.usuario.nome}
                 </div>
                 <div class="profile-usertitle-job">
-                     ${sessionScope.usuario.setor}
+                    ${sessionScope.usuario.cargo} - ${sessionScope.usuario.setor}
                 </div>
             </div>
             <div class="navbar-header">

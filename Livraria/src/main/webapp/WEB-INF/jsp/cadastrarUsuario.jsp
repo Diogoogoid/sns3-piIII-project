@@ -36,7 +36,7 @@
                     ${sessionScope.usuario.nome}
                 </div>
                 <div class="profile-usertitle-job">
-                     ${sessionScope.usuario.setor}
+                     ${sessionScope.usuario.cargo} - ${sessionScope.usuario.setor}
                 </div>
             </div>
             <div class="navbar-header">
@@ -50,29 +50,59 @@
             <div class="collapse navbar-collapse" id="bs-sidebar-navbar-collapse-1">
                 <ul class="nav navbar-nav">
                     <li class="active format-active"><a href="${pageContext.request.contextPath}/menuPrincipal">Home<span style="font-size:16px;" class="pull-right showopacity glyphicon glyphicon-home"></span></a></li>
-                    <li class="dropdown">
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">Usuarios <span class="caret"></span><span style="font-size:16px;" class="pull-right hidden-xs showopacity glyphicon glyphicon-user"></span></a>
-                        <ul class="dropdown-menu forAnimate" role="menu">
-                            <li><a href="${pageContext.request.contextPath}/formUsuario">Cadastrar</a></li>
-                            <li><a href="${pageContext.request.contextPath}/listarUsuario">Consultar</a></li>
-                        </ul>
-                    </li>
-                    <li class="dropdown">
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">Clientes <span class="caret"></span><span style="font-size:16px;" class="pull-right showopacity glyphicon glyphicon-list-alt"></span></a>
-                        <ul class="dropdown-menu forAnimate" role="menu">
-                            <li><a href="${pageContext.request.contextPath}/formCliente">Cadastrar</a></li>
-                            <li><a href="${pageContext.request.contextPath}/listarCliente">Consultar</a></li>
-                        </ul>
-                    </li>
-                    <li class="dropdown">
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">Produtos <span class="caret"></span><span style="font-size:16px;" class="pull-right showopacity glyphicon glyphicon-th-list"></span></a>
-                        <ul class="dropdown-menu forAnimate" role="menu">
-                            <li><a href="${pageContext.request.contextPath}/formProduto">Cadastrar</a></li>
-                            <li><a href="${pageContext.request.contextPath}/listarProduto">Consultar</a></li>
-                        </ul>
-                    </li>
-                    <li ><a href="#">Vender Produto<span style="font-size:16px;" class="pull-right showopacity glyphicon glyphicon-tags"></span></a></li>
-                    <li ><a href="#">Relatorio Vendas<span style="font-size:16px;" class="pull-right showopacity glyphicon glyphicon-tags"></span></a></li>
+                    <c:forEach items="${sessionScope.usuario.modulos}" var="modulo">
+                        <c:if test="${modulo.getModuloNome() eq 'funcionario'}">
+                            <li class="dropdown">
+                                <a href="#" class="dropdown-toggle" data-toggle="dropdown">Usuarios <span class="caret"></span><span style="font-size:16px;" class="pull-right hidden-xs showopacity glyphicon glyphicon-user"></span></a>
+                                <ul class="dropdown-menu forAnimate" role="menu">
+                                    <c:forEach items="${modulo.getSubNome()}" var="subNome">
+                                        <c:if test="${subNome eq 'cadastro'}">
+                                            <li><a href="${pageContext.request.contextPath}/formUsuario">Cadastrar</a></li>
+                                        </c:if>
+                                        <c:if test="${subNome eq 'consulta'}">
+                                            <li><a href="${pageContext.request.contextPath}/listarUsuario">Consultar</a></li>
+                                        </c:if>
+                                    </c:forEach>
+                                </ul>
+                            </li>
+                        </c:if>
+                        <c:if test="${modulo.getModuloNome() eq 'cliente'}">
+                            <li class="dropdown">
+                                <a href="#" class="dropdown-toggle" data-toggle="dropdown">Clientes <span class="caret"></span><span style="font-size:16px;" class="pull-right showopacity glyphicon glyphicon-list-alt"></span></a>
+                                <ul class="dropdown-menu forAnimate" role="menu">
+                                    <c:forEach items="${modulo.getSubNome()}" var="subNome">
+                                        <c:if test="${subNome eq 'cadastro'}">
+                                            <li><a href="${pageContext.request.contextPath}/formCliente">Cadastrar</a></li>
+                                        </c:if>
+                                        <c:if test="${subNome eq 'consulta'}">
+                                            <li><a href="${pageContext.request.contextPath}/listarCliente">Consultar</a></li>
+                                        </c:if>
+                                    </c:forEach>
+                                </ul>
+                            </li>
+                        </c:if>
+                        <c:if test="${modulo.getModuloNome() eq 'produto'}">
+                            <li class="dropdown">
+                                <a href="#" class="dropdown-toggle" data-toggle="dropdown">Produtos <span class="caret"></span><span style="font-size:16px;" class="pull-right showopacity glyphicon glyphicon-th-list"></span></a>
+                                <ul class="dropdown-menu forAnimate" role="menu">
+                                    <c:forEach items="${modulo.getSubNome()}" var="subNome">
+                                        <c:if test="${subNome eq 'cadastro'}">
+                                            <li><a href="${pageContext.request.contextPath}/formProduto">Cadastrar</a></li>
+                                        </c:if>
+                                        <c:if test="${subNome eq 'consulta'}">
+                                            <li><a href="${pageContext.request.contextPath}/listarProduto">Consultar</a></li>
+                                        </c:if>         
+                                    </c:forEach>
+                                </ul>
+                            </li>
+                        </c:if>
+                        <c:if test="${modulo.getModuloNome() eq 'venda'}">
+                            <li ><a href="#">Vender Produto<span style="font-size:16px;" class="pull-right showopacity glyphicon glyphicon-tags"></span></a></li>
+                        </c:if>
+                        <c:if test="${modulo.getModuloNome() eq 'relatorio'}">
+                            <li ><a href="#">Relatorio Vendas<span style="font-size:16px;" class="pull-right showopacity glyphicon glyphicon-tags"></span></a></li>
+                        </c:if>
+                    </c:forEach>
                 </ul>
             </div>
 
@@ -95,7 +125,7 @@
         <div class="form-group">
           <label class="col-md-2 control-label" for="Nome">Nome <h11>*</h11></label>  
           <div class="col-md-8">
-          <input id="Nome" name="Nome" placeholder="" class="form-control input-md" required="" type="text" autofocus>
+          <input id="Nome" name="Nome" value="${usuarioEditar.getNome()}" placeholder="" class="form-control input-md" required="" type="text" autofocus>
           </div>
         </div>
             
@@ -112,7 +142,7 @@
             <div class="col-md-3">
                 <div class="input-group">
                     <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
-                    <input id="login" name="login" class="form-control" placeholder="Digite o login" required="" type="text" maxlength="13">
+                    <input id="login" name="login" value="${usuarioEditar.getLogin()}" class="form-control" placeholder="Digite o login" required="" type="text" maxlength="13">
                 </div>
             </div>
         </div>  
@@ -121,39 +151,28 @@
             <div class="col-md-2">
                 <div class="input-group">
                     <span class="input-group-addon"><i class="glyphicon glyphicon-lock"></i></span>
-                    <input id="password" name="password" class="form-control" placeholder="******" type="password" maxlength="13" >
+                    <input id="password" value="${usuarioEditar.getSenha()}" name="password" class="form-control" placeholder="******" type="password" maxlength="13" >
                 </div>
             </div>
         </div>    
         <div class="form-group">
         <label class="col-md-2 control-label" for="filial">Unidade <h11>*</h11></label>
         <div class="col-md-2">
-            <select required id="filial" name="filial" class="form-control">
+            <select required id="filial" value="${usuarioEditar.getFilial().getIdFilial()}" name="filial" class="form-control">
                     <option value=""></option>
                     <c:forEach items="${filiais}" var="filial">
-                        <option value="${filial.getIdFilial()}">${filial.getFilial_Nome()}</option>
+                        <option value="${filial.getIdFilial()}" ${filial.getIdFilial() == usuarioEditar.getFilial().getIdFilial() ? 'selected="selected"' : ''}>${filial.getFilial_Nome()}</option>
                     </c:forEach> 
             </select>
         </div>
         </div>
-<!--        <div class="form-group">
-        <label class="col-md-2 control-label" for="Departamento">Departamento <h11>*</h11></label>
-        <div class="col-md-2">
-            <select required id="Departamento" name="Departamento" class="form-control">
-                    <option value=""></option>
-                    <option value="1">Produtos/Serviços</option>
-                    <option value="2">Vendas</option>
-                    <option value="3">T.I</option>
-            </select>
-        </div>
-        </div>-->
         <div class="form-group">
         <label class="col-md-2 control-label" for="Cargo">Cargo <h11>*</h11></label>
         <div class="col-md-2">
             <select required id="Cargo" name="Cargo" class="form-control">
                     <option value=""></option>
                     <c:forEach items="${cargos}" var="cargo">
-                        <option value="${cargo.getIdCargo()}">${cargo.getCargo_Nome()}</option>
+                        <option value="${cargo.getIdCargo()}" ${cargo.getIdCargo() == usuarioEditar.getCargo().getIdCargo() ? 'selected="selected"' : ''}>${cargo.getCargo_Nome()}</option>
                     </c:forEach> 
             </select>
         </div>
@@ -161,7 +180,7 @@
         <div class="form-group">
             <label class="col-md-2 control-label" for="permissao">Status</label>
             <div class="col-md-2">
-                    <input type="checkbox" value="sim"> Ativo
+                    <input type="checkbox" value="true"> Ativo
             </div>
         </div>
 

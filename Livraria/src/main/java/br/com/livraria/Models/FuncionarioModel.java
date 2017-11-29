@@ -14,8 +14,8 @@ import java.sql.Date;
 public class FuncionarioModel {
     
     private int IdFunc;
-    private int IdFilial;
-    private int IdCargo;
+    private FilialModel filial;
+    private CargoModel cargo;
     private String nome;
     private String sexo;
     private boolean status;
@@ -42,10 +42,10 @@ public class FuncionarioModel {
     }
 
     public FuncionarioModel(
-            int IdFilial, int IdCargo, String nome, String login, String senha
+            FilialModel filial, CargoModel cargo, String nome, String login, String senha
     ) {
-        this.IdFilial = IdFilial;
-        this.IdCargo = IdCargo;
+        this.filial = filial;
+        this.cargo = cargo;
         this.nome = nome;
         this.login = login;
         this.senha = senha;
@@ -63,20 +63,20 @@ public class FuncionarioModel {
         this.IdFunc = IdFunc;
     }
 
-    public int getIdFilial() {
-        return IdFilial;
+    public FilialModel getFilial() {
+        return filial;
     }
 
-    public void setIdFilial(int IdFilial) {
-        this.IdFilial = IdFilial;
+    public void setFilial(FilialModel filial) {
+        this.filial = filial;
     }
 
-    public int getIdCargo() {
-        return IdCargo;
+    public CargoModel getCargo() {
+        return cargo;
     }
 
-    public void setIdCargo(int IdCargo) {
-        this.IdCargo = IdCargo;
+    public void setCargo(CargoModel cargo) {
+        this.cargo = cargo;
     }
 
     public String getNome() {

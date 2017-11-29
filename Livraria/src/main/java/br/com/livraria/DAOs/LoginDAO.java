@@ -127,27 +127,33 @@ public class LoginDAO {
                     modulos = new ArrayList<>();
                 }
                 
-                ModuloModel modulo = new ModuloModel();
-                modulo.setModuloNome(result.getString("MODULO_NOME"));
-                
-                boolean flag = true;
-                
-                for (ModuloModel moduloAux : modulos) {
-                    if(moduloAux.getModuloNome().equals(modulo.getModuloNome())) {
-                        moduloAux.setSubNome(result.getString("SUB_NOME"));
-                        flag = false;
+                if(!modulos.isEmpty()) {
+                    ModuloModel modulo = null;
+                    boolean flag = true;
+
+                    for (ModuloModel moduloAux : modulos) {
+                        if(moduloAux.getModuloNome().equals(result.getString("MODULO_NOME"))) {
+                            moduloAux.setSubNome(result.getString("SUB_NOME"));
+                            flag = false;
+                        }
                     }
                     
-                    flag = true;
-                }
-                
-                if(flag) {
+                    if(flag) {
+                        modulo = new ModuloModel();
+                        modulo.setModuloNome(result.getString("MODULO_NOME"));
+                        modulo.setIdModulo(result.getInt("IDMODULO"));
+                        modulo.setSubNome(result.getString("SUB_NOME"));
+                        modulos.add(modulo);
+                    }
+                } else {
+                    ModuloModel modulo = new ModuloModel();
+                    modulo.setModuloNome(result.getString("MODULO_NOME"));
                     modulo.setIdModulo(result.getInt("IDMODULO"));
                     modulo.setSubNome(result.getString("SUB_NOME"));
-                    
+
                     //Adiciona a instância na lista
                     modulos.add(modulo);
-                }
+                }   
             }
             
             login.setModulos(modulos);
