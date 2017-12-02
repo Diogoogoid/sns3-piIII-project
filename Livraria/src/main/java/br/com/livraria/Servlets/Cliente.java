@@ -11,6 +11,7 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.Date;
 import java.sql.SQLException;
+import java.text.SimpleDateFormat;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -25,7 +26,7 @@ import javax.servlet.http.HttpServletResponse;
  *
  * @author diogo.sfelix
  */
-@WebServlet(name = "Cliente", urlPatterns = {"/cadastrarCliente","/exibirCliente","/listarTodosClientes"})
+@WebServlet(name = "Cliente", urlPatterns = {"/cadastrarCliente"})
 public class Cliente extends HttpServlet {
 
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
@@ -104,7 +105,6 @@ public class Cliente extends HttpServlet {
                     
                     break;
                 case "/listarTodosClientes":
-                    case "/listarTodosProdutos":
                     
                     try {
                         clientes = ClienteDAO.listar();
@@ -125,15 +125,33 @@ public class Cliente extends HttpServlet {
                         Logger.getLogger(Produto.class.getName()).log(Level.SEVERE, null, ex);
                     }
                 break;
-                    
             }
-        
+
     }
     
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+        if(!request.getParameter("idCliente").isEmpty()) {
+            int idCliente = Integer.parseInt(request.getParameter("idCliente"));
+            
+            ClienteModel cliente = null;
+            try {
+                cliente = ClienteDAO.obter(idCliente);
+            } catch (Exception ex) {
+                Logger.getLogger(Cliente.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            
+            SimpleDateFormat dt1 = new SimpleDateFormat("dd/mm/yyyy");
+            String data = dt1.format(cliente.getData());
+            
+            request.setAttribute("cliente", cliente);
+            request.setAttribute("data", data);
+
+            RequestDispatcher requestDispatcher;
+            requestDispatcher = request.getRequestDispatcher("/WEB-INF/jsp/cadastrarCliente.jsp");
+            requestDispatcher.forward(request, response);
+        }
     }
 
     @Override

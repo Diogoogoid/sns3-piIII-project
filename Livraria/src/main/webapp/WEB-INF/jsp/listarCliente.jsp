@@ -6,6 +6,7 @@
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib prefix = "fmt" uri = "http://java.sun.com/jsp/jstl/fmt" %>
 <!DOCTYPE html>
 <html>
     <head>
@@ -133,11 +134,15 @@
             <table class="table table-striped">
                 <thead>
                     <tr>
-                      <th>Nome Cliente</th>
-                      <th>Data Nascimento</th>
-                      <th>Telefone</th>
-                      <th>Celular</th>
-                      <th>E-mail</th>
+                        <th>ID</th>
+                        <th>CPF</th>
+                        <th>Nome Cliente</th>
+                        <th>Sexo</th>
+                        <th>Data Nascimento</th>
+                        <th>Telefone</th>
+                        <th>E-mail</th>
+                        <th></th>
+                        <th></th>
                     </tr>
                 </thead>
                  <c:if test="${not empty msgErroBusca}">
@@ -146,11 +151,14 @@
                 <tbody> 
                     <c:forEach items="${pesquisa}" var="cliente">
                         <tr>
-                            <td><c:out value="${cliente.nome}" /></td>
-                            <td><c:out value="${cliente.data}" /></td>
-                            <td><c:out value="${cliente.telefone}" /></td>
-                            <td><c:out value="${cliente.celular}" /></td>
-                            <td><c:out value="${cliente.email}" /></td>
+                            <td><c:out value="${cliente.getId()}" /></td>
+                            <td><c:out value="${cliente.getCpf()}" /></td>
+                            <td><c:out value="${cliente.getNome()}" /></td>
+                            <td><c:out value="${cliente.getSexo()}" /></td>
+                            <td><fmt:formatDate type="date" value="${cliente.getData()}" /></td>
+                            <td><c:out value="${cliente.getTelefone()}" /></td>
+                            <td><c:out value="${cliente.getEmail()}" /></td>
+                            <td><a class="btn btn-info" href="${pageContext.request.contextPath}/cadastrarCliente?idCliente=${cliente.getId()}">Editar</a></td>
                         </tr>    
                     </c:forEach>    
                 </tbody>    

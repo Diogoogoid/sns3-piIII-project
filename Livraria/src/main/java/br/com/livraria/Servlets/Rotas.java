@@ -5,14 +5,16 @@
  */
 package br.com.livraria.Servlets;
 
+import br.com.livraria.DAOs.ClienteDAO;
 import br.com.livraria.DAOs.FilialDAO;
 import br.com.livraria.DAOs.FuncionarioDAO;
 import br.com.livraria.Models.CargoModel;
+import br.com.livraria.Models.ClienteModel;
 import br.com.livraria.Models.FilialModel;
 import br.com.livraria.Models.FuncionarioModel;
 import br.com.livraria.Services.CadastraUsuarioService;
 import java.io.IOException;
-import java.io.PrintWriter;
+import java.text.SimpleDateFormat;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -22,7 +24,6 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 
 /**
  *
@@ -86,6 +87,14 @@ public class Rotas extends HttpServlet {
                     requestDispatcher.forward(request, response);
                 break;
                 case "/listarCliente":
+                    List<ClienteModel> listaCliente = null;
+                    try {
+                        listaCliente = ClienteDAO.listar();
+                    } catch (Exception ex) {
+                        Logger.getLogger(Rotas.class.getName()).log(Level.SEVERE, null, ex);
+                    }
+                    
+                    request.setAttribute("pesquisa", listaCliente);
                     requestDispatcher = request.getRequestDispatcher("/WEB-INF/jsp/listarCliente.jsp");
                     requestDispatcher.forward(request, response);
                 break;

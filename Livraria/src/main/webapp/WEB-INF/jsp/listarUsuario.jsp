@@ -135,12 +135,13 @@
             <table class="table table-striped">
                 <thead>
                     <tr>
-                      <th>Nome Usuario</th>
-                      <th>Login</th>
-                      <th>Filial</th>
-                      <th>Cargo</th>
-                      <th></th>
-                      <th></th>
+                        <th>ID</th>
+                        <th>Nome Usuario</th>
+                        <th>Login</th>
+                        <th>Filial</th>
+                        <th>Cargo</th>
+                        <th></th>
+                        <th></th>
                     </tr>
                 </thead>
                  <c:if test="${not empty msgErroBusca}">
@@ -149,11 +150,12 @@
                 <tbody> 
                     <c:forEach items="${pesquisa}" var="usuario">
                         <tr>
+                            <td><c:out value="${usuario.getIdFunc()}" /></td>
                             <td><c:out value="${usuario.nome}" /></td>
                             <td><c:out value="${usuario.login}" /></td>
                             <td><c:out value="${usuario.getFilial().getFilial_Nome()}" /></td>
                             <td><c:out value="${usuario.getCargo().getCargo_Nome()}" /></td>
-                            <td><a class="btn btn-info" href="${pageContext.request.contextPath}/EditarUsuario?idUsuario=${usuario.getIdFunc()}">Editar</a></td>
+                            <td><a class="btn btn-info" href="${pageContext.request.contextPath}/CadastrarUsuario?idUsuario=${usuario.getIdFunc()}">Editar</a></td>
                         </tr>    
                     </c:forEach>    
                 </tbody>    

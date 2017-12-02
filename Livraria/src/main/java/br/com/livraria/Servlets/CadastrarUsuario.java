@@ -9,14 +9,10 @@ import br.com.livraria.DAOs.CargoDAO;
 import br.com.livraria.DAOs.FilialDAO;
 import br.com.livraria.DAOs.FuncionarioDAO;
 import br.com.livraria.Models.CargoModel;
+import br.com.livraria.Models.FilialModel;
 import br.com.livraria.Models.FuncionarioModel;
-import br.com.livraria.Models.SetorModel;
 import br.com.livraria.Services.CadastraUsuarioService;
 import java.io.IOException;
-import java.io.PrintWriter;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.sql.Date;
 import java.sql.SQLException;
 import java.util.List;
 import java.util.logging.Level;
@@ -27,18 +23,61 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 
 /**
  *
  * @author diogo.sfelix
  */
-@WebServlet(name = "CadastrarUsuario", urlPatterns = {"/CadastrarUsuario","/exibirUsuario","/listarTodosUsuario"})
+@WebServlet(name = "CadastrarUsuario", urlPatterns = {"/CadastrarUsuario"})
 public class CadastrarUsuario extends HttpServlet {
+    
+    @Override
+    protected void doGet(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+        if(!request.getParameter("idUsuario").isEmpty()) {
+            int idFunc = Integer.parseInt(request.getParameter("idUsuario"));
 
-     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
-       throws ServletException, IOException {
-         
+            FuncionarioModel usuario = null;
+            try {
+                usuario = FuncionarioDAO.obter(idFunc);
+            } catch (Exception ex) {
+                Logger.getLogger(CadastrarUsuario.class.getName()).log(Level.SEVERE, null, ex);
+            }
+
+            List<CargoModel> listaCargos = null;
+            try {
+                listaCargos = CadastraUsuarioService.getCargos();
+            } catch (Exception ex) {
+                Logger.getLogger(CadastrarUsuario.class.getName()).log(Level.SEVERE, null, ex);
+            }
+
+            for(int i = 0; i < listaCargos.size(); i++) {
+                String cargoNome = listaCargos.get(i).getCargo_Nome();
+                String setorNome = listaCargos.get(i).Setor.getSetor_Nome();
+                String temp = cargoNome + " - " + setorNome;
+                listaCargos.get(i).setCargo_Nome(temp);
+            }
+
+            List<FilialModel> listaFiliais = null;
+            try {
+                listaFiliais = FilialDAO.listar();
+            } catch (Exception ex) {
+                Logger.getLogger(Rotas.class.getName()).log(Level.SEVERE, null, ex);
+            }
+
+            request.setAttribute("filiais", listaFiliais);
+            request.setAttribute("cargos", listaCargos);
+            request.setAttribute("usuarioEditar", usuario);
+            
+            RequestDispatcher requestDispatcher;
+            requestDispatcher = request.getRequestDispatcher("/WEB-INF/jsp/cadastrarUsuario.jsp");
+            requestDispatcher.forward(request, response);
+        }
+    }
+
+    @Override
+    protected void doPost(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
          // pego a url chamada pelo menuPrincipal
         String destino = request.getServletPath();
         RequestDispatcher requestDispatcher;
@@ -47,129 +86,71 @@ public class CadastrarUsuario extends HttpServlet {
         List<FuncionarioModel> funcionarios;
         FuncionarioModel funcionario;   
         
-        // direciono a url chamada para a classe correta
-            switch(destino){
-                case "/CadastrarUsuario": 
-                   
-                    try{
-                        System.out.println("Entrei no post");
-                        
-                        String nomeUsuario = request.getParameter("Nome");
-                        System.out.println("Nome " + nomeUsuario);
-                        String login = request.getParameter("login");
-                        System.out.println("login " + login);
-                        String password = request.getParameter("password");
-                        System.out.println("password" + password);
-                        int idFilial = Integer.parseInt(request.getParameter("filial"));
-                        System.out.println("filial" + idFilial);
-                        int idCargo = Integer.parseInt(request.getParameter("Cargo"));
-                        System.out.println("idcargo" + idCargo);
-                        
-                        funcionario = new FuncionarioModel(
-                                  FilialDAO.obter(idFilial), CargoDAO.obter(idCargo), nomeUsuario, login, password
-                        );
-                        
-                        FuncionarioDAO.inserir(funcionario);
-                        
-                        requestDispatcher = request.getRequestDispatcher("/WEB-INF/jsp/cadastroSucess.jsp");
-                        requestDispatcher.forward(request, response);
-                        
-                    } catch (ClassNotFoundException | IllegalArgumentException | SQLException e) {
-                        System.out.println("Erro" + e);
-                    
-                        request.setAttribute("msg", e);
-                        requestDispatcher = request.getRequestDispatcher("/WEB-INF/jsp/cadastroDanger.jsp");
-                        requestDispatcher.forward(request, response);
-                        
-                    } catch (Exception ex) {    
-                        Logger.getLogger(CadastrarUsuario.class.getName()).log(Level.SEVERE, null, ex);
-                    }
-                    
-                    break;
-                case "/exibirUsuario":
-                    try{
-                        
-                        String nomePesquisaCliente = request.getParameter("Nome");
-                        
-                        System.out.println("Entre no exibirUsuario");
-                        if(!nomePesquisaCliente.isEmpty()){
-                            funcionarios = daoFuncionario.procurar(nomePesquisaCliente);
-                            request.setAttribute("pesquisa", funcionarios);
+        if(request.getParameter("idFunc").isEmpty()) {
+            try{
+                String nomeUsuario = request.getParameter("Nome");
+                System.out.println("Nome " + nomeUsuario);
+                String login = request.getParameter("login");
+                System.out.println("login " + login);
+                String password = request.getParameter("password");
+                System.out.println("password" + password);
+                int idFilial = Integer.parseInt(request.getParameter("filial"));
+                System.out.println("filial" + idFilial);
+                int idCargo = Integer.parseInt(request.getParameter("Cargo"));
+                System.out.println("idcargo" + idCargo);
 
-                        }else{
-                            request.setAttribute("msgErroBusca", "Sua busca não gerou resultados!");
-                                   
-                        }
-                        
-                        request.getRequestDispatcher("/WEB-INF/jsp/listarUsuario.jsp").forward(request, response);
-                        
-                    }catch(SQLException | ServletException | IOException e){
-                        System.out.println("Erro -> " + e);
-                    } catch (Exception ex) {
-                        Logger.getLogger(Produto.class.getName()).log(Level.SEVERE, null, ex);
-                    }
-                    
-                    break;
-                case "/listarTodosUsuario":
-                    
-                    try{
-                        funcionarios = FuncionarioDAO.listar();
-                         
-                        if(funcionarios != null){
-                            request.setAttribute("pesquisa", funcionarios);
-                            
-                        }else{
-                            request.setAttribute("msgErroBusca", "Sua busca no gerou resuldato");
-                            
-                        }
-                        
-                        request.getRequestDispatcher("/WEB-INF/jsp/listarUsuario.jsp").forward(request, response);
-                    
-                    } catch(SQLException | ServletException | IOException e){
-                        System.out.println("Erro -> " + e);
-                    } catch (Exception ex) {
-                        Logger.getLogger(Produto.class.getName()).log(Level.SEVERE, null, ex);
-                    }
-                    
-                    break;
+                funcionario = new FuncionarioModel(
+                          FilialDAO.obter(idFilial), CargoDAO.obter(idCargo), nomeUsuario, login, password
+                );
+
+                FuncionarioDAO.inserir(funcionario);
+
+                requestDispatcher = request.getRequestDispatcher("/WEB-INF/jsp/cadastroSucess.jsp");
+                requestDispatcher.forward(request, response);
+
+            } catch (ClassNotFoundException | IllegalArgumentException | SQLException e) {
+                System.out.println("Erro" + e);
+
+                request.setAttribute("msg", e);
+                requestDispatcher = request.getRequestDispatcher("/WEB-INF/jsp/cadastroDanger.jsp");
+                requestDispatcher.forward(request, response);
+
+            } catch (Exception ex) {    
+                Logger.getLogger(CadastrarUsuario.class.getName()).log(Level.SEVERE, null, ex);
+            }    
+        } else {
+            try{
+                String nomeUsuario = request.getParameter("Nome");
+                System.out.println("Nome " + nomeUsuario);
+                String login = request.getParameter("login");
+                System.out.println("login " + login);
+                String password = request.getParameter("password");
+                System.out.println("password" + password);
+                int idFilial = Integer.parseInt(request.getParameter("filial"));
+                System.out.println("filial" + idFilial);
+                int idCargo = Integer.parseInt(request.getParameter("Cargo"));
+                System.out.println("idcargo" + idCargo);
+
+                funcionario = new FuncionarioModel(
+                          FilialDAO.obter(idFilial), CargoDAO.obter(idCargo), nomeUsuario, login, password
+                );
+                funcionario.setIdFunc(Integer.parseInt(request.getParameter("idFunc")));
+
+                FuncionarioDAO.atualizar(funcionario);
+
+                requestDispatcher = request.getRequestDispatcher("/WEB-INF/jsp/cadastroSucess.jsp");
+                requestDispatcher.forward(request, response);
+
+            } catch (ClassNotFoundException | IllegalArgumentException | SQLException e) {
+                System.out.println("Erro" + e);
+
+                request.setAttribute("msg", e);
+                requestDispatcher = request.getRequestDispatcher("/WEB-INF/jsp/cadastroDanger.jsp");
+                requestDispatcher.forward(request, response);
+
+            } catch (Exception ex) {    
+                Logger.getLogger(CadastrarUsuario.class.getName()).log(Level.SEVERE, null, ex);
             }
-     }
-    
-    @Override
-    protected void doGet(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
-        processRequest(request, response);
-        // criar a seção para gravar o usuario
-        /*
-        HttpSession sessao = request.getSession(); 
-        request.setAttribute("usuario", sessao.getAttribute("usuario"));
-        
-        List<SetorModel> listaSetores = null;
-        try {
-            listaSetores = CadastraUsuarioService.getSetores();
-        } catch (Exception ex) {
-            Logger.getLogger(CadastrarUsuario.class.getName()).log(Level.SEVERE, null, ex);
         }
-
-        request.setAttribute("setores", listaSetores);
-        
-        List<CargoModel> listaCargos = null;
-        try {
-            listaCargos = CadastraUsuarioService.getCargos();
-        } catch (Exception ex) {
-            Logger.getLogger(CadastrarUsuario.class.getName()).log(Level.SEVERE, null, ex);
-        }
-
-        request.setAttribute("cargos", listaCargos);
-        
-        request.getRequestDispatcher("WEB-INF/jsp/cadastrarUsuario.jsp").forward(request, response);
-        */
-    }
-
-    @Override
-    protected void doPost(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
-        
-         processRequest(request, response);
     }
 }

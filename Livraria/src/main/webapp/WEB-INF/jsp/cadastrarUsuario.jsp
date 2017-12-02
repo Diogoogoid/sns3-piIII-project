@@ -111,6 +111,7 @@
     <main id="page-content-wrapper" role="main">
         <form class="form-horizontal" method="POST" action="${pageContext.request.contextPath}/CadastrarUsuario">
         <fieldset>
+        <input id="idFunc" name="idFunc" value="${usuarioEditar.getIdFunc()}" type="hidden">
         <div class="panel panel-primary">
             <div class="panel-heading">Cadastro de Usuario</div>
             <div class="panel-body">
@@ -176,12 +177,6 @@
                     </c:forEach> 
             </select>
         </div>
-        </div>
-        <div class="form-group">
-            <label class="col-md-2 control-label" for="permissao">Status</label>
-            <div class="col-md-2">
-                    <input type="checkbox" value="true"> Ativo
-            </div>
         </div>
 
         <!-- Button (Double) -->
