@@ -110,6 +110,7 @@
     <main id="page-content-wrapper" role="main">
     <form class="form-horizontal" method="POST" action="${pageContext.request.contextPath}/cadastrarProduto">
         <fieldset>
+            <input id="idFunc" name="idFunc" value="${produto.id}" type="hidden">
         <div class="panel panel-primary">
             <div class="panel-heading">Cadastro de Produto</div>
             <div class="panel-body">
@@ -131,14 +132,14 @@
             <div class="form-group">
               <label class="col-md-2 control-label" for="Nome">Nome <h11>*</h11></label>  
               <div class="col-md-8">
-              <input id="Nome" name="Nome" placeholder="Digite o nome do produto" class="form-control input-md" required="" type="text" autofocus>
+              <input id="Nome" name="Nome" value="${produto.nome}" placeholder="Digite o nome do produto" class="form-control input-md" required="" type="text" autofocus>
               </div>
             </div>
 
             <div class="form-group">
               <label class="col-md-2 control-label" for="Fabricante">Fabricante/Editora <h11>*</h11></label>  
               <div class="col-md-8">
-              <input id="Fabricante" name="Fabricante" placeholder="Digite o nome do fabricante/Editora" class="form-control input-md" required="" type="text">
+              <input id="Fabricante" name="Fabricante" value="${produto.fabricante}" placeholder="Digite o nome do fabricante/Editora" class="form-control input-md" required="" type="text">
               </div>
             </div>
         
@@ -160,14 +161,14 @@
             <div class="form-group">
               <label class="col-md-2 control-label" for="qtdProduto">Quantidade <h11>*</h11></label>  
               <div class="col-md-1">
-                  <input id="qtdProduto" name="qtdProduto" class="form-control input-md" required="" type="number" placeholder="0">
+                  <input id="qtdProduto" value="${produto.qtdProduto}" name="qtdProduto" class="form-control input-md" required="" type="number" placeholder="0">
               </div>
             </div>
         
             <div class="form-group">
               <label class="col-md-2 control-label" for="valor">Valor Produto <h11>*</h11></label>  
               <div class="col-md-2">
-              <input id="valor" name="valor" class="form-control input-md" placeholder="R$ 0,00" required="" type="text">
+              <input id="valor" name="valor" value="${produto.valorProduto}" class="form-control input-md" placeholder="R$ 0,00" required="" type="text">
               </div>
             </div>    
 
@@ -181,7 +182,7 @@
             <div class="form-group">
                 <label class="col-md-2 control-label" for="garantia">Garantia(meses) </label>  
                 <div class="col-md-2">
-                <input id="garantia" name="garantia" class="form-control input-md" placeholder="Informe qtd meses" type="text">
+                <input id="garantia" name="garantia" value="${produto.garantia}" class="form-control input-md" placeholder="Informe qtd meses" type="text">
                 </div>
             </div>    
             

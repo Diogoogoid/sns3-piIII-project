@@ -135,11 +135,14 @@
             <table class="table table-striped">
                 <thead>
                     <tr>
+                      <th>ID</th>
                       <th>Nome Produto</th>
                       <th>Fabricante</th>
                       <th>Tipo Produto</th>
                       <th>Qtd</th>
                       <th>Valor Produto</th>
+                      <th></th>
+                      <th></th>
                     </tr>
                 </thead>
                  <c:if test="${not empty msgErroBusca}">
@@ -148,11 +151,13 @@
                 <tbody> 
                     <c:forEach items="${pesquisa}" var="produto">
                         <tr>
+                            <td><c:out value="${produto.id}" /></td>
                             <td><c:out value="${produto.nome}" /></td>
                             <td><c:out value="${produto.fabricante}" /></td>
                             <td><c:out value="${produto.tipoProduto}" /></td>
                             <td><c:out value="${produto.qtdProduto}" /></td>
                             <td><c:out value="${produto.valorProduto}" /></td>
+                            <td><a class="btn btn-info" href="${pageContext.request.contextPath}/cadastrarProduto?idProduto=${produto.id}">Editar</a></td>
                         </tr>    
                     </c:forEach>    
                 </tbody>    

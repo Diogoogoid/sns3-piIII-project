@@ -5,9 +5,11 @@
  */
 package br.com.livraria.Servlets;
 
-import br.com.livraria.DAOs.FuncionarioDAO;
-import br.com.livraria.Models.FuncionarioModel;
+import br.com.livraria.DAOs.ProdutoDAO;
+import br.com.livraria.Models.ProdutoModel;
 import java.io.IOException;
+import java.io.PrintWriter;
+import java.sql.Date;
 import java.sql.SQLException;
 import java.util.List;
 import java.util.logging.Level;
@@ -21,70 +23,71 @@ import javax.servlet.http.HttpServletResponse;
 
 /**
  *
- * @author bruno.falmeida
+ * @author diogo
  */
-@WebServlet(name = "ListarUsuario", urlPatterns = {"/exibirUsuario","/listarTodosUsuario"})
-public class ListarUsuario extends HttpServlet {
+@WebServlet(name = "ListarProduto", urlPatterns = {"/exibirProduto","/listarTodosProdutos"})
+public class ListarProduto extends HttpServlet {
 
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-         // pego a url chamada pelo menuPrincipal
         String destino = request.getServletPath();
         RequestDispatcher requestDispatcher;
         
-        FuncionarioDAO daoFuncionario = new FuncionarioDAO();
-        List<FuncionarioModel> funcionarios;
-        FuncionarioModel funcionario;   
+        ProdutoDAO daoProduto = new ProdutoDAO();
+        List<ProdutoModel> produtos;
+        ProdutoModel produto;
         
-        // direciono a url chamada para a classe correta
+            // direciono a url chamada para a classe correta
             switch(destino){
-                case "/exibirUsuario":
+                case "/exibirProduto":
+                     System.out.println("entrei exibir Produto");
                     try{
                         
-                        String nomePesquisaCliente = request.getParameter("Nome");
+                        String nomePesquisaProduto = request.getParameter("Nome");
                         
-                        if(!nomePesquisaCliente.isEmpty()){
-                            funcionarios = daoFuncionario.procurar(nomePesquisaCliente);
-                            request.setAttribute("pesquisa", funcionarios);
-
+                        if(!nomePesquisaProduto.isEmpty()){
+                            produtos = daoProduto.procurar(nomePesquisaProduto);
+                            request.setAttribute("pesquisa", produtos);
+                            
                         }else{
                             request.setAttribute("msgErroBusca", "Sua busca não gerou resultados!");
                                    
                         }
                         
-                        request.getRequestDispatcher("/WEB-INF/jsp/listarUsuario.jsp").forward(request, response);
+                        request.getRequestDispatcher("/WEB-INF/jsp/listarProduto.jsp").forward(request, response);
                         
                     }catch(SQLException | ServletException | IOException e){
                         System.out.println("Erro -> " + e);
                     } catch (Exception ex) {
                         Logger.getLogger(Produto.class.getName()).log(Level.SEVERE, null, ex);
                     }
+                break;   
+                case "/listarTodosProdutos":
                     
-                    break;
-                case "/listarTodosUsuario":
-                    
-                    try{
-                        funcionarios = FuncionarioDAO.listar();
+                    try {
+
+                        produtos = ProdutoDAO.listar();
                          
-                        if(funcionarios != null){
-                            request.setAttribute("pesquisa", funcionarios);
+                        if(produtos != null){
+                            request.setAttribute("pesquisa", produtos);
                             
                         }else{
                             request.setAttribute("msgErroBusca", "Sua busca no gerou resuldato");
                             
                         }
                         
-                        request.getRequestDispatcher("/WEB-INF/jsp/listarUsuario.jsp").forward(request, response);
-                    
+                        request.getRequestDispatcher("/WEB-INF/jsp/listarProduto.jsp").forward(request, response);
+                        
                     } catch(SQLException | ServletException | IOException e){
                         System.out.println("Erro -> " + e);
                     } catch (Exception ex) {
                         Logger.getLogger(Produto.class.getName()).log(Level.SEVERE, null, ex);
                     }
-                    
-                    break;
-            }
+                break;  
+                    }
+        
     }
+
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
@@ -97,4 +100,5 @@ public class ListarUsuario extends HttpServlet {
             throws ServletException, IOException {
         processRequest(request, response);
     }
+
 }

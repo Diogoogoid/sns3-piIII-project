@@ -26,7 +26,7 @@ import javax.servlet.http.HttpServletResponse;
  *
  * @author diogo.sfelix
  */
-@WebServlet(name = "Cliente", urlPatterns = {"/cadastrarCliente"})
+@WebServlet(name = "Cliente", urlPatterns = {"/cadastrarCliente","/excluirCliente"})
 public class Cliente extends HttpServlet {
 
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)

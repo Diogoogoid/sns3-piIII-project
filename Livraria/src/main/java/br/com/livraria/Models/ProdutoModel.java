@@ -110,7 +110,7 @@ public class ProdutoModel {
         this.valorProduto = ValorProd;
     }
     
-    public Float getValorProduto (){
+    public Float getValorProduto(){
         return valorProduto;
     }
 }

@@ -73,7 +73,7 @@ public class ProdutoDAO {
     public static void atualizar(ProdutoModel produto)
             throws SQLException, Exception {
         // String de update no BD
-        String sql = "UPDATE produto SET NOMEPROD=?, FABRICANTE=?, TIPOPROD=?, "
+        String sql = "UPDATE produto SET NOME=?, FABRICANTE=?, TIPOPROD=?, "
                 + "QUANTIDADE=?, STATUS=?, VALOR=?, GARANTIA=?, DATAFAB=?"
                 + "WHERE IDPROD=?";
         
@@ -330,7 +330,7 @@ public class ProdutoDAO {
             if (result.next()) {                
                 ProdutoModel produto = new ProdutoModel();
                 produto.setId(result.getInt("IDPROD"));
-                produto.setNome(result.getString("NOMEPROD"));
+                produto.setNome(result.getString("NOME"));
                 produto.setFabricante(result.getString("FABRICANTE"));
                 produto.setStatus(result.getBoolean("STATUS"));
                 produto.setTipoProduto(result.getString("TIPOPROD"));

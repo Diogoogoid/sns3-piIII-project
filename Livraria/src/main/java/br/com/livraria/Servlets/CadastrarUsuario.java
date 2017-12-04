@@ -89,15 +89,10 @@ public class CadastrarUsuario extends HttpServlet {
         if(request.getParameter("idFunc").isEmpty()) {
             try{
                 String nomeUsuario = request.getParameter("Nome");
-                System.out.println("Nome " + nomeUsuario);
                 String login = request.getParameter("login");
-                System.out.println("login " + login);
                 String password = request.getParameter("password");
-                System.out.println("password" + password);
                 int idFilial = Integer.parseInt(request.getParameter("filial"));
-                System.out.println("filial" + idFilial);
                 int idCargo = Integer.parseInt(request.getParameter("Cargo"));
-                System.out.println("idcargo" + idCargo);
 
                 funcionario = new FuncionarioModel(
                           FilialDAO.obter(idFilial), CargoDAO.obter(idCargo), nomeUsuario, login, password
@@ -120,16 +115,12 @@ public class CadastrarUsuario extends HttpServlet {
             }    
         } else {
             try{
+                
                 String nomeUsuario = request.getParameter("Nome");
-                System.out.println("Nome " + nomeUsuario);
                 String login = request.getParameter("login");
-                System.out.println("login " + login);
                 String password = request.getParameter("password");
-                System.out.println("password" + password);
                 int idFilial = Integer.parseInt(request.getParameter("filial"));
-                System.out.println("filial" + idFilial);
                 int idCargo = Integer.parseInt(request.getParameter("Cargo"));
-                System.out.println("idcargo" + idCargo);
 
                 funcionario = new FuncionarioModel(
                           FilialDAO.obter(idFilial), CargoDAO.obter(idCargo), nomeUsuario, login, password

@@ -8,10 +8,12 @@ package br.com.livraria.Servlets;
 import br.com.livraria.DAOs.ClienteDAO;
 import br.com.livraria.DAOs.FilialDAO;
 import br.com.livraria.DAOs.FuncionarioDAO;
+import br.com.livraria.DAOs.ProdutoDAO;
 import br.com.livraria.Models.CargoModel;
 import br.com.livraria.Models.ClienteModel;
 import br.com.livraria.Models.FilialModel;
 import br.com.livraria.Models.FuncionarioModel;
+import br.com.livraria.Models.ProdutoModel;
 import br.com.livraria.Services.CadastraUsuarioService;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
@@ -83,6 +85,13 @@ public class Rotas extends HttpServlet {
                     requestDispatcher.forward(request, response);
                 break;  
                 case "/listarProduto":
+                    List<ProdutoModel> listaProduto = null;
+                    try {
+                        listaProduto = ProdutoDAO.listar();
+                    } catch (Exception e) {
+                        Logger.getLogger(Rotas.class.getName()).log(Level.SEVERE, null, e);
+                    }
+                    request.setAttribute("pesquisa", listaProduto);
                     requestDispatcher = request.getRequestDispatcher("/WEB-INF/jsp/listarProduto.jsp");
                     requestDispatcher.forward(request, response);
                 break;
