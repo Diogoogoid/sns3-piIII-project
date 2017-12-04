@@ -97,7 +97,7 @@
                             </li>
                         </c:if>
                         <c:if test="${modulo.getModuloNome() eq 'venda'}">
-                            <li ><a href="#">Vender Produto<span style="font-size:16px;" class="pull-right showopacity glyphicon glyphicon-tags"></span></a></li>
+                            <li ><a href="${pageContext.request.contextPath}/SelecioneCliente">Vender Produto<span style="font-size:16px;" class="pull-right showopacity glyphicon glyphicon-tags"></span></a></li>
                         </c:if>
                         <c:if test="${modulo.getModuloNome() eq 'relatorio'}">
                             <li ><a href="#">Relatorio Vendas<span style="font-size:16px;" class="pull-right showopacity glyphicon glyphicon-tags"></span></a></li>

@@ -58,4 +58,8 @@ public class PedidoModel {
     public void setItens(List<ItemPedidoModel> itens) {
         this.itens = itens;
     }
+    
+    public void setItem(ItemPedidoModel item) {
+        this.itens.add(item);
+    }
 }
