@@ -70,7 +70,7 @@ public class ProdutoModel {
         this.id = id;
     }
     
-    public Integer getId (){
+    public Integer getId(){
         return this.id;
     }
     

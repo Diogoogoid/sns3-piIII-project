@@ -111,6 +111,7 @@
     <main id="page-content-wrapper" role="main">
         <form class="form-horizontal" method="POST" action="${pageContext.request.contextPath}/cadastrarCliente">
         <fieldset>
+        <input id="idFunc" name="idCli" value="${cliente.getId()}" type="hidden">
         <div class="panel panel-primary">
             <div class="panel-heading">Cadastro de Cliente</div>
             <div class="panel-body">
@@ -153,11 +154,11 @@
           <label class="col-md-1 control-label" for="radios">Sexo <h11>*</h11></label>
           <div class="col-md-4"> 
             <label class="radio-inline" for="radios-0" >
-              <input name="sexo" id="sexo" value="feminino" type="radio" ${cliente.getSexo() == 'FEMININO' ? 'checked="checked"' : ''}>
+              <input name="sexo" id="sexo" value="FEMININO" type="radio" ${cliente.getSexo() == 'FEMININO' ? 'checked="checked"' : ''}>
               Feminino
             </label> 
             <label class="radio-inline" for="radios-1">
-              <input name="sexo" id="sexo" value="masculino" type="radio" ${cliente.getSexo() == 'MASCULINO' ? 'checked="checked"' : ''}>
+              <input name="sexo" id="sexo" value="MASCULINO" type="radio" ${cliente.getSexo() == 'MASCULINO' ? 'checked="checked"' : ''}>
               Masculino
             </label>
           </div>
@@ -183,8 +184,8 @@
           <div class="col-md-2">
             <div class="input-group">
               <span class="input-group-addon"><i class="glyphicon glyphicon-earphone"></i></span>
-              <input id="telefone" name="telefone" value="${cliente.getTelefone()}" class="form-control" placeholder="XX XXXXX-XXXX" type="text" maxlength="13" pattern="\[0-9]{2}\ [0-9]{4,6}-[0-9]{3,4}$"
-              OnKeyPress="formatar('## #####-####', this)">
+              <input id="telefone" name="telefone" value="${cliente.getTelefone()}" class="form-control" placeholder="XX XXXX-XXXX" type="number" maxlength="12" pattern="\d{2} \d{4}-\d{4}$"
+              OnKeyPress="formatar('## ####-####', this)">
             </div>
           </div>
 
@@ -192,7 +193,7 @@
              <div class="col-md-2">
             <div class="input-group">
               <span class="input-group-addon"><i class="glyphicon glyphicon-earphone"></i></span>
-              <input id="celular" name="celular" value="${cliente.getCelular()}" class="form-control" placeholder="XX XXXXX-XXXX" type="text" maxlength="13"  pattern="\[0-9]{2}\ [0-9]{4,6}-[0-9]{3,4}$"
+              <input id="celular" name="celular" value="${cliente.getCelular()}" class="form-control" placeholder="XX XXXXX-XXXX" type="number" maxlength="13"  pattern="\d{2} \d{5}-\d{4}$"
               OnKeyPress="formatar('## #####-####', this)">
             </div>
           </div>
@@ -204,7 +205,7 @@
           <div class="col-md-5">
             <div class="input-group">
               <span class="input-group-addon"><i class="glyphicon glyphicon-envelope"></i></span>
-              <input id="email" name="email" value="${cliente.getEmail()}" class="form-control" placeholder="email@email.com" type="text" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$" >
+              <input id="email" name="email" value="${cliente.getEmail()}" class="form-control" placeholder="email@email.com" type="text" pattern="/^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]+{2,4}$/" >
             </div>
           </div>
         </div>

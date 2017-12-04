@@ -110,7 +110,7 @@
     <main id="page-content-wrapper" role="main">
     <form class="form-horizontal" method="POST" action="${pageContext.request.contextPath}/cadastrarProduto">
         <fieldset>
-            <input id="idFunc" name="idFunc" value="${produto.id}" type="hidden">
+        <input id="idFunc" name="idProd" value="${produto.getId()}" type="hidden">
         <div class="panel panel-primary">
             <div class="panel-heading">Cadastro de Produto</div>
             <div class="panel-body">
@@ -148,12 +148,12 @@
               <div class="col-md-2">
                 <select required id="TipoProduto" name="TipoProduto" class="form-control">
                   <option value=""></option>
-                  <option value="LIVRO">Livro</option>
-                  <option value="PAPELARIA">Papelaria</option>
-                  <option value="CELULARES">Celulares</option>
-                  <option value="FILMES">Filme</option>
-                  <option value="SERIE">Serie</option>
-                  <option value="INFORMATICA">Informatica</option>
+                  <option value="LIVRO" ${produto.getTipoProduto() == 'LIVRO' ? 'selected="selected"' : ''}>Livro</option>
+                  <option value="PAPELARIA" ${produto.getTipoProduto() == 'PAPELARIA' ? 'selected="selected"' : ''}>Papelaria</option>
+                  <option value="CELULARES" ${produto.getTipoProduto() == 'CELULARES' ? 'selected="selected"' : ''}>Celulares</option>
+                  <option value="FILMES" ${produto.getTipoProduto() == 'FILMES' ? 'selected="selected"' : ''}>Filme</option>
+                  <option value="SERIE" ${produto.getTipoProduto() == 'SERIE' ? 'selected="selected"' : ''}>Serie</option>
+                  <option value="INFORMATICA" ${produto.getTipoProduto() == 'INFORMATICA' ? 'selected="selected"' : ''}>Informatica</option>
                 </select>
               </div>
             </div>
@@ -175,7 +175,7 @@
             <div class="form-group">
               <label class="col-md-2 control-label" for="dtFabricacao">Data Fabricação </label>  
               <div class="col-md-2">
-              <input id="dtFabricacao" name="dtFabricacao" class="form-control input-md" type="date">
+                  <input id="dtFabricacao" name="dtFabricacao" class="form-control input-md" type="date" value="${data}">
               </div>
             </div>        
             
@@ -186,12 +186,12 @@
                 </div>
             </div>    
             
-            <div class="form-group">
+<!--            <div class="form-group">
                 <label class="col-md-2 control-label" for="permissao">Status</label>
                 <div class="col-md-2">
                         <input id="permissao" type="checkbox" name="permissao" value="sim"> Ativo
                 </div>
-            </div>
+            </div>-->
             
             <div class="form-group">
               <label class="col-md-2 control-label" for="Cadastrar"></label>

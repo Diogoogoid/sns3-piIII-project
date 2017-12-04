@@ -7,7 +7,7 @@
  * Author:  bruno.falmeida
  * Created: 06/11/2017
  */
-select * from funcionario;
+-- select * from funcionario;
 
 create table cliente (
     IdCli int generated always as identity (start with 1, increment by 1) primary key,
