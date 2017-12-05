@@ -45,7 +45,7 @@ public class ListarProduto extends HttpServlet {
                         
                         String nomePesquisaProduto = request.getParameter("Nome");
                         
-                        if(!nomePesquisaProduto.isEmpty()){
+                        if(nomePesquisaProduto != null){
                             produtos = daoProduto.procurar(nomePesquisaProduto);
                             request.setAttribute("pesquisa", produtos);
                             
@@ -72,7 +72,7 @@ public class ListarProduto extends HttpServlet {
                             request.setAttribute("pesquisa", produtos);
                             
                         }else{
-                            request.setAttribute("msgErroBusca", "Sua busca no gerou resuldato");
+                            request.setAttribute("msgErroBusca", "Sua busca no gerou resultado");
                             
                         }
                         

@@ -159,6 +159,7 @@
                             <td><c:out value="${cliente.getTelefone()}" /></td>
                             <td><c:out value="${cliente.getEmail()}" /></td>
                             <td><a class="btn btn-info" href="${pageContext.request.contextPath}/cadastrarCliente?idCliente=${cliente.getId()}">Editar</a></td>
+                            <td><a class="btn btn-danger" href="${pageContext.request.contextPath}/ExclusaoCliente?idCliente=${cliente.getId()}">Excluir</a></td>
                         </tr>    
                     </c:forEach>    
                 </tbody>    

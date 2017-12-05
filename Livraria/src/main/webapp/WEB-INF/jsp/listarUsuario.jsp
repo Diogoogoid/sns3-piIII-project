@@ -156,6 +156,7 @@
                             <td><c:out value="${usuario.getFilial().getFilial_Nome()}" /></td>
                             <td><c:out value="${usuario.getCargo().getCargo_Nome()}" /></td>
                             <td><a class="btn btn-info" href="${pageContext.request.contextPath}/CadastrarUsuario?idUsuario=${usuario.getIdFunc()}">Editar</a></td>
+                            <td><a class="btn btn-danger" href="${pageContext.request.contextPath}/ExclusaoFuncionario?idUsuario=${usuario.getIdFunc()}">Excluir</a></td>
                         </tr>    
                     </c:forEach>    
                 </tbody>    

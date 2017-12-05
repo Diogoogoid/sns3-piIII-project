@@ -48,6 +48,8 @@ public class Produto extends HttpServlet {
             requestDispatcher = request.getRequestDispatcher("/WEB-INF/jsp/cadastrarProduto.jsp");
             requestDispatcher.forward(request, response);
         }
+        
+        
     }
 
     @Override

@@ -158,6 +158,7 @@
                             <td><c:out value="${produto.qtdProduto}" /></td>
                             <td><c:out value="${produto.valorProduto}" /></td>
                             <td><a class="btn btn-info" href="${pageContext.request.contextPath}/cadastrarProduto?idProduto=${produto.id}">Editar</a></td>
+                            <td><a class="btn btn-danger" href="${pageContext.request.contextPath}/Exclusao?idProduto=${produto.id}">Excluir</a></td>
                         </tr>    
                     </c:forEach>    
                 </tbody>    
