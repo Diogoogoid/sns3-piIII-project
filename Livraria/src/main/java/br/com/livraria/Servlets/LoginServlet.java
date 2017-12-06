@@ -12,6 +12,8 @@ import javax.servlet.http.HttpServletResponse;
 import br.com.livraria.DAOs.LoginDAO;
 import br.com.livraria.Models.LoginModel;
 import br.com.livraria.Services.LoginService;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.servlet.http.HttpSession;
 
 /**
@@ -49,7 +51,12 @@ public class LoginServlet extends HttpServlet {
         String senha = request.getParameter("password");
         
         LoginService service = new LoginService();
-        LoginModel usuario = service.autenticar(username, senha);
+        LoginModel usuario = null;
+        try {
+            usuario = service.autenticar(username, senha);
+        } catch (Exception ex) {
+            Logger.getLogger(LoginServlet.class.getName()).log(Level.SEVERE, null, ex);
+        }
         
         if(usuario != null || username.equalsIgnoreCase("a")) {
             HttpSession sessao = request.getSession();

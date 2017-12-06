@@ -16,7 +16,7 @@ import java.util.logging.Logger;
  * @author bruno.falmeida
  */
 public class LoginService {
-  public LoginModel autenticar(String username, String senha) {
+  public LoginModel autenticar(String username, String senha) throws Exception {
     // 1) Verifica se username existe
     LoginModel usuario = null;
     try {

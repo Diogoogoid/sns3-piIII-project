@@ -109,7 +109,7 @@
             </div>
         </nav>
         <main id="page-content-wrapper" role="main">
-            <form class="form-horizontal" method="POST" action="${pageContext.request.contextPath}/Venda">
+            <form class="form-horizontal" method="POST" action="${pageContext.request.contextPath}/AdicionarItem">
                 <fieldset>
                     <div class="panel panel-primary">
                         <div class="panel-heading">Venda</div>
@@ -164,6 +164,7 @@
                                         <th>Tipo Produto</th>
                                         <th>Qtd</th>
                                         <th>Valor Parcial</th>
+                                        <th></th>
                                     </tr>
                                 </thead>
                                 <c:if test="${not empty msgErroBusca}">
@@ -179,6 +180,7 @@
                                             <td><c:out value="${item.produto.tipoProduto}" /></td>
                                             <td><c:out value="${item.qtd}" /></td>
                                             <td><c:out value="${item.valorParcial}" /></td>
+                                            <td><a class="btn btn-danger" href="${pageContext.request.contextPath}/ExcluirItem?idItem=${item.getId()}">Excluir</a></td>
                                         </tr>
                                     </c:forEach>
                                     <tr>
@@ -192,14 +194,13 @@
                                 </tbody>    
                             </table>
 
-                            <!-- Button (Double) -->
-                            <!--        <div class="form-group">
-                                      <label class="col-md-2 control-label" for="Cadastrar"></label>
-                                      <div class="col-md-8">
-                                        <button id="Cadastrar" name="Cadastrar" class="btn btn-success" type="Submit">Cadastrar</button>
-                                        <button id="Cancelar" name="Cancelar" class="btn btn-danger" type="Reset">Cancelar</button>
-                                      </div>
-                                    </div>-->
+                            <div class="form-group">
+                                <label class="col-md-2 control-label" for="Cadastrar"></label>
+                                <div class="col-md-8">
+                                    <a class="btn btn-success" href="${pageContext.request.contextPath}/Finaliza">FinalizarVenda</a>
+                                    <button id="Cancelar" name="Cancelar" class="btn btn-danger" type="Reset">Cancelar</button>
+                                </div>
+                            </div>
                         </div>    
                     </div> 
                 </fieldset>

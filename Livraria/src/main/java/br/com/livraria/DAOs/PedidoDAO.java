@@ -25,8 +25,8 @@ public class PedidoDAO {
     public static void inserir(PedidoModel pedido)
             throws SQLException, Exception {
         
-        String sql = "INSERT INTO pedido (IDCLI, DATACOMP, VALOR) "
-                + "VALUES (?, ?, ?)";
+        String sql = "INSERT INTO pedido (IDCLI, IDFILIAL, DATACOMP, VALOR) "
+                + "VALUES (?, ?, ?, ?)";
         
         //Conexão para abertura e fechamento
         Connection connection = null;
@@ -44,9 +44,10 @@ public class PedidoDAO {
 
             //Configura os parâmetros do "PreparedStatement"
             preparedStatement.setInt(1, pedido.getCliente().getId());
+            preparedStatement.setInt(2, pedido.getFilial().getIdFilial());
             Timestamp t = new Timestamp(pedido.getDataVenda().getTime());
-            preparedStatement.setTimestamp(2, t);
-            preparedStatement.setFloat(3, pedido.getValorTotal());
+            preparedStatement.setTimestamp(3, t);
+            preparedStatement.setFloat(4, pedido.getValorTotal());
             
             //Executa o comando no banco de dados
             preparedStatement.execute();
@@ -153,6 +154,7 @@ public class PedidoDAO {
                 PedidoModel pedido = new PedidoModel();
                 pedido.setId(result.getInt("IDPEDIDO"));
                 pedido.setCliente(ClienteDAO.obter(result.getInt("IDCLI")));
+                pedido.setFilial(FilialDAO.obter(result.getInt("IDFILIAL")));
                 Date d = new Date(result.getTimestamp("DATACOMP").getTime());
                 pedido.setDataVenda(d);
                 pedido.setValorTotal(result.getFloat("VALOR"));

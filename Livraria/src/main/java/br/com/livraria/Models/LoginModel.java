@@ -15,11 +15,20 @@ public class LoginModel {
     
     private int idUsuario;
     private int idCargo;
+    private FilialModel filial;
     private String login;
     private String nome;
     private String cargo;
     private String setor;
     private List<ModuloModel> modulos;
+    
+    public FilialModel getFilial() {
+        return filial;
+    }
+
+    public void setFilial(FilialModel filial) {
+        this.filial = filial;
+    }
     
     public int getIdUsuario() {
         return idUsuario;

@@ -15,6 +15,7 @@ import java.util.List;
  */
 public class PedidoModel {
     private Integer id;
+    private FilialModel filial;
     private ClienteModel cliente;
     private List<ItemPedidoModel> itens = new ArrayList<>();
     private float valorTotal;
@@ -42,6 +43,14 @@ public class PedidoModel {
 
     public void setId(Integer id) {
         this.id = id;
+    }
+    
+    public FilialModel getFilial() {
+        return filial;
+    }
+
+    public void setFilial(FilialModel filial) {
+        this.filial = filial;
     }
 
     public ClienteModel getCliente() {

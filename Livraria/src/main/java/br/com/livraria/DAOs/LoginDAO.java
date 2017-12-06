@@ -9,25 +9,23 @@ import br.com.livraria.Models.LoginModel;
 import br.com.livraria.Models.ModuloModel;
 import br.com.livraria.Utils.ConexaoDB;
 import java.sql.Connection;
-import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 /**
  *
  * @author bruno.falmeida
  */
 public class LoginDAO {
-    public static LoginModel DoLogin(String login, String senha) throws SQLException {
-        String sql = "SELECT f.IdFunc, c.IdCargo, f.login, f.nome, c.cargo_nome, s.setor_nome " +
-                        "FROM funcionario f " +
-                        "INNER JOIN cargo c on c.IdCargo = f.IdCargo " +
-                        "INNER JOIN setor s on s.IdSetor = c.IdSetor " +
+    public static LoginModel DoLogin(String login, String senha) throws SQLException, Exception {
+        String sql = "SELECT f.IdFunc, f.IdCargo, f.login, f.nome, c.cargo_nome, s.setor_nome, f.IdFilial\n" +
+                        "FROM funcionario f\n" +
+                        "INNER JOIN cargo c on c.IdCargo = f.IdCargo\n" +
+                        "INNER JOIN setor s on s.IdSetor = c.IdSetor\n" +
+                        "INNER JOIN filial fili on fili.IdFilial = f.IdFilial\n" +
                         "WHERE f.login = ? and f.senha = ?";
         
         // conexao para abertura e fechamento do BD
@@ -59,6 +57,7 @@ public class LoginDAO {
                 LoginModel Login = new LoginModel();
                 Login.setIdUsuario(result.getInt("IdFunc"));
                 Login.setIdCargo(result.getInt("IdCargo"));
+                Login.setFilial(FilialDAO.obter(result.getInt("IdFilial")));
                 Login.setLogin(result.getString("login"));
                 Login.setNome(result.getString("nome"));
                 Login.setCargo(result.getString("cargo_nome"));
@@ -68,7 +67,7 @@ public class LoginDAO {
                 return getPermissao(Login);
             }
         }catch(SQLException e) {
-            
+            System.out.print(e);
         } finally {
             //Se o result ainda estiver aberto, realiza seu fechamento
             if (result != null && !result.isClosed()) {
