@@ -5,6 +5,7 @@
 --%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <!DOCTYPE html>
 <html>
     <head>
@@ -28,25 +29,25 @@
             </ul>
         </div>
     </nav>
-    <nav class="navbar navbar-default sidebar" role="navigation">
-        <div class="container-fluid">
-            <div class="profile-usertitle">
-                <div class="profile-usertitle-name">
-                    ${sessionScope.usuario.nome}
+        <nav class="navbar navbar-default sidebar" role="navigation">
+            <div class="container-fluid">
+                <div class="profile-usertitle">
+                    <div class="profile-usertitle-name">
+                        ${sessionScope.usuario.nome}
+                    </div>
+                    <div class="profile-usertitle-job">
+                         ${sessionScope.usuario.cargo} - ${sessionScope.usuario.setor}
+                    </div>
                 </div>
-                <div class="profile-usertitle-job">
-                     ${sessionScope.usuario.cargo} - ${sessionScope.usuario.setor}
+                <div class="navbar-header">
+                    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-sidebar-navbar-collapse-1">
+                        <span class="sr-only">Toggle navigation</span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
                 </div>
-            </div>
-            <div class="navbar-header">
-                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-sidebar-navbar-collapse-1">
-                    <span class="sr-only">Toggle navigation</span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                </button>
-            </div>
-            <div class="collapse navbar-collapse" id="bs-sidebar-navbar-collapse-1">
+                <div class="collapse navbar-collapse" id="bs-sidebar-navbar-collapse-1">
                 <ul class="nav navbar-nav">
                     <li class="active format-active"><a href="${pageContext.request.contextPath}/menuPrincipal">Home<span style="font-size:16px;" class="pull-right showopacity glyphicon glyphicon-home"></span></a></li>
                     <c:forEach items="${sessionScope.usuario.modulos}" var="modulo">
@@ -105,8 +106,8 @@
                 </ul>
             </div>
 
-        </div>
-    </nav>
+            </div>
+        </nav>
     <main id="page-content-wrapper" role="main">
     <form class="form-horizontal" method="POST" action="${pageContext.request.contextPath}/cadastrarProduto">
         <fieldset>
@@ -177,7 +178,7 @@
               <div class="col-md-2">
                   <input id="dtFabricacao" name="dtFabricacao" class="form-control input-md" type="date" value="${data}">
               </div>
-            </div>        
+            </div>
             
             <div class="form-group">
                 <label class="col-md-2 control-label" for="garantia">Garantia(meses) </label>  

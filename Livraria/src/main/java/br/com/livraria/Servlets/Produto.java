@@ -23,6 +23,8 @@ import javax.servlet.http.HttpServletResponse;
 @WebServlet(name = "Produto", urlPatterns = {"/cadastrarProduto"})
 public class Produto extends HttpServlet {
     
+    String data;
+    
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
@@ -40,7 +42,7 @@ public class Produto extends HttpServlet {
             }
 
             SimpleDateFormat dt1 = new SimpleDateFormat("dd/MM/yyyy");
-            String data = dt1.format(produto.getDtFabricacao());
+            data = dt1.format(produto.getDtFabricacao());
 
             request.setAttribute("data", data);
             request.setAttribute("produto", produto);
@@ -87,9 +89,9 @@ public class Produto extends HttpServlet {
             requestDispatcher = request.getRequestDispatcher("/WEB-INF/jsp/cadastroDanger.jsp");
             requestDispatcher.forward(request, response);
 
-            } catch (Exception ex) {    
+            } catch (Exception ex) {
                 Logger.getLogger(CadastrarUsuario.class.getName()).log(Level.SEVERE, null, ex);
-            }    
+            }
         }else{
 //            System.out.println("Vou atualizar");
             SimpleDateFormat dt1 = new SimpleDateFormat("dd/MM/yyyy");
@@ -100,7 +102,12 @@ public class Produto extends HttpServlet {
                 String tipoProduto = request.getParameter("TipoProduto");
                 int qtdProduto = Integer.parseInt(request.getParameter("qtdProduto"));
                 float valorProduto = Float.parseFloat(request.getParameter("valor"));
-                String dtFabricacao = request.getParameter("dtFabricacao");
+                String dtFabricacao;
+                if(!request.getParameter("dtFabricacao").isEmpty()){
+                    dtFabricacao = request.getParameter("dtFabricacao");
+                } else {
+                    dtFabricacao = data;
+                }
                 int garantia = Integer.parseInt(request.getParameter("garantia"));
 
                 produto = new ProdutoModel(

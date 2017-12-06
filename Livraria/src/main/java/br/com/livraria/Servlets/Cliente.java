@@ -27,6 +27,8 @@ import javax.servlet.http.HttpServletResponse;
 @WebServlet(name = "Cliente", urlPatterns = {"/cadastrarCliente","/excluirCliente"})
 public class Cliente extends HttpServlet {
     
+    String data;
+    
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
@@ -41,7 +43,7 @@ public class Cliente extends HttpServlet {
             }
             
             SimpleDateFormat dt1 = new SimpleDateFormat("dd/MM/yyyy");
-            String data = dt1.format(cliente.getData());
+            data = dt1.format(cliente.getData());
             
             request.setAttribute("cliente", cliente);
             request.setAttribute("data", data);
@@ -100,7 +102,12 @@ public class Cliente extends HttpServlet {
                             
                 String nomeCliente = request.getParameter("Nome");
                 String sexo = request.getParameter("sexo");
-                String dataNasc = request.getParameter("dtnasc");
+                String dataNasc;
+                if(!request.getParameter("dtnasc").isEmpty()){
+                    dataNasc = request.getParameter("dtnasc");
+                } else {
+                    dataNasc = data;
+                }
                 String estadoCivil = request.getParameter("estadoCivil");
                 String cpf = request.getParameter("cpf");
                 String telefone = request.getParameter("telefone");
