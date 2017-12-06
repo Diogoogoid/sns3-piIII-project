@@ -31,23 +31,29 @@ import javax.servlet.http.HttpSession;
  */
 @WebServlet(name = "Venda", urlPatterns = {"/Venda"})
 public class Venda extends HttpServlet {
+    
+    boolean flag = true;
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        if(!request.getParameter("idCliente").isEmpty()) {
-            ClienteModel cliente = null;
-            try {
-                cliente = ClienteDAO.obter(Integer.parseInt(request.getParameter("idCliente")));
-            } catch (Exception ex) {
-                Logger.getLogger(Venda.class.getName()).log(Level.SEVERE, null, ex);
+        if(flag) {
+            if(!request.getParameter("idCliente").isEmpty()) {
+                ClienteModel cliente = null;
+                try {
+                    cliente = ClienteDAO.obter(Integer.parseInt(request.getParameter("idCliente")));
+                } catch (Exception ex) {
+                    Logger.getLogger(Venda.class.getName()).log(Level.SEVERE, null, ex);
+                }
+
+                PedidoModel pedido = new PedidoModel();
+                pedido.setCliente(cliente);
+
+                HttpSession sessao = request.getSession();
+                sessao.setAttribute("pedido", pedido);
+                
+                flag = false;
             }
-            
-            PedidoModel pedido = new PedidoModel();
-            pedido.setCliente(cliente);
-            
-            HttpSession sessao = request.getSession();
-            sessao.setAttribute("pedido", pedido);
         }
 
         RequestDispatcher requestDispatcher;
@@ -82,14 +88,21 @@ public class Venda extends HttpServlet {
         item.setQtd(qtd);
         item.setValorParcial(qtd*produto.getValorProduto());
         
+
+        
         HttpSession sessao = request.getSession();
         PedidoModel pedido = (PedidoModel)sessao.getAttribute("pedido");
         pedido.setItem(item);
+        float valorTotal = 0;
+        for(int i = 0; i < pedido.getItens().size(); i++) {
+            valorTotal += pedido.getItens().get(i).getValorParcial();
+        }
+        
+        pedido.setValorTotal(valorTotal);
+        
         sessao.removeAttribute("pedido");
         sessao.setAttribute("pedido", pedido);
         
-        ServletContext context= getServletContext();
-        RequestDispatcher rd= context.getRequestDispatcher("/Venda");
-        rd.forward(request, response);
+        doGet(request, response);
     }
 }

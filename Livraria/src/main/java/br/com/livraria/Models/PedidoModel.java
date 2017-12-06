@@ -5,6 +5,7 @@
  */
 package br.com.livraria.Models;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -15,7 +16,7 @@ import java.util.List;
 public class PedidoModel {
     private Integer id;
     private ClienteModel cliente;
-    private List<ItemPedidoModel> itens;
+    private List<ItemPedidoModel> itens = new ArrayList<>();
     private float valorTotal;
     private Date dataVenda;
 
