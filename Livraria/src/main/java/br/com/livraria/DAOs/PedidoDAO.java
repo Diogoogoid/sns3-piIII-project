@@ -181,7 +181,7 @@ public class PedidoDAO {
         return listaPedidos;
     }
     
-    private static List<ItemPedidoModel> listarItem(int idPedido)
+    public static List<ItemPedidoModel> listarItem(int idPedido)
             throws SQLException, Exception {
 
         String sql = "SELECT * FROM itenspedidos WHERE IDPEDIDO=?";
