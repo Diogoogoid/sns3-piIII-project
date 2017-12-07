@@ -132,25 +132,29 @@ public class Venda extends HttpServlet {
             Logger.getLogger(Venda.class.getName()).log(Level.SEVERE, null, ex);
         }
         
-        ItemPedidoModel item = new ItemPedidoModel();
-        item.setProduto(produto);
-        item.setQtd(qtd);
-        item.setValorParcial(qtd*produto.getValorProduto());
-        item.setId(countItem);
-        countItem++;
+        if(produto.getQtdProduto() >= qtd) {
+            ItemPedidoModel item = new ItemPedidoModel();
+            item.setProduto(produto);
+            item.setQtd(qtd);
+            item.setValorParcial(qtd*produto.getValorProduto());
+            item.setId(countItem);
+            countItem++;
 
-        HttpSession sessao = request.getSession();
-        PedidoModel pedido = (PedidoModel)sessao.getAttribute("pedido");
-        pedido.setItem(item);
-        float valorTotal = 0;
-        for(int i = 0; i < pedido.getItens().size(); i++) {
-            valorTotal += pedido.getItens().get(i).getValorParcial();
+            HttpSession sessao = request.getSession();
+            PedidoModel pedido = (PedidoModel)sessao.getAttribute("pedido");
+            pedido.setItem(item);
+            float valorTotal = 0;
+            for(int i = 0; i < pedido.getItens().size(); i++) {
+                valorTotal += pedido.getItens().get(i).getValorParcial();
+            }
+
+            pedido.setValorTotal(valorTotal);
+
+            sessao.removeAttribute("pedido");
+            sessao.setAttribute("pedido", pedido);
+        } else {
+            
         }
-        
-        pedido.setValorTotal(valorTotal);
-        
-        sessao.removeAttribute("pedido");
-        sessao.setAttribute("pedido", pedido);
         
         doGet(request, response);
     }

@@ -115,12 +115,6 @@
                         <div class="panel-heading">Venda</div>
                         <div class="panel-body">
 
-                            <!--        <div class="form-group">
-                                        <div class="col-md-11 control-label">
-                                            <p class="help-block"><h11>*</h11> Campo Obrigatório </p>
-                                        </div>
-                                    </div>-->
-
                             <!-- Text input-->
                             <div class="form-group">
                                 <label class="col-md-2 control-label">Cliente:</label>
@@ -138,19 +132,16 @@
                                 </div>
                             </div>
                             <div class="form-group">
-                                <div class="col-md-2">
+                                <div class="col-md-5">
                                     <select required id="produto" name="produto" class="form-control" multiple>
-                                        <option value=""></option>
                                         <c:forEach items="${produtos}" var="produto">
-                                            <option value="${produto.getId()}">${produto.getNome()} - ${produto.valorProduto}</option>
+                                            <option value="${produto.getId()}">${produto.getNome()} - R$ ${produto.valorProduto} - Quantidade: ${produto.getQtdProduto()}</option>
                                         </c:forEach> 
                                     </select>
                                 </div>
-                                <div class="col-md-2">
-                                    <label class="col-md-2 control-label">Quantidade</label>
-                                    <div class="col-md-2">
-                                        <input id="qtd" name="qtd" class="form-control input-md" type="number" required>
-                                    </div>
+                                <label class="col-md-2 control-label">Quantidade:</label>
+                                <div class="col-md-1">
+                                    <input id="qtd" name="qtd" class="form-control input-md" type="number" required>
                                 </div>
                                 <button id="add" name="add" class="btn btn-success" type="Submit">Adicionar</button>
                             </div>
