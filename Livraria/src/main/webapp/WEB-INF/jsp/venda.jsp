@@ -198,5 +198,10 @@
             </form>        
         </main>
     </body>
+    <c:if test="${sessionScope.alertQTD eq 'true'}">
+        <script type="text/javascript">
+            alert("Quantidade de produto excedida!");
+        </script> 
+    </c:if>
     <script src="js/cadastrarUsuario.js"></script>
 </html>

@@ -122,6 +122,9 @@ public class Venda extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        HttpSession sessao = request.getSession();
+        PedidoModel pedido = (PedidoModel)sessao.getAttribute("pedido");
+        
         int idProduto = Integer.parseInt(request.getParameter("produto"));
         int qtd = Integer.parseInt(request.getParameter("qtd"));
         
@@ -132,17 +135,32 @@ public class Venda extends HttpServlet {
             Logger.getLogger(Venda.class.getName()).log(Level.SEVERE, null, ex);
         }
         
+        for(ItemPedidoModel item:  pedido.getItens()) {
+            if(item.getProduto().getId().equals(produto.getId())) {
+                produto.setQtdProduto(produto.getQtdProduto() - item.getQtd());
+            }
+        }
+        
+        boolean prodExiste = false;
         if(produto.getQtdProduto() >= qtd) {
-            ItemPedidoModel item = new ItemPedidoModel();
-            item.setProduto(produto);
-            item.setQtd(qtd);
-            item.setValorParcial(qtd*produto.getValorProduto());
-            item.setId(countItem);
-            countItem++;
+            for(ItemPedidoModel item:  pedido.getItens()) {
+                if(item.getProduto().getId().equals(produto.getId())) {
+                    item.setQtd(item.getQtd() + qtd);
+                    prodExiste = true;
+                }
+            }
+            
+            if(!prodExiste) {
+                ItemPedidoModel item = new ItemPedidoModel();
+                item.setProduto(produto);
+                item.setQtd(qtd);
+                item.setValorParcial(qtd*produto.getValorProduto());
+                item.setId(countItem);
+                countItem++;
 
-            HttpSession sessao = request.getSession();
-            PedidoModel pedido = (PedidoModel)sessao.getAttribute("pedido");
-            pedido.setItem(item);
+                pedido.setItem(item);
+            }
+
             float valorTotal = 0;
             for(int i = 0; i < pedido.getItens().size(); i++) {
                 valorTotal += pedido.getItens().get(i).getValorParcial();
@@ -152,10 +170,11 @@ public class Venda extends HttpServlet {
 
             sessao.removeAttribute("pedido");
             sessao.setAttribute("pedido", pedido);
+            sessao.setAttribute("alertQTD", "false");
         } else {
-            
+            sessao.setAttribute("alertQTD", "true");
         }
-        
+
         doGet(request, response);
     }
 }
