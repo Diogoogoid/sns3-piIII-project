@@ -90,7 +90,7 @@ public class Venda extends HttpServlet {
                     try {
                         PedidoDAO.inserir(pedido);
                         
-                        requestDispatcher = request.getRequestDispatcher("/WEB-INF/jsp/cadastroSucess.jsp");
+                        requestDispatcher = request.getRequestDispatcher("/WEB-INF/jsp/vendaSucess.jsp");
                         requestDispatcher.forward(request, response);
                     } catch (Exception e) {
                         System.out.println("Erro" + e);

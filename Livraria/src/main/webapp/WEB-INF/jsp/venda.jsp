@@ -114,7 +114,7 @@
                     <div class="panel panel-primary">
                         <div class="panel-heading">Venda</div>
                         <div class="panel-body">
-
+                        <img src="../../img/venda.jpg" class="img-responsive">
                             <!-- Text input-->
                             <div class="form-group">
                                 <label class="col-md-2 control-label">Cliente:</label>
