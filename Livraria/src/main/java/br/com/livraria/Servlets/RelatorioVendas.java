@@ -25,7 +25,7 @@ import javax.servlet.http.HttpServletResponse;
  *
  * @author bruno.falmeida
  */
-@WebServlet(name = "RelatorioVendas", urlPatterns = {"/RelatorioVendas", "/Itens"})
+@WebServlet(name = "RelatorioVendas", urlPatterns = {"/RelatorioVendas", "/Itens", "/Filtrar"})
 public class RelatorioVendas extends HttpServlet {
 
     @Override
@@ -71,12 +71,35 @@ public class RelatorioVendas extends HttpServlet {
                 requestDispatcher = request.getRequestDispatcher("/WEB-INF/jsp/relatorioVendasItens.jsp");
                 requestDispatcher.forward(request, response);
                 break;
+            case "/Filtrar":
+                int idFilial = Integer.parseInt(request.getParameter("filial"));
+                
+                List<PedidoModel> pedidos = null;
+                try {
+                    pedidos = PedidoDAO.listarPorFilial(idFilial);
+                } catch (Exception ex) {
+                    Logger.getLogger(RelatorioVendas.class.getName()).log(Level.SEVERE, null, ex);
+                }
+
+                List<FilialModel> filial = null;
+                try {
+                    filial = FilialDAO.listar();
+                } catch (Exception ex) {
+                    Logger.getLogger(RelatorioVendas.class.getName()).log(Level.SEVERE, null, ex);
+                }
+
+                request.setAttribute("pedidos", pedidos);
+                request.setAttribute("filiais", filial);
+
+                requestDispatcher = request.getRequestDispatcher("/WEB-INF/jsp/relatorioVendas.jsp");
+                requestDispatcher.forward(request, response);
+                break;
         }
     }
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-
+        doGet(request, response);
     }
 }

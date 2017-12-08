@@ -108,21 +108,21 @@
             </div>
         </nav>
         <main id="page-content-wrapper" role="main">
-        <form class="form-horizontal" method="POST" action="${pageContext.request.contextPath}/exibirCliente">
-            <img src="../../img/venda.jpg" class="img-responsive">
+        <form class="form-horizontal" method="POST" action="${pageContext.request.contextPath}/exibirClienteVenda">
+            <!--<img src="../../img/venda.jpg" class="img-responsive">-->
         <fieldset>
         <div class="panel panel-primary">
             <div class="panel-heading">Realizar Venda</div>
             <div class="panel-body">
-                <div class="panel-body"> 
+<!--                <div class="panel-body"> 
                     <img src="../../img/venda.jpg" class="img-responsive">
                 </div>
                 <div>
                     <img src="../../img/venda.jpg" class="img-responsive">
-                </div>    
+                </div>    -->
             <!-- Text input-->
             <div class="form-group">
-                <img src="../../img/venda.jpg" class="img-responsive">
+                <!--<img src="../../img/venda.jpg" class="img-responsive">-->
               <label class="col-md-2 control-label" for="Nome">Pesquisar Cliente </label>  
               <div class="col-md-6">
               <input id="Nome" name="Nome" placeholder="Digite o nome do cliente" class="form-control input-md" type="text" autofocus required="">

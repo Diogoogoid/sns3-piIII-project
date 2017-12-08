@@ -25,7 +25,7 @@ import javax.servlet.http.HttpServletResponse;
  *
  * @author bruno.falmeida
  */
-@WebServlet(name = "ListarCliente", urlPatterns = {"/exibirCliente", "/listarTodosClientes"})
+@WebServlet(name = "ListarCliente", urlPatterns = {"/exibirCliente", "/listarTodosClientes", "/exibirClienteVenda"})
 public class ListarCliente extends HttpServlet {
 
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
@@ -77,6 +77,24 @@ public class ListarCliente extends HttpServlet {
                 }
 
             break;
+            case "/exibirClienteVenda":
+                                try{
+                    String nomePesquisaCliente = request.getParameter("Nome");
+
+                    if(!nomePesquisaCliente.isEmpty()){
+                        clientes = daoCliente.procurar(nomePesquisaCliente);
+                        request.setAttribute("pesquisa", clientes);
+                    }else{
+                        request.setAttribute("msgErroBusca", "Sua busca não gerou resultados!");
+                    }
+
+                    request.getRequestDispatcher("/WEB-INF/jsp/vendasSelecioneCliente.jsp").forward(request, response);
+                }catch(SQLException | ServletException | IOException e){
+                    System.out.println("Erro -> " + e);
+                } catch (Exception ex) {
+                    Logger.getLogger(Produto.class.getName()).log(Level.SEVERE, null, ex);
+                }
+                break;
         }
     }
 

@@ -6,6 +6,7 @@
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib prefix = "fmt" uri = "http://java.sun.com/jsp/jstl/fmt" %>
 <!DOCTYPE html>
 <html>
     <head>
@@ -108,7 +109,7 @@
             </div>
         </nav>
         <main id="page-content-wrapper" role="main">
-            <form class="form-horizontal" method="POST" action="${pageContext.request.contextPath}/exibirProduto">
+            <form class="form-horizontal" method="POST" action="${pageContext.request.contextPath}/Filtrar">
                 <fieldset>
                     <div class="panel panel-primary">
                         <div class="panel-heading">Relatório de Vendas</div>
@@ -116,18 +117,23 @@
 
                             <!-- Text input-->
                             <div class="form-group">
-                                <label class="col-md-2 control-label" for="Nome">Pesquisar Produto </label>  
-                                <div class="col-md-6">
-                                    <input id="Nome" name="Nome" placeholder="Digite o nome do produto" class="form-control input-md" type="text" autofocus required="">
+                                <label class="col-md-2 control-label" for="filial">Filial</label>  
+                                <div class="col-md-2">
+                                    <select required id="filial" name="filial" class="form-control">
+                                            <option value=""></option>
+                                            <c:forEach items="${filiais}" var="filial">
+                                                <option value="${filial.getIdFilial()}">${filial.getFilial_Nome()}</option>
+                                            </c:forEach> 
+                                    </select>
                                 </div>
                                 <div class="col-md-1">
                                     <button id="buscar" name="buscar" class="btn btn-info" type="submit">
                                         <span class="glyphicon glyphicon-search"></span>
-                                        Buscar
+                                        Filtrar
                                     </button>
                                 </div>
                                 <div class="col-md-1">
-                                    <a class="btn btn-info" href="${pageContext.request.contextPath}/listarTodosProdutos">Listar</a>
+                                    <a class="btn btn-info" href="${pageContext.request.contextPath}/RelatorioVendas">Listar</a>
                                 </div>
                             </div>
                         </div> 
@@ -136,6 +142,7 @@
                                 <tr>
                                     <th>Pedido</th>
                                     <th>Cliente</th>
+                                    <th>Data</th>
                                     <th>Valor Total</th>
                                     <th></th>
                                 </tr>
@@ -153,6 +160,7 @@
                                             <tr>
                                                 <td><c:out value="${pedido.getId()}" /></td>
                                                 <td><c:out value="${pedido.getCliente().getNome()}" /></td>
+                                                <td><fmt:formatDate type="date" value="${pedido.getDataVenda()}" /></td>
                                                 <td><c:out value="${pedido.getValorTotal()}" /></td>
                                                 <td><a class="btn btn-info" href="${pageContext.request.contextPath}/Itens?idPedido=${pedido.getId()}">Selecionar</a></td>
                                             </tr>
